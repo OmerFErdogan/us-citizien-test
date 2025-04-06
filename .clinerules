@@ -1,0 +1,88 @@
+# Cline Kuralları - ABD Vatandaşlık Testi Uygulaması
+
+Bu dosya, ABD Vatandaşlık Testi Uygulaması projesi için önemli kuralları, tercihleri ve proje zekasını içerir. Bu bilgiler, projeyi daha etkili bir şekilde geliştirmek için kullanılacaktır.
+
+## Proje Yapısı ve Organizasyon
+
+- Uygulama, Flutter framework kullanılarak geliştirilmiştir.
+- Proje, standart Flutter proje yapısını takip eder.
+- Kod organizasyonu şu şekildedir:
+  - `lib/models/`: Veri modelleri
+  - `lib/screens/`: Uygulama ekranları
+  - `lib/services/`: Servisler ve veri işleme
+  - `lib/widgets/`: Yeniden kullanılabilir UI bileşenleri
+  - `lib/data/`: Veri dosyaları
+  - `assets/`: Harici varlıklar (JSON, resimler, vb.)
+
+## Kod Stili ve Standartları
+
+- Dart kodlama standartları takip edilmelidir.
+- Sınıf isimleri PascalCase, değişken ve metot isimleri camelCase olmalıdır.
+- Dosya isimleri snake_case olmalıdır.
+- Kod, açıklayıcı yorumlarla belgelenmelidir.
+- Karmaşık işlevler için Dart Doc yorumları kullanılmalıdır.
+- Tüm UI metinleri Türkçe olmalıdır.
+- Soru verileri İngilizce olarak saklanmalıdır (ABD vatandaşlık sınavı soruları).
+
+## Uygulama Mimarisi
+
+- Uygulama, basit bir servis tabanlı mimari kullanır.
+- QuestionService, singleton pattern kullanılarak uygulanmıştır.
+- Ekranlar, StatefulWidget olarak uygulanmıştır.
+- Veri modelleri, JSON serialization/deserialization için factory constructor'lar kullanır.
+- Dependency injection, constructor injection yöntemiyle uygulanır.
+
+## Veri Yönetimi
+
+- Soru verileri, assets/questions.json dosyasından yüklenir.
+- Kullanıcı ilerlemesi şu anda sadece uygulama çalıştığı sürece bellekte tutulur.
+- Gelecekte, kullanıcı ilerlemesi SharedPreferences veya SQLite kullanılarak kalıcı olarak saklanacaktır.
+- Veri modelleri, immutable olarak tasarlanmıştır ve copyWith metodu ile değişiklikler yapılır.
+
+## UI/UX Tercihleri
+
+- Uygulama, Material Design prensiplerini takip eder.
+- Ana renk şeması: Indigo (primary), Teal (secondary)
+- Tutarlı padding ve margin değerleri: 16.0 (standart), 8.0 (küçük), 24.0 (büyük)
+- Kart köşe yuvarlaklığı: 12.0
+- Buton köşe yuvarlaklığı: 8.0
+- Animasyonlar için standart süre: 300ms
+- Ekran geçişleri için MaterialPageRoute kullanılır.
+
+## Önemli Uygulama Akışları
+
+1. **Quiz Akışı**:
+   - Ana ekrandan "Quiz Başlat" seçilir
+   - İsteğe bağlı olarak kategoriler seçilir
+   - Sorular gösterilir ve kullanıcı cevaplar
+   - Her cevaptan sonra doğru/yanlış geri bildirimi gösterilir
+   - Quiz sonunda sonuçlar gösterilir
+
+2. **Flashcard Akışı**:
+   - Ana ekrandan "Flashcardlar" seçilir
+   - İsteğe bağlı olarak kategoriler seçilir
+   - Soru kartları gösterilir
+   - Kullanıcı kartı çevirir ve bilip bilmediğini işaretler
+   - Kullanıcı kartlar arasında gezinebilir
+
+## Bilinen Kısıtlamalar
+
+- Uygulama şu anda kullanıcı ilerlemesini kalıcı olarak saklamıyor.
+- Büyük veri setleri için performans optimizasyonları gerekiyor.
+- Çevrimdışı çalışma için tasarlanmıştır, çevrimiçi özellikler bulunmamaktadır.
+- Şu anda sadece İngilizce soru içeriği desteklenmektedir.
+
+## Gelecek Geliştirmeler İçin Notlar
+
+- Kalıcı veri depolama için SharedPreferences veya SQLite entegrasyonu öncelikli olmalıdır.
+- Daha kapsamlı bir state management çözümü (Provider, Bloc, vb.) düşünülmelidir.
+- Spaced repetition algoritması, öğrenme deneyimini iyileştirebilir.
+- Erişilebilirlik özellikleri eklenmeli ve test edilmelidir.
+- Performans optimizasyonları, özellikle büyük veri setleri için uygulanmalıdır.
+
+## Kullanıcı Tercihleri
+
+- Kullanıcılar, kategori filtreleme özelliğini kullanarak belirli konulara odaklanabilmelidir.
+- Kullanıcılar, quiz ve flashcard modları arasında tercih yapabilmelidir.
+- Kullanıcılar, ilerleme durumlarını ana ekranda görebilmelidir.
+- Kullanıcılar, quiz sonuçlarını detaylı olarak görebilmelidir.

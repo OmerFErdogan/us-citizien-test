@@ -1,0 +1,1387 @@
+[
+  {
+    "id": 1,
+    "category": "Principles of American Democracy",
+    "question": "What is the supreme law of the land?",
+    "options": [
+      { "text": "the Constitution", "isCorrect": true },
+      { "text": "the Declaration of Independence", "isCorrect": false },
+      { "text": "the Bill of Rights", "isCorrect": false },
+      { "text": "federal law", "isCorrect": false },
+      { "text": "Presidential executive orders", "isCorrect": false },
+      { "text": "Supreme Court decisions", "isCorrect": false },
+      { "text": "Acts of Congress", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 2,
+    "category": "Principles of American Democracy",
+    "question": "What does the Constitution do?",
+    "options": [
+      { "text": "sets up the government", "isCorrect": true },
+      { "text": "defines the government", "isCorrect": true },
+      { "text": "protects basic rights of Americans", "isCorrect": true },
+      { "text": "establishes state boundaries", "isCorrect": false },
+      { "text": "creates political parties", "isCorrect": false },
+      { "text": "guarantees healthcare for all citizens", "isCorrect": false },
+      { "text": "determines federal tax rates", "isCorrect": false },
+      { "text": "regulates international trade only", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 3,
+    "category": "Principles of American Democracy",
+    "question": "The idea of self-government is in the first three words of the Constitution. What are these words?",
+    "options": [
+      { "text": "We the People", "isCorrect": true },
+      { "text": "United States Constitution", "isCorrect": false },
+      { "text": "Life, Liberty, Happiness", "isCorrect": false },
+      { "text": "In Congress Assembled", "isCorrect": false },
+      { "text": "Government of People", "isCorrect": false },
+      { "text": "In God's Name", "isCorrect": false },
+      { "text": "Articles of Constitution", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 4,
+    "category": "Principles of American Democracy",
+    "question": "What is an amendment?",
+    "options": [
+      { "text": "a change (to the Constitution)", "isCorrect": true },
+      { "text": "an addition (to the Constitution)", "isCorrect": true },
+      { "text": "a law passed by Congress", "isCorrect": false },
+      { "text": "a Supreme Court decision", "isCorrect": false },
+      { "text": "a presidential order", "isCorrect": false },
+      { "text": "an international treaty", "isCorrect": false },
+      { "text": "a state's right to nullify federal law", "isCorrect": false },
+      { "text": "the process of impeaching a president", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 5,
+    "category": "Principles of American Democracy",
+    "question": "What do we call the first ten amendments to the Constitution?",
+    "options": [
+      { "text": "the Bill of Rights", "isCorrect": true },
+      { "text": "the Articles of Confederation", "isCorrect": false },
+      { "text": "the Declaration of Rights", "isCorrect": false },
+      { "text": "the Constitutional Amendments", "isCorrect": false },
+      { "text": "the Federalist Papers", "isCorrect": false },
+      { "text": "the Civil Liberties Act", "isCorrect": false },
+      { "text": "the Rights of Citizens", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 6,
+    "category": "Principles of American Democracy",
+    "question": "What is one right or freedom from the First Amendment?",
+    "options": [
+      { "text": "speech", "isCorrect": true },
+      { "text": "religion", "isCorrect": true },
+      { "text": "assembly", "isCorrect": true },
+      { "text": "press", "isCorrect": true },
+      { "text": "petition the government", "isCorrect": true },
+      { "text": "right to bear arms", "isCorrect": false },
+      { "text": "right to remain silent", "isCorrect": false },
+      { "text": "right to a speedy trial", "isCorrect": false },
+      { "text": "freedom from unreasonable searches", "isCorrect": false },
+      { "text": "right to vote", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 7,
+    "category": "Principles of American Democracy",
+    "question": "How many amendments does the Constitution have?",
+    "options": [
+      { "text": "twenty-seven (27)", "isCorrect": true },
+      { "text": "ten (10)", "isCorrect": false },
+      { "text": "twenty-five (25)", "isCorrect": false },
+      { "text": "thirty (30)", "isCorrect": false },
+      { "text": "seventeen (17)", "isCorrect": false },
+      { "text": "thirty-three (33)", "isCorrect": false },
+      { "text": "twenty-one (21)", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 8,
+    "category": "Principles of American Democracy",
+    "question": "What did the Declaration of Independence do?",
+    "options": [
+      { "text": "announced our independence (from Great Britain)", "isCorrect": true },
+      { "text": "declared our independence (from Great Britain)", "isCorrect": true },
+      { "text": "said that the United States is free (from Great Britain)", "isCorrect": true },
+      { "text": "established the first government of the United States", "isCorrect": false },
+      { "text": "created the Constitution", "isCorrect": false },
+      { "text": "ended the Revolutionary War", "isCorrect": false },
+      { "text": "established the Bill of Rights", "isCorrect": false },
+      { "text": "created the first political parties", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 9,
+    "category": "Principles of American Democracy",
+    "question": "What are two rights in the Declaration of Independence?",
+    "options": [
+      { "text": "life", "isCorrect": true },
+      { "text": "liberty", "isCorrect": true },
+      { "text": "pursuit of happiness", "isCorrect": true },
+      { "text": "freedom of the press", "isCorrect": false },
+      { "text": "right to bear arms", "isCorrect": false },
+      { "text": "right to vote", "isCorrect": false },
+      { "text": "right to healthcare", "isCorrect": false },
+      { "text": "right to education", "isCorrect": false },
+      { "text": "freedom from taxation", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 10,
+    "category": "Principles of American Democracy",
+    "question": "What is freedom of religion?",
+    "options": [
+      { "text": "You can practice any religion, or not practice a religion.", "isCorrect": true },
+      { "text": "You must choose one of the government-approved religions.", "isCorrect": false },
+      { "text": "You can only practice Christianity in the United States.", "isCorrect": false },
+      { "text": "Religious practices are restricted to private homes.", "isCorrect": false },
+      { "text": "All citizens must attend a religious service weekly.", "isCorrect": false },
+      { "text": "The government decides which religions are permitted.", "isCorrect": false },
+      { "text": "You can practice any religion if you pay a special tax.", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 11,
+    "category": "Principles of American Democracy",
+    "question": "What is the economic system in the United States?",
+    "options": [
+      { "text": "capitalist economy", "isCorrect": true },
+      { "text": "market economy", "isCorrect": true },
+      { "text": "socialist economy", "isCorrect": false },
+      { "text": "communist economy", "isCorrect": false },
+      { "text": "planned economy", "isCorrect": false },
+      { "text": "command economy", "isCorrect": false },
+      { "text": "feudal economy", "isCorrect": false },
+      { "text": "barter economy", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 12,
+    "category": "Principles of American Democracy",
+    "question": "What is the 'rule of law'?",
+    "options": [
+      { "text": "Everyone must follow the law.", "isCorrect": true },
+      { "text": "Leaders must obey the law.", "isCorrect": true },
+      { "text": "Government must obey the law.", "isCorrect": true },
+      { "text": "No one is above the law.", "isCorrect": true },
+      { "text": "Laws apply differently to different people.", "isCorrect": false },
+      { "text": "The President makes all the laws.", "isCorrect": false },
+      { "text": "Wealthy citizens can ignore certain laws.", "isCorrect": false },
+      { "text": "The military enforces all laws.", "isCorrect": false },
+      { "text": "Only Congress must follow the law.", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 13,
+    "category": "System of Government",
+    "question": "Name one branch or part of the government.",
+    "options": [
+      { "text": "Congress", "isCorrect": true },
+      { "text": "legislative", "isCorrect": true },
+      { "text": "President", "isCorrect": true },
+      { "text": "executive", "isCorrect": true },
+      { "text": "the courts", "isCorrect": true },
+      { "text": "judicial", "isCorrect": true },
+      { "text": "the military", "isCorrect": false },
+      { "text": "the Treasury", "isCorrect": false },
+      { "text": "Department of State", "isCorrect": false },
+      { "text": "the Federal Reserve", "isCorrect": false },
+      { "text": "the Electoral College", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 14,
+    "category": "System of Government",
+    "question": "What stops one branch of government from becoming too powerful?",
+    "options": [
+      { "text": "checks and balances", "isCorrect": true },
+      { "text": "separation of powers", "isCorrect": true },
+      { "text": "the Constitution", "isCorrect": false },
+      { "text": "the President", "isCorrect": false },
+      { "text": "the Supreme Court", "isCorrect": false },
+      { "text": "the Bill of Rights", "isCorrect": false },
+      { "text": "the electoral system", "isCorrect": false },
+      { "text": "term limits", "isCorrect": false },
+      { "text": "the free press", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 15,
+    "category": "System of Government",
+    "question": "Who is in charge of the executive branch?",
+    "options": [
+      { "text": "the President", "isCorrect": true },
+      { "text": "the Vice President", "isCorrect": false },
+      { "text": "the Speaker of the House", "isCorrect": false },
+      { "text": "the Chief Justice", "isCorrect": false },
+      { "text": "the Secretary of State", "isCorrect": false },
+      { "text": "the Cabinet", "isCorrect": false },
+      { "text": "the Senate Majority Leader", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 16,
+    "category": "System of Government",
+    "question": "Who makes federal laws?",
+    "options": [
+      { "text": "Congress", "isCorrect": true },
+      { "text": "Senate and House (of Representatives)", "isCorrect": true },
+      { "text": "(U.S. or national) legislature", "isCorrect": true },
+      { "text": "the President", "isCorrect": false },
+      { "text": "the Supreme Court", "isCorrect": false },
+      { "text": "state governors", "isCorrect": false },
+      { "text": "the Cabinet", "isCorrect": false },
+      { "text": "the Department of Justice", "isCorrect": false },
+      { "text": "the Federal Bureau of Investigation", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 17,
+    "category": "System of Government",
+    "question": "What are the two parts of the U.S. Congress?",
+    "options": [
+      { "text": "the Senate and House (of Representatives)", "isCorrect": true },
+      { "text": "the House and the President", "isCorrect": false },
+      { "text": "the Senate and the Supreme Court", "isCorrect": false },
+      { "text": "Democrats and Republicans", "isCorrect": false },
+      { "text": "the Executive and Judicial branches", "isCorrect": false },
+      { "text": "the Federal Government and State Governments", "isCorrect": false },
+      { "text": "the House and the Cabinet", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 18,
+    "category": "System of Government",
+    "question": "How many U.S. Senators are there?",
+    "options": [
+      { "text": "one hundred (100)", "isCorrect": true },
+      { "text": "fifty (50)", "isCorrect": false },
+      { "text": "four hundred thirty-five (435)", "isCorrect": false },
+      { "text": "two hundred (200)", "isCorrect": false },
+      { "text": "ninety (90)", "isCorrect": false },
+      { "text": "one hundred fifty (150)", "isCorrect": false },
+      { "text": "five hundred thirty-five (535)", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 19,
+    "category": "System of Government",
+    "question": "We elect a U.S. Senator for how many years?",
+    "options": [
+      { "text": "six (6)", "isCorrect": true },
+      { "text": "two (2)", "isCorrect": false },
+      { "text": "four (4)", "isCorrect": false },
+      { "text": "eight (8)", "isCorrect": false },
+      { "text": "five (5)", "isCorrect": false },
+      { "text": "three (3)", "isCorrect": false },
+      { "text": "for life", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 20,
+    "category": "System of Government",
+    "question": "Who is one of your state's U.S. Senators now?",
+    "options": [
+      { "text": "Answers will vary based on state. [District of Columbia residents and residents of U.S. territories should answer that D.C. (or the territory where the applicant lives) has no U.S. Senators.]", "isCorrect": true },
+      { "text": "All states have the same senators", "isCorrect": false },
+      { "text": "Senators are appointed, not elected", "isCorrect": false },
+      { "text": "Every state has only one senator", "isCorrect": false },
+      { "text": "The governor also serves as senator", "isCorrect": false },
+      { "text": "Senators only represent large cities", "isCorrect": false },
+      { "text": "Senators are selected by the President", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 41,
+    "category": "System of Government",
+    "question": "Under our Constitution, some powers belong to the federal government. What is one power of the federal government?",
+    "options": [
+      { "text": "to print money", "isCorrect": true },
+      { "text": "to declare war", "isCorrect": true },
+      { "text": "to create an army", "isCorrect": true },
+      { "text": "to make treaties", "isCorrect": true },
+      { "text": "to issue driver's licenses", "isCorrect": false },
+      { "text": "to create schools", "isCorrect": false },
+      { "text": "to establish local governments", "isCorrect": false },
+      { "text": "to manage state parks", "isCorrect": false },
+      { "text": "to regulate marriage laws", "isCorrect": false },
+      { "text": "to control local police departments", "isCorrect": false },
+      { "text": "to determine property tax rates", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 42,
+    "category": "System of Government",
+    "question": "Under our Constitution, some powers belong to the states. What is one power of the states?",
+    "options": [
+      { "text": "provide schooling and education", "isCorrect": true },
+      { "text": "provide protection (police)", "isCorrect": true },
+      { "text": "provide safety (fire departments)", "isCorrect": true },
+      { "text": "give a driver's license", "isCorrect": true },
+      { "text": "approve zoning and land use", "isCorrect": true },
+      { "text": "print money", "isCorrect": false },
+      { "text": "declare war", "isCorrect": false },
+      { "text": "make treaties with foreign countries", "isCorrect": false },
+      { "text": "regulate international trade", "isCorrect": false },
+      { "text": "establish post offices", "isCorrect": false },
+      { "text": "create a military", "isCorrect": false },
+      { "text": "issue passports", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 43,
+    "category": "System of Government",
+    "question": "Who is the Governor of your state now?",
+    "options": [
+      { "text": "Answers will vary. [District of Columbia residents should answer that D.C. does not have a Governor.]", "isCorrect": true },
+      { "text": "All states have the same governor", "isCorrect": false },
+      { "text": "States don't have governors", "isCorrect": false },
+      { "text": "Governors are appointed by the President", "isCorrect": false },
+      { "text": "The Vice President serves as governor of all states", "isCorrect": false },
+      { "text": "States are governed directly by Congress", "isCorrect": false },
+      { "text": "Governors are appointed by the Supreme Court", "isCorrect": false },
+      { "text": "The Speaker of the House appoints governors", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 44,
+    "category": "System of Government",
+    "question": "What is the capital of your state?",
+    "options": [
+      { "text": "Answers will vary. [District of Columbia residents should answer that D.C. is not a state and does not have a capital. Residents of U.S. territories should name the capital of the territory.]", "isCorrect": true },
+      { "text": "All state capitals are in Washington D.C.", "isCorrect": false },
+      { "text": "States don't have capitals", "isCorrect": false },
+      { "text": "New York City is the capital of all states", "isCorrect": false },
+      { "text": "State capitals are always the largest city in the state", "isCorrect": false },
+      { "text": "State capitals rotate every 10 years", "isCorrect": false },
+      { "text": "The federal government chooses state capitals", "isCorrect": false },
+      { "text": "The President designates all state capitals", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 45,
+    "category": "System of Government",
+    "question": "What are the two major political parties in the United States?",
+    "options": [
+      { "text": "Democratic", "isCorrect": true },
+      { "text": "Republican", "isCorrect": true },
+      { "text": "Green Party", "isCorrect": false },
+      { "text": "Socialist Party", "isCorrect": false },
+      { "text": "Constitution Party", "isCorrect": false },
+      { "text": "Libertarian Party", "isCorrect": false },
+      { "text": "Independent Party", "isCorrect": false },
+      { "text": "Reform Party", "isCorrect": false },
+      { "text": "Workers Party", "isCorrect": false },
+      { "text": "Conservative Party", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 46,
+    "category": "System of Government",
+    "question": "What is the political party of the President now?",
+    "options": [
+      { "text": "Republican", "isCorrect": true },
+      { "text": "Democratic", "isCorrect": false },
+      { "text": "Independent", "isCorrect": false },
+      { "text": "Libertarian", "isCorrect": false },
+      { "text": "Green Party", "isCorrect": false },
+      { "text": "Constitution Party", "isCorrect": false },
+      { "text": "Reform Party", "isCorrect": false },
+      { "text": "Progressive Party", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 47,
+    "category": "System of Government",
+    "question": "What is the name of the Speaker of the House of Representatives now?",
+    "options": [
+      { "text": "Mike Johnson", "isCorrect": true },
+      { "text": "Nancy Pelosi", "isCorrect": false },
+      { "text": "Kevin McCarthy", "isCorrect": false },
+      { "text": "Chuck Schumer", "isCorrect": false },
+      { "text": "Mitch McConnell", "isCorrect": false },
+      { "text": "Hakeem Jeffries", "isCorrect": false },
+      { "text": "Jim Jordan", "isCorrect": false },
+      { "text": "Steve Scalise", "isCorrect": false },
+      { "text": "J.D. Vance", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 48,
+    "category": "Rights and Responsibilities",
+    "question": "There are four amendments to the Constitution about who can vote. Describe one of them.",
+    "options": [
+      { "text": "Citizens eighteen (18) and older (can vote).", "isCorrect": true },
+      { "text": "You don't have to pay (a poll tax) to vote.", "isCorrect": true },
+      { "text": "Any citizen can vote. (Women and men can vote.)", "isCorrect": true },
+      { "text": "A male citizen of any race (can vote).", "isCorrect": true },
+      { "text": "Only property owners can vote.", "isCorrect": false },
+      { "text": "Only people born in the United States can vote.", "isCorrect": false },
+      { "text": "You must pass a literacy test to vote.", "isCorrect": false },
+      { "text": "Only taxpayers can vote.", "isCorrect": false },
+      { "text": "Only military veterans can vote.", "isCorrect": false },
+      { "text": "You must be at least 21 years old to vote.", "isCorrect": false },
+      { "text": "You must own land to vote.", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 49,
+    "category": "Rights and Responsibilities",
+    "question": "What is one responsibility that is only for United States citizens?",
+    "options": [
+      { "text": "serve on a jury", "isCorrect": true },
+      { "text": "vote in a federal election", "isCorrect": true },
+      { "text": "pay taxes", "isCorrect": false },
+      { "text": "obey the law", "isCorrect": false },
+      { "text": "have a driver's license", "isCorrect": false },
+      { "text": "attend public school", "isCorrect": false },
+      { "text": "own property", "isCorrect": false },
+      { "text": "start a business", "isCorrect": false },
+      { "text": "practice religion freely", "isCorrect": false },
+      { "text": "join the workforce", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 50,
+    "category": "Rights and Responsibilities",
+    "question": "Name one right only for United States citizens.",
+    "options": [
+      { "text": "vote in a federal election", "isCorrect": true },
+      { "text": "run for federal office", "isCorrect": true },
+      { "text": "freedom of speech", "isCorrect": false },
+      { "text": "freedom of religion", "isCorrect": false },
+      { "text": "right to bear arms", "isCorrect": false },
+      { "text": "right to a fair trial", "isCorrect": false },
+      { "text": "freedom of assembly", "isCorrect": false },
+      { "text": "right to work", "isCorrect": false },
+      { "text": "right to own property", "isCorrect": false },
+      { "text": "right to pursue happiness", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 51,
+    "category": "Rights and Responsibilities",
+    "question": "What are two rights of everyone living in the United States?",
+    "options": [
+      { "text": "freedom of expression", "isCorrect": true },
+      { "text": "freedom of speech", "isCorrect": true },
+      { "text": "freedom of assembly", "isCorrect": true },
+      { "text": "freedom to petition the government", "isCorrect": true },
+      { "text": "freedom of religion", "isCorrect": true },
+      { "text": "the right to bear arms", "isCorrect": true },
+      { "text": "the right to vote in federal elections", "isCorrect": false },
+      { "text": "the right to run for federal office", "isCorrect": false },
+      { "text": "the right to obtain a U.S. passport", "isCorrect": false },
+      { "text": "the right to become a government employee", "isCorrect": false },
+      { "text": "the right to apply for federal grants", "isCorrect": false },
+      { "text": "the right to serve on a federal jury", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 52,
+    "category": "Rights and Responsibilities",
+    "question": "What do we show loyalty to when we say the Pledge of Allegiance?",
+    "options": [
+      { "text": "the United States", "isCorrect": true },
+      { "text": "the flag", "isCorrect": true },
+      { "text": "the President", "isCorrect": false },
+      { "text": "the military", "isCorrect": false },
+      { "text": "the Constitution", "isCorrect": false },
+      { "text": "the Supreme Court", "isCorrect": false },
+      { "text": "Congress", "isCorrect": false },
+      { "text": "the Founding Fathers", "isCorrect": false },
+      { "text": "the Executive Branch", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 53,
+    "category": "Rights and Responsibilities",
+    "question": "What is one promise you make when you become a United States citizen?",
+    "options": [
+      { "text": "give up loyalty to other countries", "isCorrect": true },
+      { "text": "defend the Constitution and laws of the United States", "isCorrect": true },
+      { "text": "obey the laws of the United States", "isCorrect": true },
+      { "text": "serve in the U.S. military (if needed)", "isCorrect": true },
+      { "text": "serve (do important work for) the nation (if needed)", "isCorrect": true },
+      { "text": "be loyal to the United States", "isCorrect": true },
+      { "text": "give up your previous citizenship forever", "isCorrect": false },
+      { "text": "join a political party", "isCorrect": false },
+      { "text": "vote in every election", "isCorrect": false },
+      { "text": "own a home within five years", "isCorrect": false },
+      { "text": "learn all state capitals", "isCorrect": false },
+      { "text": "pay higher taxes than non-citizens", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 54,
+    "category": "Rights and Responsibilities",
+    "question": "How old do citizens have to be to vote for President?",
+    "options": [
+      { "text": "eighteen (18) and older", "isCorrect": true },
+      { "text": "twenty-one (21) and older", "isCorrect": false },
+      { "text": "sixteen (16) and older", "isCorrect": false },
+      { "text": "twenty-five (25) and older", "isCorrect": false },
+      { "text": "nineteen (19) and older", "isCorrect": false },
+      { "text": "twenty (20) and older", "isCorrect": false },
+      { "text": "thirty-five (35) and older", "isCorrect": false },
+      { "text": "any age if registered to vote", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 55,
+    "category": "Rights and Responsibilities",
+    "question": "What are two ways that Americans can participate in their democracy?",
+    "options": [
+      { "text": "vote", "isCorrect": true },
+      { "text": "join a political party", "isCorrect": true },
+      { "text": "help with a campaign", "isCorrect": true },
+      { "text": "join a civic group", "isCorrect": true },
+      { "text": "join a community group", "isCorrect": true },
+      { "text": "give an elected official your opinion on an issue", "isCorrect": true },
+      { "text": "call Senators and Representatives", "isCorrect": true },
+      { "text": "publicly support or oppose an issue or policy", "isCorrect": true },
+      { "text": "run for office", "isCorrect": true },
+      { "text": "write to a newspaper", "isCorrect": true },
+      { "text": "refuse to pay taxes", "isCorrect": false },
+      { "text": "ignore laws they disagree with", "isCorrect": false },
+      { "text": "overthrow the government", "isCorrect": false },
+      { "text": "bribe elected officials", "isCorrect": false },
+      { "text": "threaten political opponents", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 56,
+    "category": "Rights and Responsibilities",
+    "question": "When is the last day you can send in federal income tax forms?",
+    "options": [
+      { "text": "April 15", "isCorrect": true },
+      { "text": "January 15", "isCorrect": false },
+      { "text": "December 31", "isCorrect": false },
+      { "text": "July 4", "isCorrect": false },
+      { "text": "May 1", "isCorrect": false },
+      { "text": "March 1", "isCorrect": false },
+      { "text": "February 14", "isCorrect": false },
+      { "text": "October 15", "isCorrect": false },
+      { "text": "June 30", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 57,
+    "category": "Rights and Responsibilities",
+    "question": "When must all men register for the Selective Service?",
+    "options": [
+      { "text": "at age eighteen (18)", "isCorrect": true },
+      { "text": "between eighteen (18) and twenty-six (26)", "isCorrect": true },
+      { "text": "at age sixteen (16)", "isCorrect": false },
+      { "text": "at age twenty-one (21)", "isCorrect": false },
+      { "text": "only during wartime", "isCorrect": false },
+      { "text": "after finishing high school", "isCorrect": false },
+      { "text": "when joining the workforce", "isCorrect": false },
+      { "text": "when obtaining a driver's license", "isCorrect": false },
+      { "text": "between sixteen (16) and eighteen (18)", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 58,
+    "category": "American History",
+    "question": "What is one reason colonists came to America?",
+    "options": [
+      { "text": "freedom", "isCorrect": true },
+      { "text": "political liberty", "isCorrect": true },
+      { "text": "religious freedom", "isCorrect": true },
+      { "text": "economic opportunity", "isCorrect": true },
+      { "text": "practice their religion", "isCorrect": true },
+      { "text": "escape persecution", "isCorrect": true },
+      { "text": "to establish the United States", "isCorrect": false },
+      { "text": "to flee democracy", "isCorrect": false },
+      { "text": "to avoid taxes completely", "isCorrect": false },
+      { "text": "to establish communism", "isCorrect": false },
+      { "text": "to create a world government", "isCorrect": false },
+      { "text": "to discover electricity", "isCorrect": false },
+      { "text": "to establish the United Nations", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 59,
+    "category": "American History",
+    "question": "Who lived in America before the Europeans arrived?",
+    "options": [
+      { "text": "American Indians", "isCorrect": true },
+      { "text": "Native Americans", "isCorrect": true },
+      { "text": "Africans", "isCorrect": false },
+      { "text": "Asians", "isCorrect": false },
+      { "text": "Europeans from another expedition", "isCorrect": false },
+      { "text": "South Americans", "isCorrect": false },
+      { "text": "Australians", "isCorrect": false },
+      { "text": "No one lived in America before Europeans", "isCorrect": false },
+      { "text": "Ancient Romans", "isCorrect": false },
+      { "text": "Ancient Greeks", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 60,
+    "category": "American History",
+    "question": "What group of people was taken to America and sold as slaves?",
+    "options": [
+      { "text": "Africans", "isCorrect": true },
+      { "text": "people from Africa", "isCorrect": true },
+      { "text": "Europeans", "isCorrect": false },
+      { "text": "Native Americans", "isCorrect": false },
+      { "text": "Asians", "isCorrect": false },
+      { "text": "Australians", "isCorrect": false },
+      { "text": "South Americans", "isCorrect": false },
+      { "text": "Middle Easterners", "isCorrect": false },
+      { "text": "Pacific Islanders", "isCorrect": false },
+      { "text": "Scandinavians", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 61,
+    "category": "American History",
+    "question": "Why did the colonists fight the British?",
+    "options": [
+      { "text": "because of high taxes (taxation without representation)", "isCorrect": true },
+      { "text": "because the British army stayed in their houses (boarding, quartering)", "isCorrect": true },
+      { "text": "because they didn't have self-government", "isCorrect": true },
+      { "text": "because they wanted to abolish slavery", "isCorrect": false },
+      { "text": "because Britain prohibited religious freedom", "isCorrect": false },
+      { "text": "because they wanted to form the United Nations", "isCorrect": false },
+      { "text": "because they wanted to establish democracy in Britain", "isCorrect": false },
+      { "text": "because Britain forced them to trade only with Britain", "isCorrect": false },
+      { "text": "because they wanted to join France", "isCorrect": false },
+      { "text": "because Britain was planning to invade other colonies", "isCorrect": false },
+      { "text": "because they wanted to create the Constitution", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 62,
+    "category": "American History",
+    "question": "Who wrote the Declaration of Independence?",
+    "options": [
+      { "text": "(Thomas) Jefferson", "isCorrect": true },
+      { "text": "(George) Washington", "isCorrect": false },
+      { "text": "(Benjamin) Franklin", "isCorrect": false },
+      { "text": "(John) Adams", "isCorrect": false },
+      { "text": "(James) Madison", "isCorrect": false },
+      { "text": "(Alexander) Hamilton", "isCorrect": false },
+      { "text": "(John) Hancock", "isCorrect": false },
+      { "text": "(Patrick) Henry", "isCorrect": false },
+      { "text": "(James) Monroe", "isCorrect": false },
+      { "text": "(Abraham) Lincoln", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 63,
+    "category": "American History",
+    "question": "When was the Declaration of Independence adopted?",
+    "options": [
+      { "text": "July 4, 1776", "isCorrect": true },
+      { "text": "July 4, 1789", "isCorrect": false },
+      { "text": "June 4, 1776", "isCorrect": false },
+      { "text": "July 4, 1787", "isCorrect": false },
+      { "text": "August 2, 1776", "isCorrect": false },
+      { "text": "April 19, 1775", "isCorrect": false },
+      { "text": "September 17, 1787", "isCorrect": false },
+      { "text": "October 19, 1781", "isCorrect": false },
+      { "text": "December 15, 1791", "isCorrect": false },
+      { "text": "May 17, 1775", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 64,
+    "category": "American History",
+    "question": "There were 13 original states. Name three.",
+    "options": [
+      { "text": "New Hampshire", "isCorrect": true },
+      { "text": "Massachusetts", "isCorrect": true },
+      { "text": "Rhode Island", "isCorrect": true },
+      { "text": "Connecticut", "isCorrect": true },
+      { "text": "New York", "isCorrect": true },
+      { "text": "New Jersey", "isCorrect": true },
+      { "text": "Pennsylvania", "isCorrect": true },
+      { "text": "Delaware", "isCorrect": true },
+      { "text": "Maryland", "isCorrect": true },
+      { "text": "Virginia", "isCorrect": true },
+      { "text": "North Carolina", "isCorrect": true },
+      { "text": "South Carolina", "isCorrect": true },
+      { "text": "Georgia", "isCorrect": true },
+      { "text": "Florida", "isCorrect": false },
+      { "text": "Vermont", "isCorrect": false },
+      { "text": "Kentucky", "isCorrect": false },
+      { "text": "Maine", "isCorrect": false },
+      { "text": "Ohio", "isCorrect": false },
+      { "text": "Tennessee", "isCorrect": false },
+      { "text": "Louisiana", "isCorrect": false },
+      { "text": "Texas", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 65,
+    "category": "American History",
+    "question": "What happened at the Constitutional Convention?",
+    "options": [
+      { "text": "The Constitution was written.", "isCorrect": true },
+      { "text": "The Founding Fathers wrote the Constitution.", "isCorrect": true },
+      { "text": "The Declaration of Independence was written.", "isCorrect": false },
+      { "text": "The Bill of Rights was written.", "isCorrect": false },
+      { "text": "The first President was elected.", "isCorrect": false },
+      { "text": "The Revolutionary War ended.", "isCorrect": false },
+      { "text": "The Articles of Confederation were approved.", "isCorrect": false },
+      { "text": "The Louisiana Purchase was negotiated.", "isCorrect": false },
+      { "text": "The Supreme Court was established.", "isCorrect": false },
+      { "text": "The first Congress was formed.", "isCorrect": false },
+      { "text": "The Treaty of Paris was signed.", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 66,
+    "category": "American History",
+    "question": "When was the Constitution written?",
+    "options": [
+      { "text": "1787", "isCorrect": true },
+      { "text": "1776", "isCorrect": false },
+      { "text": "1789", "isCorrect": false },
+      { "text": "1792", "isCorrect": false },
+      { "text": "1781", "isCorrect": false },
+      { "text": "1783", "isCorrect": false },
+      { "text": "1791", "isCorrect": false },
+      { "text": "1775", "isCorrect": false },
+      { "text": "1800", "isCorrect": false },
+      { "text": "1812", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 67,
+    "category": "American History",
+    "question": "The Federalist Papers supported the passage of the U.S. Constitution. Name one of the writers.",
+    "options": [
+      { "text": "(James) Madison", "isCorrect": true },
+      { "text": "(Alexander) Hamilton", "isCorrect": true },
+      { "text": "(John) Jay", "isCorrect": true },
+      { "text": "Publius", "isCorrect": true },
+      { "text": "(Thomas) Jefferson", "isCorrect": false },
+      { "text": "(George) Washington", "isCorrect": false },
+      { "text": "(Benjamin) Franklin", "isCorrect": false },
+      { "text": "(John) Adams", "isCorrect": false },
+      { "text": "(Patrick) Henry", "isCorrect": false },
+      { "text": "(Thomas) Paine", "isCorrect": false },
+      { "text": "(James) Monroe", "isCorrect": false },
+      { "text": "(John) Hancock", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 68,
+    "category": "American History",
+    "question": "What is one thing Benjamin Franklin is famous for?",
+    "options": [
+      { "text": "U.S. diplomat", "isCorrect": true },
+      { "text": "oldest member of the Constitutional Convention", "isCorrect": true },
+      { "text": "first Postmaster General of the United States", "isCorrect": true },
+      { "text": "writer of 'Poor Richard's Almanac'", "isCorrect": true },
+      { "text": "started the first free libraries", "isCorrect": true },
+      { "text": "first President", "isCorrect": false },
+      { "text": "wrote the Declaration of Independence", "isCorrect": false },
+      { "text": "third President", "isCorrect": false },
+      { "text": "wrote the Federalist Papers", "isCorrect": false },
+      { "text": "purchased the Louisiana Territory", "isCorrect": false },
+      { "text": "inventor of the cotton gin", "isCorrect": false },
+      { "text": "first Chief Justice of the Supreme Court", "isCorrect": false },
+      { "text": "led the Continental Army", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 69,
+    "category": "American History",
+    "question": "Who is the 'Father of Our Country'?",
+    "options": [
+      { "text": "(George) Washington", "isCorrect": true },
+      { "text": "(Thomas) Jefferson", "isCorrect": false },
+      { "text": "(Abraham) Lincoln", "isCorrect": false },
+      { "text": "(Benjamin) Franklin", "isCorrect": false },
+      { "text": "(James) Madison", "isCorrect": false },
+      { "text": "(Alexander) Hamilton", "isCorrect": false },
+      { "text": "(John) Adams", "isCorrect": false },
+      { "text": "(Patrick) Henry", "isCorrect": false },
+      { "text": "(Thomas) Paine", "isCorrect": false },
+      { "text": "(Andrew) Jackson", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 70,
+    "category": "American History",
+    "question": "Who was the first President?",
+    "options": [
+      { "text": "(George) Washington", "isCorrect": true },
+      { "text": "(John) Adams", "isCorrect": false },
+      { "text": "(Thomas) Jefferson", "isCorrect": false },
+      { "text": "(James) Madison", "isCorrect": false },
+      { "text": "(Benjamin) Franklin", "isCorrect": false },
+      { "text": "(Alexander) Hamilton", "isCorrect": false },
+      { "text": "(Abraham) Lincoln", "isCorrect": false },
+      { "text": "(James) Monroe", "isCorrect": false },
+      { "text": "(John) Hancock", "isCorrect": false },
+      { "text": "(Andrew) Jackson", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 71,
+    "category": "American History",
+    "question": "What territory did the United States buy from France in 1803?",
+    "options": [
+      { "text": "the Louisiana Territory", "isCorrect": true },
+      { "text": "Louisiana", "isCorrect": true },
+      { "text": "Florida", "isCorrect": false },
+      { "text": "Alaska", "isCorrect": false },
+      { "text": "Texas", "isCorrect": false },
+      { "text": "California", "isCorrect": false },
+      { "text": "Hawaii", "isCorrect": false },
+      { "text": "Oregon Territory", "isCorrect": false },
+      { "text": "New Mexico", "isCorrect": false },
+      { "text": "Canada", "isCorrect": false },
+      { "text": "Mississippi Valley", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 72,
+    "category": "American History",
+    "question": "Name one war fought by the United States in the 1800s.",
+    "options": [
+      { "text": "War of 1812", "isCorrect": true },
+      { "text": "Mexican-American War", "isCorrect": true },
+      { "text": "Civil War", "isCorrect": true },
+      { "text": "Spanish-American War", "isCorrect": true },
+      { "text": "World War I", "isCorrect": false },
+      { "text": "Revolutionary War", "isCorrect": false },
+      { "text": "World War II", "isCorrect": false },
+      { "text": "Korean War", "isCorrect": false },
+      { "text": "Vietnam War", "isCorrect": false },
+      { "text": "Persian Gulf War", "isCorrect": false },
+      { "text": "Napoleonic Wars", "isCorrect": false },
+      { "text": "French and Indian War", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 73,
+    "category": "American History",
+    "question": "Name the U.S. war between the North and the South.",
+    "options": [
+      { "text": "the Civil War", "isCorrect": true },
+      { "text": "the War between the States", "isCorrect": true },
+      { "text": "the Revolutionary War", "isCorrect": false },
+      { "text": "the Mexican-American War", "isCorrect": false },
+      { "text": "World War I", "isCorrect": false },
+      { "text": "the War of 1812", "isCorrect": false },
+      { "text": "the Spanish-American War", "isCorrect": false },
+      { "text": "the Northern Aggression War", "isCorrect": false },
+      { "text": "the American Conflict", "isCorrect": false },
+      { "text": "the Border War", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 74,
+    "category": "American History",
+    "question": "Name one problem that led to the Civil War.",
+    "options": [
+      { "text": "slavery", "isCorrect": true },
+      { "text": "economic reasons", "isCorrect": true },
+      { "text": "states' rights", "isCorrect": true },
+      { "text": "foreign invasion", "isCorrect": false },
+      { "text": "taxation by Britain", "isCorrect": false },
+      { "text": "religious differences", "isCorrect": false },
+      { "text": "dispute over western territories", "isCorrect": false },
+      { "text": "foreign alliances", "isCorrect": false },
+      { "text": "trade restrictions with Europe", "isCorrect": false },
+      { "text": "boundary disputes with Canada", "isCorrect": false },
+      { "text": "westward expansion", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 75,
+    "category": "American History",
+    "question": "What was one important thing that Abraham Lincoln did?",
+    "options": [
+      { "text": "freed the slaves (Emancipation Proclamation)", "isCorrect": true },
+      { "text": "saved (or preserved) the Union", "isCorrect": true },
+      { "text": "led the United States during the Civil War", "isCorrect": true },
+      { "text": "wrote the Constitution", "isCorrect": false },
+      { "text": "declared independence from Britain", "isCorrect": false },
+      { "text": "purchased the Louisiana Territory", "isCorrect": false },
+      { "text": "founded the Republican Party", "isCorrect": false },
+      { "text": "wrote the Bill of Rights", "isCorrect": false },
+      { "text": "purchased Alaska", "isCorrect": false },
+      { "text": "established the United Nations", "isCorrect": false },
+      { "text": "negotiated peace with Mexico", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 76,
+    "category": "American History",
+    "question": "What did the Emancipation Proclamation do?",
+    "options": [
+      { "text": "freed the slaves", "isCorrect": true },
+      { "text": "freed slaves in the Confederacy", "isCorrect": true },
+      { "text": "freed slaves in the Confederate states", "isCorrect": true },
+      { "text": "freed slaves in most Southern states", "isCorrect": true },
+      { "text": "ended the Civil War", "isCorrect": false },
+      { "text": "gave women the right to vote", "isCorrect": false },
+      { "text": "created the United States", "isCorrect": false },
+      { "text": "freed slaves in all states immediately", "isCorrect": false },
+      { "text": "granted citizenship to all former slaves", "isCorrect": false },
+      { "text": "established the right to vote for all men", "isCorrect": false },
+      { "text": "ended segregation in schools", "isCorrect": false },
+      { "text": "created the Union Army", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 77,
+    "category": "American History",
+    "question": "What did Susan B. Anthony do?",
+    "options": [
+      { "text": "fought for women's rights", "isCorrect": true },
+      { "text": "fought for civil rights", "isCorrect": true },
+      { "text": "freed the slaves", "isCorrect": false },
+      { "text": "was the first female President", "isCorrect": false },
+      { "text": "wrote the Declaration of Independence", "isCorrect": false },
+      { "text": "led the Union Army", "isCorrect": false },
+      { "text": "was the first female Supreme Court Justice", "isCorrect": false },
+      { "text": "established the Red Cross", "isCorrect": false },
+      { "text": "wrote Uncle Tom's Cabin", "isCorrect": false },
+      { "text": "invented the cotton gin", "isCorrect": false },
+      { "text": "was the first female member of Congress", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 78,
+    "category": "American History",
+    "question": "Name one war fought by the United States in the 1900s.",
+    "options": [
+      { "text": "World War I", "isCorrect": true },
+      { "text": "World War II", "isCorrect": true },
+      { "text": "Korean War", "isCorrect": true },
+      { "text": "Vietnam War", "isCorrect": true },
+      { "text": "(Persian) Gulf War", "isCorrect": true },
+      { "text": "Civil War", "isCorrect": false },
+      { "text": "Revolutionary War", "isCorrect": false },
+      { "text": "War of 1812", "isCorrect": false },
+      { "text": "Mexican-American War", "isCorrect": false },
+      { "text": "Spanish-American War", "isCorrect": false },
+      { "text": "French and Indian War", "isCorrect": false },
+      { "text": "Barbary Wars", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 79,
+    "category": "American History",
+    "question": "Who was President during World War I?",
+    "options": [
+      { "text": "(Woodrow) Wilson", "isCorrect": true },
+      { "text": "(Theodore) Roosevelt", "isCorrect": false },
+      { "text": "(Franklin) Roosevelt", "isCorrect": false },
+      { "text": "(William) Taft", "isCorrect": false },
+      { "text": "(Warren) Harding", "isCorrect": false },
+      { "text": "(Herbert) Hoover", "isCorrect": false },
+      { "text": "(Calvin) Coolidge", "isCorrect": false },
+      { "text": "(William) McKinley", "isCorrect": false },
+      { "text": "(Harry) Truman", "isCorrect": false },
+      { "text": "(Dwight) Eisenhower", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 80,
+    "category": "American History",
+    "question": "Who was President during the Great Depression and World War II?",
+    "options": [
+      { "text": "(Franklin) Roosevelt", "isCorrect": true },
+      { "text": "(Harry) Truman", "isCorrect": false },
+      { "text": "(Herbert) Hoover", "isCorrect": false },
+      { "text": "(Woodrow) Wilson", "isCorrect": false },
+      { "text": "(Dwight) Eisenhower", "isCorrect": false },
+      { "text": "(Calvin) Coolidge", "isCorrect": false },
+      { "text": "(Theodore) Roosevelt", "isCorrect": false },
+      { "text": "(Lyndon) Johnson", "isCorrect": false },
+      { "text": "(Richard) Nixon", "isCorrect": false },
+      { "text": "(Warren) Harding", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 81,
+    "category": "American History",
+    "question": "Who did the United States fight in World War II?",
+    "options": [
+      { "text": "Japan", "isCorrect": true },
+      { "text": "Germany", "isCorrect": true },
+      { "text": "Italy", "isCorrect": true },
+      { "text": "Soviet Union", "isCorrect": false },
+      { "text": "China", "isCorrect": false },
+      { "text": "Great Britain", "isCorrect": false },
+      { "text": "France", "isCorrect": false },
+      { "text": "Australia", "isCorrect": false },
+      { "text": "Canada", "isCorrect": false },
+      { "text": "Mexico", "isCorrect": false },
+      { "text": "Spain", "isCorrect": false },
+      { "text": "Turkey", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 82,
+    "category": "American History",
+    "question": "Before he was President, Eisenhower was a general. What war was he in?",
+    "options": [
+      { "text": "World War II", "isCorrect": true },
+      { "text": "World War I", "isCorrect": false },
+      { "text": "Korean War", "isCorrect": false },
+      { "text": "Vietnam War", "isCorrect": false },
+      { "text": "Civil War", "isCorrect": false },
+      { "text": "Spanish-American War", "isCorrect": false },
+      { "text": "Mexican-American War", "isCorrect": false },
+      { "text": "Cold War", "isCorrect": false },
+      { "text": "Persian Gulf War", "isCorrect": false },
+      { "text": "War of 1812", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 83,
+    "category": "American History",
+    "question": "During the Cold War, what was the main concern of the United States?",
+    "options": [
+      { "text": "Communism", "isCorrect": true },
+      { "text": "Terrorism", "isCorrect": false },
+      { "text": "Climate change", "isCorrect": false },
+      { "text": "Immigration", "isCorrect": false },
+      { "text": "Nuclear weapons", "isCorrect": false },
+      { "text": "Economic depression", "isCorrect": false },
+      { "text": "Civil rights", "isCorrect": false },
+      { "text": "European reconstruction", "isCorrect": false },
+      { "text": "Space exploration", "isCorrect": false },
+      { "text": "Religious freedom", "isCorrect": false },
+      { "text": "Illegal drug trafficking", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 84,
+    "category": "American History",
+    "question": "What movement tried to end racial discrimination?",
+    "options": [
+      { "text": "civil rights (movement)", "isCorrect": true },
+      { "text": "women's suffrage movement", "isCorrect": false },
+      { "text": "labor movement", "isCorrect": false },
+      { "text": "conservation movement", "isCorrect": false },
+      { "text": "abolitionist movement", "isCorrect": false },
+      { "text": "progressive movement", "isCorrect": false },
+      { "text": "temperance movement", "isCorrect": false },
+      { "text": "anti-war movement", "isCorrect": false },
+      { "text": "environmental movement", "isCorrect": false },
+      { "text": "states' rights movement", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 85,
+    "category": "American History",
+    "question": "What did Martin Luther King, Jr. do?",
+    "options": [
+      { "text": "fought for civil rights", "isCorrect": true },
+      { "text": "worked for equality for all Americans", "isCorrect": true },
+      { "text": "freed the slaves", "isCorrect": false },
+      { "text": "was the first African American president", "isCorrect": false },
+      { "text": "discovered America", "isCorrect": false },
+      { "text": "founded the NAACP", "isCorrect": false },
+      { "text": "was the first African American Supreme Court Justice", "isCorrect": false },
+      { "text": "led the Union Army during the Civil War", "isCorrect": false },
+      { "text": "wrote the Emancipation Proclamation", "isCorrect": false },
+      { "text": "established the first African American university", "isCorrect": false },
+      { "text": "invented the cotton gin", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 86,
+    "category": "American History",
+    "question": "What major event happened on September 11, 2001, in the United States?",
+    "options": [
+      { "text": "Terrorists attacked the United States.", "isCorrect": true },
+      { "text": "The Civil War ended.", "isCorrect": false },
+      { "text": "The United States declared independence.", "isCorrect": false },
+      { "text": "The Constitution was signed.", "isCorrect": false },
+      { "text": "The Cold War ended.", "isCorrect": false },
+      { "text": "The first African American president was elected.", "isCorrect": false },
+      { "text": "Hurricane Katrina hit New Orleans.", "isCorrect": false },
+      { "text": "The stock market crashed.", "isCorrect": false },
+      { "text": "The Gulf War began.", "isCorrect": false },
+      { "text": "The Berlin Wall fell.", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 87,
+    "category": "American History",
+    "question": "Name one American Indian tribe in the United States.",
+    "options": [
+      { "text": "Cherokee", "isCorrect": true },
+      { "text": "Navajo", "isCorrect": true },
+      { "text": "Sioux", "isCorrect": true },
+      { "text": "Chippewa", "isCorrect": true },
+      { "text": "Choctaw", "isCorrect": true },
+      { "text": "Pueblo", "isCorrect": true },
+      { "text": "Apache", "isCorrect": true },
+      { "text": "Iroquois", "isCorrect": true },
+      { "text": "Aztec", "isCorrect": false },
+      { "text": "Inca", "isCorrect": false },
+      { "text": "Maya", "isCorrect": false },
+      { "text": "Inuit", "isCorrect": true },
+      { "text": "Olmec", "isCorrect": false },
+      { "text": "Maori", "isCorrect": false },
+      { "text": "Aboriginal", "isCorrect": false },
+      { "text": "Zulu", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 88,
+    "category": "Geography",
+    "question": "Name one of the two longest rivers in the United States.",
+    "options": [
+      { "text": "Missouri (River)", "isCorrect": true },
+      { "text": "Mississippi (River)", "isCorrect": true },
+      { "text": "Colorado (River)", "isCorrect": false },
+      { "text": "Rio Grande", "isCorrect": false },
+      { "text": "Ohio (River)", "isCorrect": false },
+      { "text": "Arkansas (River)", "isCorrect": false },
+      { "text": "Columbia (River)", "isCorrect": false },
+      { "text": "Yukon (River)", "isCorrect": false },
+      { "text": "Hudson (River)", "isCorrect": false },
+      { "text": "Potomac (River)", "isCorrect": false },
+      { "text": "Delaware (River)", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 89,
+    "category": "Geography",
+    "question": "What ocean is on the West Coast of the United States?",
+    "options": [
+      { "text": "Pacific (Ocean)", "isCorrect": true },
+      { "text": "Atlantic (Ocean)", "isCorrect": false },
+      { "text": "Indian (Ocean)", "isCorrect": false },
+      { "text": "Arctic (Ocean)", "isCorrect": false },
+      { "text": "Southern (Ocean)", "isCorrect": false },
+      { "text": "Gulf of Mexico", "isCorrect": false },
+      { "text": "Caribbean Sea", "isCorrect": false },
+      { "text": "Bering Sea", "isCorrect": false },
+      { "text": "North Sea", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 90,
+    "category": "Geography",
+    "question": "What ocean is on the East Coast of the United States?",
+    "options": [
+      { "text": "Atlantic (Ocean)", "isCorrect": true },
+      { "text": "Pacific (Ocean)", "isCorrect": false },
+      { "text": "Indian (Ocean)", "isCorrect": false },
+      { "text": "Arctic (Ocean)", "isCorrect": false },
+      { "text": "Southern (Ocean)", "isCorrect": false },
+      { "text": "Gulf of Mexico", "isCorrect": false },
+      { "text": "Caribbean Sea", "isCorrect": false },
+      { "text": "Mediterranean Sea", "isCorrect": false },
+      { "text": "North Sea", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 91,
+    "category": "Symbols",
+    "question": "Name one U.S. territory.",
+    "options": [
+      { "text": "Puerto Rico", "isCorrect": true },
+      { "text": "U.S. Virgin Islands", "isCorrect": true },
+      { "text": "American Samoa", "isCorrect": true },
+      { "text": "Northern Mariana Islands", "isCorrect": true },
+      { "text": "Guam", "isCorrect": true },
+      { "text": "Cuba", "isCorrect": false },
+      { "text": "Philippines", "isCorrect": false },
+      { "text": "Bahamas", "isCorrect": false },
+      { "text": "Haiti", "isCorrect": false },
+      { "text": "Panama", "isCorrect": false },
+      { "text": "Bermuda", "isCorrect": false },
+      { "text": "Marshall Islands", "isCorrect": false },
+      { "text": "Federated States of Micronesia", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 92,
+    "category": "Symbols",
+    "question": "Name one state that borders Canada.",
+    "options": [
+      { "text": "Maine", "isCorrect": true },
+      { "text": "New Hampshire", "isCorrect": true },
+      { "text": "Vermont", "isCorrect": true },
+      { "text": "New York", "isCorrect": true },
+      { "text": "Pennsylvania", "isCorrect": true },
+      { "text": "Ohio", "isCorrect": true },
+      { "text": "Michigan", "isCorrect": true },
+      { "text": "Minnesota", "isCorrect": true },
+      { "text": "North Dakota", "isCorrect": true },
+      { "text": "Montana", "isCorrect": true },
+      { "text": "Idaho", "isCorrect": true },
+      { "text": "Washington", "isCorrect": true },
+      { "text": "Alaska", "isCorrect": true },
+      { "text": "California", "isCorrect": false },
+      { "text": "Texas", "isCorrect": false },
+      { "text": "Florida", "isCorrect": false },
+      { "text": "Virginia", "isCorrect": false },
+      { "text": "Oregon", "isCorrect": false },
+      { "text": "Illinois", "isCorrect": false },
+      { "text": "Tennessee", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 93,
+    "category": "Symbols",
+    "question": "Name one state that borders Mexico.",
+    "options": [
+      { "text": "California", "isCorrect": true },
+      { "text": "Arizona", "isCorrect": true },
+      { "text": "New Mexico", "isCorrect": true },
+      { "text": "Texas", "isCorrect": true },
+      { "text": "Nevada", "isCorrect": false },
+      { "text": "Oklahoma", "isCorrect": false },
+      { "text": "Louisiana", "isCorrect": false },
+      { "text": "Florida", "isCorrect": false },
+      { "text": "Colorado", "isCorrect": false },
+      { "text": "Oregon", "isCorrect": false },
+      { "text": "Utah", "isCorrect": false },
+      { "text": "Arkansas", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 94,
+    "category": "Symbols",
+    "question": "What is the capital of the United States?",
+    "options": [
+      { "text": "Washington, D.C.", "isCorrect": true },
+      { "text": "New York City", "isCorrect": false },
+      { "text": "Philadelphia", "isCorrect": false },
+      { "text": "Boston", "isCorrect": false },
+      { "text": "Los Angeles", "isCorrect": false },
+      { "text": "Chicago", "isCorrect": false },
+      { "text": "Atlanta", "isCorrect": false },
+      { "text": "Dallas", "isCorrect": false },
+      { "text": "Miami", "isCorrect": false },
+      { "text": "Richmond", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 95,
+    "category": "Symbols",
+    "question": "Where is the Statue of Liberty?",
+    "options": [
+      { "text": "New York (Harbor)", "isCorrect": true },
+      { "text": "Liberty Island", "isCorrect": true },
+      { "text": "New Jersey", "isCorrect": true },
+      { "text": "near New York City", "isCorrect": true },
+      { "text": "on the Hudson (River)", "isCorrect": true },
+      { "text": "Washington, D.C.", "isCorrect": false },
+      { "text": "Boston, Massachusetts", "isCorrect": false },
+      { "text": "Philadelphia, Pennsylvania", "isCorrect": false },
+      { "text": "San Francisco, California", "isCorrect": false },
+      { "text": "Chicago, Illinois", "isCorrect": false },
+      { "text": "Las Vegas, Nevada", "isCorrect": false },
+      { "text": "Mount Rushmore", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 96,
+    "category": "Symbols",
+    "question": "Why does the flag have 13 stripes?",
+    "options": [
+      { "text": "because there were 13 original colonies", "isCorrect": true },
+      { "text": "because the stripes represent the original colonies", "isCorrect": true },
+      { "text": "because there were 13 original states", "isCorrect": false },
+      { "text": "because there were 13 original presidents", "isCorrect": false },
+      { "text": "because there were 13 signers of the Constitution", "isCorrect": false },
+      { "text": "because there were 13 Revolutionary War battles", "isCorrect": false },
+      { "text": "because there were 13 amendments initially proposed", "isCorrect": false },
+      { "text": "because 13 was considered a lucky number", "isCorrect": false },
+      { "text": "because there were 13 members of the Continental Congress", "isCorrect": false },
+      { "text": "because there were 13 years of British rule", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 97,
+    "category": "Symbols",
+    "question": "Why does the flag have 50 stars?",
+    "options": [
+      { "text": "because there is one star for each state", "isCorrect": true },
+      { "text": "because each star represents a state", "isCorrect": true },
+      { "text": "because there are 50 states", "isCorrect": true },
+      { "text": "because there are 50 senators", "isCorrect": false },
+      { "text": "because there were 50 original colonies", "isCorrect": false },
+      { "text": "because there were 50 signers of the Declaration of Independence", "isCorrect": false },
+      { "text": "because the country was 50 years old when the flag was designed", "isCorrect": false },
+      { "text": "because there are 50 major cities in the U.S.", "isCorrect": false },
+      { "text": "because there were 50 delegates at the Constitutional Convention", "isCorrect": false },
+      { "text": "because there are 50 federal court districts", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 98,
+    "category": "Holidays",
+    "question": "What is the name of the national anthem?",
+    "options": [
+      { "text": "The Star-Spangled Banner", "isCorrect": true },
+      { "text": "America the Beautiful", "isCorrect": false },
+      { "text": "God Bless America", "isCorrect": false },
+      { "text": "My Country 'Tis of Thee", "isCorrect": false },
+      { "text": "Battle Hymn of the Republic", "isCorrect": false },
+      { "text": "Stars and Stripes Forever", "isCorrect": false },
+      { "text": "Yankee Doodle", "isCorrect": false },
+      { "text": "Hail to the Chief", "isCorrect": false },
+      { "text": "America (My Country, 'Tis of Thee)", "isCorrect": false },
+      { "text": "This Land Is Your Land", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 99,
+    "category": "Holidays",
+    "question": "When do we celebrate Independence Day?",
+    "options": [
+      { "text": "July 4", "isCorrect": true },
+      { "text": "July 14", "isCorrect": false },
+      { "text": "June 4", "isCorrect": false },
+      { "text": "January 4", "isCorrect": false },
+      { "text": "December 25", "isCorrect": false },
+      { "text": "May 1", "isCorrect": false },
+      { "text": "November 11", "isCorrect": false },
+      { "text": "September 17", "isCorrect": false },
+      { "text": "August 2", "isCorrect": false },
+      { "text": "October 12", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 100,
+    "category": "Holidays",
+    "question": "Name two national U.S. holidays.",
+    "options": [
+      { "text": "New Year's Day", "isCorrect": true },
+      { "text": "Martin Luther King, Jr. Day", "isCorrect": true },
+      { "text": "Presidents' Day", "isCorrect": true },
+      { "text": "Memorial Day", "isCorrect": true },
+      { "text": "Independence Day", "isCorrect": true },
+      { "text": "Labor Day", "isCorrect": true },
+      { "text": "Columbus Day", "isCorrect": true },
+      { "text": "Veterans Day", "isCorrect": true },
+      { "text": "Thanksgiving", "isCorrect": true },
+      { "text": "Christmas", "isCorrect": true },
+      { "text": "Flag Day", "isCorrect": false },
+      { "text": "Election Day", "isCorrect": false },
+      { "text": "Citizenship Day", "isCorrect": false },
+      { "text": "Arbor Day", "isCorrect": false },
+      { "text": "Susan B. Anthony Day", "isCorrect": false },
+      { "text": "St. Patrick's Day", "isCorrect": false },
+      { "text": "Valentine's Day", "isCorrect": false },
+      { "text": "Easter", "isCorrect": false }
+    ]
+  }
+]
