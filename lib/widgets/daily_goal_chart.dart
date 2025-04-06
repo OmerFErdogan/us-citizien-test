@@ -1,22 +1,37 @@
 import 'package:flutter/material.dart';
 import '../services/question_service.dart';
 
-class DailyGoalChart extends StatelessWidget {
+class DailyGoalChart extends StatefulWidget {
   final QuestionService questionService;
-  
+
   const DailyGoalChart({
     Key? key,
     required this.questionService,
   }) : super(key: key);
 
   @override
+  _DailyGoalChartState createState() => _DailyGoalChartState();
+}
+
+class _DailyGoalChartState extends State<DailyGoalChart> {
+  late int _dailyGoal;
+  late int _todayCount;
+  late double _completionRate;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  void _loadData() {
+    _dailyGoal = widget.questionService.getDailyGoal();
+    _todayCount = widget.questionService.getTodayQuestionCount();
+    _completionRate = _todayCount / _dailyGoal;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final dailyGoal = questionService.getDailyGoal();
-    final todayCount = questionService.getTodayQuestionCount();
-    final completionRate = questionService.getDailyGoalCompletionRate();
-    
-    final isCompleted = todayCount >= dailyGoal;
-    
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -25,54 +40,59 @@ class DailyGoalChart extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Başlık
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Günlük Hedefiniz',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                      size: 24,
+                    ),
+                    const SizedBox(width: 8),
+                    const Text(
+                      'Günlük Hedef',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
-                if (isCompleted)
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: Colors.green[100],
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.green[300]!),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.check_circle, color: Colors.green[700], size: 16),
-                        const SizedBox(width: 4),
-                        Text(
-                          'Tamamlandı!',
-                          style: TextStyle(
-                            color: Colors.green[700],
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                IconButton(
+                  icon: const Icon(Icons.edit),
+                  onPressed: () => _showDailyGoalDialog(context),
+                  tooltip: 'Günlük hedefi düzenle',
+                  color: Colors.grey[600],
+                ),
               ],
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
             
-            // İlerleme grafiği
+            // Progres bar ve sayaç
             Column(
               children: [
-                // Hedef sayısı
-                Text(
-                  '$todayCount / $dailyGoal soru',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: isCompleted ? Colors.green[700] : Colors.blue[700],
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '$_todayCount / $_dailyGoal soru',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: _completionRate >= 1.0 ? Colors.green : Colors.orange,
+                      ),
+                    ),
+                    Text(
+                      '${(_completionRate * 100).toStringAsFixed(0)}%',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: _completionRate >= 1.0 ? Colors.green : Colors.orange,
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 8),
                 
@@ -80,84 +100,130 @@ class DailyGoalChart extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: LinearProgressIndicator(
-                    value: completionRate.clamp(0.0, 1.0),
+                    value: _completionRate.clamp(0, 1.0),
                     minHeight: 16,
                     backgroundColor: Colors.grey[200],
-                    color: isCompleted ? Colors.green : Colors.blue,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      _completionRate >= 1.0 ? Colors.green : Colors.orange,
+                    ),
                   ),
                 ),
-                const SizedBox(height: 8),
                 
-                // Bilgi metni
-                Text(
-                  isCompleted
-                      ? 'Tebrikler! Bugünkü hedefinizi tamamladınız.'
-                      : 'Hedefinizi tamamlamak için ${dailyGoal - todayCount} soru daha cevaplayın.',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey[700],
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
+                const SizedBox(height: 12),
+                
+                // Tamamlama durumu mesajı
+                _buildCompletionMessage(),
               ],
-            ),
-            
-            const SizedBox(height: 16),
-            
-            // Hedefi düzenle butonu
-            OutlinedButton.icon(
-              onPressed: () => _showGoalEditDialog(context),
-              icon: const Icon(Icons.edit, size: 18),
-              label: const Text('Günlük Hedefi Düzenle'),
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-              ),
             ),
           ],
         ),
       ),
     );
   }
-  
-  void _showGoalEditDialog(BuildContext context) {
-    final currentGoal = questionService.getDailyGoal();
-    int newGoal = currentGoal;
+
+  Widget _buildCompletionMessage() {
+    if (_completionRate >= 1.0) {
+      return Card(
+        color: Colors.green[50],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+          side: BorderSide(color: Colors.green.withOpacity(0.5)),
+        ),
+        elevation: 0,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Icon(Icons.check_circle, color: Colors.green),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Tebrikler! Bugünkü hedefinizi tamamladınız.',
+                  style: TextStyle(color: Colors.green[800]),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    } else {
+      final remainingCount = _dailyGoal - _todayCount;
+      return Card(
+        color: Colors.blue[50],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+          side: BorderSide(color: Colors.blue.withOpacity(0.5)),
+        ),
+        elevation: 0,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Icon(Icons.info_outline, color: Colors.blue),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Bugünkü hedefinizi tamamlamak için $remainingCount soru kaldı.',
+                  style: TextStyle(color: Colors.blue[800]),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+  }
+
+  void _showDailyGoalDialog(BuildContext context) {
+    int goal = _dailyGoal;
     
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Günlük Hedefi Düzenle'),
+        title: const Text('Günlük Hedefi Ayarla'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('Her gün tamamlamak istediğiniz soru sayısını belirleyin:'),
+            const Text('Günlük çözmek istediğiniz soru sayısını belirleyin:'),
             const SizedBox(height: 16),
-            StatefulBuilder(
-              builder: (context, setState) {
-                return Column(
-                  children: [
-                    Text(
-                      newGoal.toString(),
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Slider(
-                      value: newGoal.toDouble(),
-                      min: 5,
-                      max: 50,
-                      divisions: 9,
-                      label: newGoal.toString(),
-                      onChanged: (value) {
-                        setState(() {
-                          newGoal = value.round();
-                        });
-                      },
-                    ),
-                  ],
-                );
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.remove_circle),
+                  onPressed: () {
+                    if (goal > 5) goal--;
+                  },
+                  color: Colors.red,
+                ),
+                const SizedBox(width: 8),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: StatefulBuilder(
+                    builder: (context, setState) {
+                      return Text(
+                        '$goal',
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(width: 8),
+                IconButton(
+                  icon: const Icon(Icons.add_circle),
+                  onPressed: () {
+                    if (goal < 50) goal++;
+                  },
+                  color: Colors.green,
+                ),
+              ],
             ),
           ],
         ),
@@ -167,11 +233,12 @@ class DailyGoalChart extends StatelessWidget {
             child: const Text('İptal'),
           ),
           ElevatedButton(
-            onPressed: () {
-              questionService.setDailyGoal(newGoal);
+            onPressed: () async {
+              await widget.questionService.setDailyGoal(goal);
               Navigator.pop(context);
-              // Ekranı yenile - Bu genellikle StatefulWidget içinde setState ile yapılır
-              // Bu widget genellikle bir parent widget tarafından yeniden oluşturulur
+              setState(() {
+                _loadData();
+              });
             },
             child: const Text('Kaydet'),
           ),

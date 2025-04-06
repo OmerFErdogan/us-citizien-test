@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
 import '../services/question_service.dart';
 
 class WeeklyProgressChart extends StatefulWidget {
   final QuestionService questionService;
-  
+
   const WeeklyProgressChart({
     Key? key,
     required this.questionService,
@@ -14,155 +15,279 @@ class WeeklyProgressChart extends StatefulWidget {
 }
 
 class _WeeklyProgressChartState extends State<WeeklyProgressChart> {
-  Map<String, int> _weeklyStats = {};
   bool _isLoading = true;
-  
+  Map<String, int> _weeklyData = {};
+  final List<String> _weekDays = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
+
   @override
   void initState() {
     super.initState();
-    _loadWeeklyStats();
+    _loadData();
   }
-  
-  Future<void> _loadWeeklyStats() async {
+
+  Future<void> _loadData() async {
     setState(() {
       _isLoading = true;
     });
-    
+
     try {
+      // Son 7 günlük istatistikleri al
       final stats = await widget.questionService.getLast7DaysStats();
+      
       setState(() {
-        _weeklyStats = stats;
+        _weeklyData = stats;
         _isLoading = false;
       });
     } catch (e) {
       setState(() {
         _isLoading = false;
       });
+      
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Haftalık veriler yüklenirken hata: $e')),
+        );
+      }
     }
   }
-  
-  @override
-  Widget build(BuildContext context) {
-    if (_isLoading) {
-      return const Center(child: CircularProgressIndicator());
-    }
+
+  List<BarChartGroupData> _getBarGroups() {
+    final now = DateTime.now();
+    final groups = <BarChartGroupData>[];
     
-    if (_weeklyStats.isEmpty) {
-      return const Center(child: Text('Henüz istatistik veri bulunmamaktadır.'));
-    }
-    
-    // Tarihleri son 7 günü içerecek şekilde sırala
-    final sortedDates = _weeklyStats.keys.toList()
-      ..sort((a, b) => a.compareTo(b));
-    
-    // En yüksek değeri bul (grafik ölçeklendirmesi için)
-    final maxValue = _weeklyStats.values.fold<int>(0, 
-        (max, value) => value > max ? value : max);
-    
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Son 7 Günlük İlerleme',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 16),
-          
-          SizedBox(
-            height: 200,
-            child: Row(
-              children: sortedDates.map((dateStr) {
-                final date = DateTime.parse(dateStr);
-                final dayName = _getDayName(date.weekday);
-                final value = _weeklyStats[dateStr] ?? 0;
-                final barHeight = maxValue > 0 
-                    ? (value / maxValue * 150) 
-                    : 0.0;
-                
-                final isToday = _isDateToday(date);
-                
-                return Expanded(
-                  child: Column(
-                    children: [
-                      Text(
-                        value.toString(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: isToday ? Colors.blue : Colors.grey[700],
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Container(
-                        height: 150,
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          width: 20,
-                          height: barHeight,
-                          decoration: BoxDecoration(
-                            color: isToday 
-                                ? Colors.blue 
-                                : Colors.blue.withOpacity(0.6),
-                            borderRadius: const BorderRadius.vertical(
-                              top: Radius.circular(4),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        dayName,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: isToday ? Colors.blue : Colors.grey[700],
-                          fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
-          
-          // Açıklama metni
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: Text(
-              'Her çubuk, o gün cevaplanmış soru sayısını gösterir.',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey[600],
-                fontStyle: FontStyle.italic,
+    // Son 7 günün tarihlerini oluştur (bugün dahil)
+    for (int i = 6; i >= 0; i--) {
+      final date = now.subtract(Duration(days: i));
+      final dateString = _formatDateString(date);
+      
+      // Bu gün için çözülen soru sayısı
+      final count = _weeklyData[dateString] ?? 0;
+      
+      // Haftanın günü (0-6)
+      final weekdayIndex = date.weekday - 1; // 0: Pazartesi, 6: Pazar
+      
+      groups.add(
+        BarChartGroupData(
+          x: 6 - i, // x: 0 bugündür, x: 6 6 gün öncesidir
+          barRods: [
+            BarChartRodData(
+              toY: count.toDouble(),
+              color: _getBarColor(count),
+              width: 16,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(4),
+                topRight: Radius.circular(4),
               ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+          showingTooltipIndicators: [0],
+        ),
+      );
+    }
+    
+    return groups;
   }
-  
-  String _getDayName(int weekday) {
-    switch (weekday) {
-      case 1: return 'Pzt';
-      case 2: return 'Sal';
-      case 3: return 'Çar';
-      case 4: return 'Per';
-      case 5: return 'Cum';
-      case 6: return 'Cmt';
-      case 7: return 'Paz';
-      default: return '';
+
+  String _formatDateString(DateTime date) {
+    return '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+  }
+
+  Color _getBarColor(int count) {
+    final dailyGoal = widget.questionService.getDailyGoal();
+    
+    if (count >= dailyGoal) {
+      return Colors.green;
+    } else if (count >= dailyGoal / 2) {
+      return Colors.orange;
+    } else if (count > 0) {
+      return Colors.blue;
+    } else {
+      return Colors.grey;
     }
   }
-  
-  bool _isDateToday(DateTime date) {
-    final now = DateTime.now();
-    return date.year == now.year && 
-           date.month == now.month && 
-           date.day == now.day;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Haftalık İlerleme',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.refresh),
+              onPressed: _loadData,
+              tooltip: 'Yenile',
+              color: Colors.grey[600],
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : SizedBox(
+                height: 250,
+                child: BarChart(
+                  BarChartData(
+                    alignment: BarChartAlignment.spaceAround,
+                    maxY: _calculateMaxY(),
+                    barTouchData: BarTouchData(
+                      enabled: true,
+                      touchTooltipData: BarTouchTooltipData(
+                        tooltipBgColor: Colors.blueGrey,
+                        getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                          final date = DateTime.now().subtract(Duration(days: 6 - group.x.toInt()));
+                          final dateString = '${date.day}/${date.month}';
+                          
+                          return BarTooltipItem(
+                            '$dateString\n${rod.toY.toInt()} soru',
+                            const TextStyle(color: Colors.white),
+                          );
+                        },
+                      ),
+                    ),
+                    titlesData: FlTitlesData(
+                      show: true,
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          getTitlesWidget: (value, meta) {
+                            final index = value.toInt();
+                            if (index < 0 || index >= 7) return Container();
+                            
+                            // Bugünden geriye doğru 7 günün başlıklarını hesapla
+                            final date = DateTime.now().subtract(Duration(days: 6 - index));
+                            final weekday = _weekDays[date.weekday - 1]; // 0: Pazartesi, 6: Pazar
+                            
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Text(
+                                weekday,
+                                style: TextStyle(
+                                  color: Colors.grey[700],
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      leftTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          reservedSize: 30,
+                          getTitlesWidget: (value, meta) {
+                            if (value == 0) {
+                              return const Text('0');
+                            }
+                            
+                            if (value == _calculateMaxY()) {
+                              return Text(value.toInt().toString());
+                            }
+                            
+                            if (value == _calculateMaxY() / 2) {
+                              return Text(value.toInt().toString());
+                            }
+                            
+                            return const Text('');
+                          },
+                        ),
+                      ),
+                      topTitles: AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      rightTitles: AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                    ),
+                    gridData: FlGridData(
+                      show: true,
+                      checkToShowHorizontalLine: (value) => value % 5 == 0,
+                      getDrawingHorizontalLine: (value) {
+                        return FlLine(
+                          color: Colors.grey[300]!,
+                          strokeWidth: 1,
+                        );
+                      },
+                    ),
+                    borderData: FlBorderData(
+                      show: false,
+                    ),
+                    barGroups: _getBarGroups(),
+                  ),
+                ),
+              ),
+        const SizedBox(height: 16),
+        _buildWeeklySummary(),
+      ],
+    );
+  }
+
+  double _calculateMaxY() {
+    final values = _weeklyData.values.toList();
+    if (values.isEmpty) return 10;
+    
+    final max = values.reduce((a, b) => a > b ? a : b).toDouble();
+    return max < 10 ? 10 : (max * 1.2).ceilToDouble();
+  }
+
+  Widget _buildWeeklySummary() {
+    final totalThisWeek = _weeklyData.values.fold(0, (sum, count) => sum + count);
+    final dailyGoal = widget.questionService.getDailyGoal();
+    final weeklyGoal = dailyGoal * 7;
+    final completion = totalThisWeek / weeklyGoal;
+    
+    return Card(
+      color: Colors.blue[50],
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: BorderSide(color: Colors.blue.withOpacity(0.3)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          children: [
+            Icon(
+              completion >= 1 ? Icons.emoji_events : Icons.info_outline,
+              color: completion >= 1 ? Colors.amber : Colors.blue,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Bu hafta toplam $totalThisWeek soru çözdünüz',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue[800],
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    completion >= 1
+                        ? 'Tebrikler! Haftalık hedefinizi tamamladınız.'
+                        : 'Haftalık hedefiniz: $weeklyGoal soru',
+                    style: TextStyle(
+                      color: Colors.blue[800],
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

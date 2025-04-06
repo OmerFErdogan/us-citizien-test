@@ -225,5 +225,33 @@
   "symbols": "Semboller ve Tatiller",
   "@symbols": {
     "description": "Category name for symbols and holidays"
+  },
+  "settings": "Ayarlar",
+  "@settings": {
+    "description": "Label for settings menu item"
+  },
+  "resetProgress": "İlerlemeyi Sıfırla",
+  "@resetProgress": {
+    "description": "Label for reset progress menu item"
+  },
+  "attention": "Dikkat",
+  "@attention": {
+    "description": "Title for warning dialog"
+  },
+  "resetProgressWarning": "Bu işlem tüm ilerlemenizi sıfırlayacak. Tüm cevaplarınız ve istatistikleriniz silinecek. Bu işlem geri alınamaz. Devam etmek istediğinize emin misiniz?",
+  "@resetProgressWarning": {
+    "description": "Warning message for reset progress dialog"
+  },
+  "cancel": "İptal",
+  "@cancel": {
+    "description": "Label for cancel button"
+  },
+  "reset": "Sıfırla",
+  "@reset": {
+    "description": "Label for reset button"
+  },
+  "progressReset": "İlerlemeniz sıfırlandı",
+  "@progressReset": {
+    "description": "Message shown when progress is reset"
   }
 }

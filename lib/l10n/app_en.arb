@@ -225,5 +225,33 @@
   "symbols": "Symbols and Holidays",
   "@symbols": {
     "description": "Category name for symbols and holidays"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Label for settings menu item"
+  },
+  "resetProgress": "Reset Progress",
+  "@resetProgress": {
+    "description": "Label for reset progress menu item"
+  },
+  "attention": "Attention",
+  "@attention": {
+    "description": "Title for warning dialog"
+  },
+  "resetProgressWarning": "This will reset all your progress. All your answers and statistics will be deleted. This action cannot be undone. Are you sure you want to continue?",
+  "@resetProgressWarning": {
+    "description": "Warning message for reset progress dialog"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Label for cancel button"
+  },
+  "reset": "Reset",
+  "@reset": {
+    "description": "Label for reset button"
+  },
+  "progressReset": "Your progress has been reset",
+  "@progressReset": {
+    "description": "Message shown when progress is reset"
   }
 }

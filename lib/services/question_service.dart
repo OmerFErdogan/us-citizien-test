@@ -146,6 +146,9 @@ class QuestionService {
           .map<Question>((json) => Question.fromJson(json))
           .toList();
       
+      // Kaydedilmiş ilerlemeyi yükle
+      await loadProgress();
+
       _isInitialized = true;
       
       print('Toplam ${_questions.length} soru yüklendi');
@@ -173,17 +176,23 @@ class QuestionService {
       attemptCount: question.attemptCount + 1,
     );
     
-    // İstatistikleri kaydet
+    // İstatistikleri ve ilerlemeyi kaydet
     _saveStatistics();
+    saveProgress();
   }
 
   /// Soruları sıfırla (tüm cevapları temizle)
-  void resetAllAnswers() {
+  Future<void> resetAllAnswers() async {
     _questions = _questions.map((q) => q.copyWith(
       isAttempted: false,
       isMarkedCorrect: false,
       selectedAnswer: null,
+      lastAttemptDate: null,
+      attemptCount: 0,
     )).toList();
+    
+    // Sıfırlanan ilerlemeyi kaydet
+    await saveProgress();
   }
 
   /// Kullanıcının ilerlemesini hesaplar ve yüzde olarak döndürür
@@ -201,6 +210,66 @@ class QuestionService {
     
     final correctCount = attempted.where((q) => q.isMarkedCorrect).length;
     return correctCount / attempted.length;
+  }
+  
+  /// Kullanıcı ilerlemesini SharedPreferences'e kaydeder
+  Future<void> saveProgress() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      
+      // Soruların ilerleme durumunu JSON listesi olarak kaydet
+      final progressData = _questions.map((q) => {
+        'id': q.id,
+        'isAttempted': q.isAttempted,
+        'isMarkedCorrect': q.isMarkedCorrect,
+        'selectedAnswer': q.selectedAnswer,
+        'lastAttemptDate': q.lastAttemptDate?.toIso8601String(),
+        'attemptCount': q.attemptCount,
+      }).toList();
+      
+      await prefs.setString('questions_progress', jsonEncode(progressData));
+      print('İlerleme kaydedildi: ${progressData.length} soru');
+    } catch (e) {
+      print('İlerleme kaydedilirken hata oluştu: $e');
+    }
+  }
+  
+  /// Kaydedilen ilerlemeyi SharedPreferences'den yükler
+  Future<void> loadProgress() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      
+      // Kaydedilmiş ilerleme verilerini al
+      final progressString = prefs.getString('questions_progress');
+      if (progressString == null) {
+        print('Kaydedilmiş ilerleme bulunamadı');
+        return;
+      }
+      
+      final List<dynamic> progressData = jsonDecode(progressString);
+      
+      // Her soru için kaydedilmiş ilerlemeyi uygula
+      for (var progress in progressData) {
+        final int id = progress['id'];
+        final index = _questions.indexWhere((q) => q.id == id);
+        
+        if (index != -1) {
+          _questions[index] = _questions[index].copyWith(
+            isAttempted: progress['isAttempted'],
+            isMarkedCorrect: progress['isMarkedCorrect'],
+            selectedAnswer: progress['selectedAnswer'],
+            lastAttemptDate: progress['lastAttemptDate'] != null 
+                ? DateTime.parse(progress['lastAttemptDate']) 
+                : null,
+            attemptCount: progress['attemptCount'],
+          );
+        }
+      }
+      
+      print('İlerleme yüklendi: ${progressData.length} soru');
+    } catch (e) {
+      print('İlerleme yüklenirken hata oluştu: $e');
+    }
   }
 
   /// Günlük hedefi ayarla

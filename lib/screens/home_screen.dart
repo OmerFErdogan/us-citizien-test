@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:us_civics_test_app/screens/static_screen.dart';
+import 'package:us_civics_test_app/screens/test_intro_screen.dart';
 import '../services/question_service.dart';
+import '../utils/extensions.dart';
 import 'quiz_screen.dart';
 import 'category_selection_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-// Extension to easily access localizations
-extension LocalizationsExtension on BuildContext {
-  AppLocalizations get l10n => AppLocalizations.of(this)!;
-}
+
 
 class HomeScreen extends StatefulWidget {
   final QuestionService questionService;
@@ -98,14 +97,68 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 2,
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              // TODO: Ayarlar sayfası
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Ayarlar yakında eklenecek')),
-              );
+          PopupMenuButton<String>(
+            icon: const Icon(Icons.more_vert),
+            onSelected: (value) async {
+              if (value == 'reset') {
+                // Onay dialoğu göster
+                final confirmed = await showDialog<bool>(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text(context.l10n.attention),
+                    content: Text(context.l10n.resetProgressWarning),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, false),
+                        child: Text(context.l10n.cancel),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, true),
+                        child: Text(context.l10n.reset),
+                        style: TextButton.styleFrom(foregroundColor: Colors.red),
+                      ),
+                    ],
+                  ),
+                ) ?? false;
+                
+                if (confirmed) {
+                  await widget.questionService.resetAllAnswers();
+                  _loadQuestions(); // Yenilenen verileri yükle
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(context.l10n.progressReset)),
+                  );
+                }
+              } else if (value == 'settings') {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Ayarlar yakında eklenecek')),
+                );
+              }
             },
+            itemBuilder: (context) => [
+              PopupMenuItem<String>(
+                value: 'settings',
+                child: Row(
+                  children: [
+                    const Icon(Icons.settings, color: Colors.grey),
+                    const SizedBox(width: 8),
+                    Text(context.l10n.settings),
+                  ],
+                ),
+              ),
+              PopupMenuItem<String>(
+                value: 'reset',
+                child: Row(
+                  children: [
+                    const Icon(Icons.restore, color: Colors.red),
+                    const SizedBox(width: 8),
+                    Text(
+                      context.l10n.resetProgress,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -174,6 +227,15 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: Icons.assignment_late,
               color: Colors.indigo,
               onTap: () => _navigateToWrongQuestions(context),
+            ),
+            const SizedBox(height: 16),
+            _buildActionCard(
+              title: 'Vatandaşlık Sınavı',
+              description: 'Gerçek USCIS sınavı simülasyonu (10 soru, 10 dk)',
+              icon: Icons.workspace_premium,
+              color: Colors.green,
+              onTap: () => _navigateToTestMode(context),
+              isHighlighted: true,
             ),
             const SizedBox(height: 32),
 
@@ -529,9 +591,10 @@ class _HomeScreenState extends State<HomeScreen> {
     required IconData icon,
     required Color color,
     required VoidCallback onTap,
+    bool isHighlighted = false,
   }) {
     return Card(
-      elevation: 3,
+      elevation: isHighlighted ? 5 : 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         onTap: onTap,
@@ -558,6 +621,38 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            
+            // Öne çıkan özellik için özel banner (test modu gibi)
+            if (isHighlighted)
+              Positioned(
+                right: 0,
+                top: 12,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      bottomLeft: Radius.circular(8),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.new_releases, color: Colors.white, size: 12),
+                      SizedBox(width: 4),
+                      Text(
+                        'YENİ',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
@@ -602,6 +697,17 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  void _navigateToTestMode(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TestIntroScreen(
+          questionService: widget.questionService,
+        ),
+      ),
+    ).then((_) => _loadQuestions());
   }
 
   void _navigateToQuizSelection(BuildContext context) {

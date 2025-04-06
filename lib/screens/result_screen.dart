@@ -6,28 +6,47 @@ import 'home_screen.dart';
 class ResultScreen extends StatelessWidget {
   final List<Question> questions;
   final QuestionService questionService;
+  final List<bool>? results; // Quiz sonuçları (test modunda kullanılır)
+  final int? timeSpent; // Sınav süresi (saniye cinsinden, test modunda kullanılır)
+  final bool isTestMode; // Test modu mu?
 
   const ResultScreen({
     Key? key,
     required this.questions,
     required this.questionService,
+    this.results,
+    this.timeSpent,
+    this.isTestMode = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final answeredQuestions = questions.where((q) => q.isAttempted).toList();
-    final correctAnswers = answeredQuestions.where((q) => q.isMarkedCorrect).toList();
+    late List<Question> answeredQuestions;
+    late List<Question> correctAnswers;
+    late int correctCount;
+    
+    if (isTestMode && results != null) {
+      // Test modunda, sonuçlar doğrudan parametreden alınır
+      correctCount = results!.where((result) => result).length;
+    } else {
+      // Normal quiz modunda
+      answeredQuestions = questions.where((q) => q.isAttempted).toList();
+      correctAnswers = answeredQuestions.where((q) => q.isMarkedCorrect).toList();
+      correctCount = correctAnswers.length;
+    }
     
     final totalQuestions = questions.length;
-    final correctCount = correctAnswers.length;
     final score = totalQuestions > 0 ? (correctCount / totalQuestions) * 100 : 0.0;
     
     final scoreGrade = _getScoreGrade(score);
     final scoreColor = _getScoreColor(score);
     
+    // Test modu için geçti/kaldı durumu
+    final bool passedTest = isTestMode && correctCount >= 6; // Vatandaşlık sınavında geçme sınırı 6/10
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Quiz Sonuçları'),
+        title: Text(isTestMode ? 'Sınav Sonuçları' : 'Quiz Sonuçları'),
         automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
@@ -35,6 +54,10 @@ class ResultScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // Test modu için geçti/kaldı bilgisi
+            if (isTestMode)
+              _buildTestResultBanner(passedTest),
+            
             // Sonuç özeti kartı
             Card(
               elevation: 4,
@@ -45,9 +68,9 @@ class ResultScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   children: [
-                    const Text(
-                      'Quiz Tamamlandı!',
-                      style: TextStyle(
+                    Text(
+                      isTestMode ? 'Sınav Tamamlandı!' : 'Quiz Tamamlandı!',
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
@@ -81,11 +104,15 @@ class ResultScreen extends StatelessWidget {
                     
                     // Derece
                     Text(
-                      scoreGrade,
+                      isTestMode 
+                        ? (passedTest ? 'GEÇTİNİZ!' : 'KALDINIZ')
+                        : scoreGrade,
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: scoreColor,
+                        color: isTestMode 
+                          ? (passedTest ? Colors.green[700] : Colors.red[700])
+                          : scoreColor,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -98,11 +125,44 @@ class ResultScreen extends StatelessWidget {
                         color: Colors.grey[700],
                       ),
                     ),
+                    
+                    // Test modunda geçme kriteri bilgisi
+                    if (isTestMode) ...[  
+                      const SizedBox(height: 8),
+                      Text(
+                        'Geçme Kriteri: En az 6/10 doğru cevap',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.grey[700],
+                        ),
+                      ),
+                    ],
+                    
+                    // Test modunda süre bilgisi
+                    if (isTestMode && timeSpent != null) ...[  
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.timer, color: Colors.grey[600], size: 16),
+                          const SizedBox(width: 4),
+                          Text(
+                            'Toplam Süre: ${_formatDuration(timeSpent!)}',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                    
                     const SizedBox(height: 24),
                     
                     // Başarı rozeti
-                    if (score >= 80)
-                      _buildAchievementBadge(context),
+                    if ((isTestMode && passedTest) || (!isTestMode && score >= 80))
+                      _buildAchievementBadge(context, isTestMode),
                   ],
                 ),
               ),
@@ -154,13 +214,13 @@ class ResultScreen extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      // Yeni bir quiz başlat
+                      // Yeni bir quiz/test başlat
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 12),
                     ),
-                    child: const Text('Yeni Quiz'),
+                    child: Text(isTestMode ? 'Yeni Sınav' : 'Yeni Quiz'),
                   ),
                 ),
               ],
@@ -171,7 +231,7 @@ class ResultScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildAchievementBadge(BuildContext context) {
+  Widget _buildAchievementBadge(BuildContext context, bool isTestMode) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
@@ -186,13 +246,13 @@ class ResultScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
-            Icons.emoji_events,
+            isTestMode ? Icons.military_tech : Icons.emoji_events,
             color: Colors.amber[700],
             size: 24,
           ),
           const SizedBox(width: 8),
           Text(
-            'Harika Başarı!',
+            isTestMode ? 'ABD Vatandaşlık Sınavını Geçtiniz!' : 'Harika Başarı!',
             style: TextStyle(
               color: Theme.of(context).primaryColor,
               fontWeight: FontWeight.bold,
@@ -211,7 +271,14 @@ class ResultScreen extends StatelessWidget {
       separatorBuilder: (context, index) => const SizedBox(height: 8),
       itemBuilder: (context, index) {
         final question = questions[index];
-        final isCorrect = question.isMarkedCorrect;
+        late bool isCorrect;
+        
+        // Test modunda sonuçları parametreden, normal quiz modunda sorudan al
+        if (isTestMode && results != null) {
+          isCorrect = results![index];
+        } else {
+          isCorrect = question.isMarkedCorrect;
+        }
         
         return Container(
           decoration: BoxDecoration(
@@ -264,7 +331,7 @@ class ResultScreen extends StatelessWidget {
                   )
                 ),
                 
-                if (question.selectedAnswer != null) ...[
+                if (question.selectedAnswer != null) ...[  
                   const SizedBox(height: 12),
                   const Text(
                     'Sizin Cevabınız:',
@@ -287,6 +354,59 @@ class ResultScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  Widget _buildTestResultBanner(bool passed) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: passed ? Colors.green[50] : Colors.red[50],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: passed ? Colors.green[300]! : Colors.red[300]!,
+          width: 2,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Icon(
+              passed ? Icons.verified : Icons.error_outline,
+              color: passed ? Colors.green[700] : Colors.red[700],
+              size: 48,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              passed ? 'USCIS Vatandaşlık Sınavını Geçtiniz!' : 'USCIS Vatandaşlık Sınavında Başarısız Oldunuz',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: passed ? Colors.green[700] : Colors.red[700],
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              passed 
+                ? 'Tebrikler! Sivil bilgisi testini başarıyla tamamladınız.'
+                : 'Sınavı geçmek için en az 6 soruyu doğru cevaplamanız gerekiyor. Daha fazla pratik yapın ve tekrar deneyin.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: passed ? Colors.green[700] : Colors.red[700],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  
+  String _formatDuration(int seconds) {
+    final minutes = seconds ~/ 60;
+    final remainingSeconds = seconds % 60;
+    return '$minutes:${remainingSeconds.toString().padLeft(2, '0')}';
   }
 
   String _getScoreGrade(double score) {

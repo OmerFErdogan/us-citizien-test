@@ -225,5 +225,33 @@
   "symbols": "Símbolos y Días Festivos",
   "@symbols": {
     "description": "Category name for symbols and holidays"
+  },
+  "settings": "Configuración",
+  "@settings": {
+    "description": "Label for settings menu item"
+  },
+  "resetProgress": "Reiniciar Progreso",
+  "@resetProgress": {
+    "description": "Label for reset progress menu item"
+  },
+  "attention": "Atención",
+  "@attention": {
+    "description": "Title for warning dialog"
+  },
+  "resetProgressWarning": "Esto reiniciará todo tu progreso. Todas tus respuestas y estadísticas serán eliminadas. Esta acción no se puede deshacer. ¿Estás seguro de que quieres continuar?",
+  "@resetProgressWarning": {
+    "description": "Warning message for reset progress dialog"
+  },
+  "cancel": "Cancelar",
+  "@cancel": {
+    "description": "Label for cancel button"
+  },
+  "reset": "Reiniciar",
+  "@reset": {
+    "description": "Label for reset button"
+  },
+  "progressReset": "Tu progreso ha sido reiniciado",
+  "@progressReset": {
+    "description": "Message shown when progress is reset"
   }
 }
