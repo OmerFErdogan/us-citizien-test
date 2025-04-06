@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:us_civics_test_app/screens/static_screen.dart';
 import '../services/question_service.dart';
 import 'quiz_screen.dart';
-import 'flashcard_screen.dart';
+import 'category_selection_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+// Extension to easily access localizations
+extension LocalizationsExtension on BuildContext {
+  AppLocalizations get l10n => AppLocalizations.of(this)!;
+}
 
 class HomeScreen extends StatefulWidget {
-  final QuestionService questionService; // Bu parametre eklendi
+  final QuestionService questionService;
 
   const HomeScreen({
     Key? key, 
-    required this.questionService, // Constructor'a eklendi
+    required this.questionService, 
   }) : super(key: key);
 
   @override
@@ -21,6 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int _totalQuestions = 0;
   int _answeredQuestions = 0;
   double _correctRate = 0.0;
+  int _todayQuestions = 0;
+  int _dailyGoal = 10;
 
   @override
   void initState() {
@@ -35,18 +44,24 @@ class _HomeScreenState extends State<HomeScreen> {
         _errorMessage = '';
       });
 
-      // widget.questionService kullanılarak veri çekilecek
+      // Soru verilerini yükle
       await widget.questionService.loadQuestions();
       
-      // Calculate statistics
+      // İstatistikleri hesapla
       final allQuestions = widget.questionService.getAllQuestions();
       final attempted = allQuestions.where((q) => q.isAttempted).toList();
       final correct = attempted.where((q) => q.isMarkedCorrect).toList();
+      
+      // Günlük istatistikler
+      final todayQuestions = widget.questionService.getTodayQuestionCount();
+      final dailyGoal = widget.questionService.getDailyGoal();
       
       setState(() {
         _totalQuestions = allQuestions.length;
         _answeredQuestions = attempted.length;
         _correctRate = attempted.isEmpty ? 0.0 : correct.length / attempted.length;
+        _todayQuestions = todayQuestions;
+        _dailyGoal = dailyGoal;
         _isLoading = false;
       });
     } catch (e) {
@@ -61,14 +76,58 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Öğrenme Uygulaması'),
-        elevation: 0,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/american_flag_icon.png',
+              width: 24,
+              height: 24,
+            ),
+            SizedBox(width: 8),
+            Text(context.l10n.americanDream),
+            SizedBox(width: 8),
+            Image.asset(
+              'assets/images/capitol_building_icon.png',
+              width: 24,
+              height: 24,
+              color: Colors.white,
+            ),
+          ],
+        ),
+        elevation: 2,
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              // TODO: Ayarlar sayfası
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Ayarlar yakında eklenecek')),
+              );
+            },
+          ),
+        ],
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _errorMessage.isNotEmpty
               ? Center(child: Text(_errorMessage, style: const TextStyle(color: Colors.red)))
-              : _buildHomeContent(),
+              : Stack(
+                  children: [
+                    // Amerikan vatandaşlık temalı arka plan
+                    Positioned.fill(
+                      child: Opacity(
+                        opacity: 0.05,
+                        child: Image.asset(
+                          'assets/images/usa_map_background.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    _buildHomeContent(),
+                  ],
+                ),
     );
   }
 
@@ -81,35 +140,54 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Motivasyon banner'ı
+            _buildAmericanDreamBanner(),
+            const SizedBox(height: 16),
+            // Günlük hedef özeti
+            _buildDailyGoalCard(),
+            const SizedBox(height: 24),
+            
             // İlerleme özeti kartı
             _buildProgressCard(),
             const SizedBox(height: 24),
             
             // Ana seçenekler için kartlar
             _buildActionCard(
-              title: 'Quiz Başlat',
-              description: 'Bilgilerini test etmek için 10 soruluk quiz',
-              icon: Icons.quiz,
-              color: Colors.indigo,
-              onTap: () => _navigateToQuiz(context),
+              title: context.l10n.citizenshipExam,
+              description: context.l10n.oneStepCloser,
+              icon: Icons.star,
+              color: Colors.blue,
+              onTap: () => _navigateToQuizSelection(context),
             ),
             const SizedBox(height: 16),
             _buildActionCard(
-              title: 'Flashcardlar',
-              description: 'Soruları ve cevapları kartlarla öğren',
+              title: context.l10n.libertyCards,
+              description: context.l10n.learnWithCards,
               icon: Icons.flip,
-              color: Colors.teal,
-              onTap: () => _navigateToFlashcards(context),
+              color: Colors.red,
+              onTap: () => _navigateToFlashcardSelection(context),
+            ),
+            const SizedBox(height: 16),
+            _buildActionCard(
+              title: context.l10n.secondChance,
+              description: context.l10n.neverGiveUp,
+              icon: Icons.assignment_late,
+              color: Colors.indigo,
+              onTap: () => _navigateToWrongQuestions(context),
             ),
             const SizedBox(height: 32),
 
-            // Gelişmiş Ayarlar ve İstatistikler butonu
+            // İstatistikler butonu
             OutlinedButton.icon(
               onPressed: () {
-                // İstatistikler sayfasına git (Henüz impl. edilmedi)
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('İstatistik sayfası yakında eklenecek')),
-                );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => StatisticsScreen(
+                      questionService: widget.questionService,
+                    ),
+                  ),
+                ).then((_) => _loadQuestions());
               },
               icon: const Icon(Icons.bar_chart),
               label: const Text('Detaylı İstatistikler'),
@@ -119,6 +197,139 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildDailyGoalCard() {
+    final goalCompletion = _todayQuestions / _dailyGoal;
+    final isCompleted = _todayQuestions >= _dailyGoal;
+    
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Stack(
+        children: [
+          // Arkaplan deseni - Amerika Bayrağı Motifleri
+          Positioned(
+            right: -10,
+            top: -10,
+            child: Icon(
+              Icons.star_outline,
+              size: 60,
+              color: Colors.blue.withOpacity(0.05),
+            ),
+          ),
+          Positioned(
+            left: -15,
+            bottom: -15,
+            child: Icon(
+              Icons.star_outline,
+              size: 80,
+              color: Colors.red.withOpacity(0.05),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.stars,
+                          color: Colors.blue,
+                          size: 20,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          context.l10n.dailyCitizenshipGoal,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    if (isCompleted)
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: Colors.blue[100],
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: Colors.blue[300]!),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(Icons.check_circle, color: Colors.blue[700], size: 16),
+                            const SizedBox(width: 4),
+                            Text(
+                            context.l10n.missionComplete,
+                            style: TextStyle(
+                            color: Colors.blue[700],
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            ),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                
+                // İlerleme göstergesi
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '$_todayQuestions / $_dailyGoal soru',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: isCompleted ? Colors.blue[700] : Colors.red[700],
+                          ),
+                        ),
+                        Text(
+                          '${(goalCompletion * 100).toStringAsFixed(0)}%',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: isCompleted ? Colors.blue[700] : Colors.red[700],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    
+                    // İlerleme çubuğu
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(color: Colors.grey.shade300),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: LinearProgressIndicator(
+                          value: goalCompletion.clamp(0.0, 1.0),
+                          minHeight: 12,
+                          backgroundColor: Colors.grey[200],
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            isCompleted ? Colors.blue[600]! : Colors.red[500]!,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -172,6 +383,119 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget _buildAmericanDreamBanner() {
+    return Card(
+      elevation: 4,
+      color: Colors.blue.shade800,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.blue.shade700,
+              Colors.indigo.shade900,
+            ],
+          ),
+        ),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Image.asset(
+                  'assets/images/statue_of_liberty_icon.png',
+                  width: 28,
+                  height: 28,
+                  color: Colors.white,
+                ),
+                SizedBox(width: 8),
+                Text(
+                  context.l10n.americanDream,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    letterSpacing: 1.2,
+                  ),
+                ),
+                SizedBox(width: 8),
+                Image.asset(
+                  'assets/images/american_flag_icon.png',
+                  width: 24,
+                  height: 24,
+                ),
+              ],
+            ),
+            SizedBox(height: 12),
+            Text(
+              context.l10n.dreamMotivation,
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.9),
+                fontSize: 14,
+              ),
+            ),
+            SizedBox(height: 12),
+            Row(
+              children: [
+                _buildProgressStep(1, context.l10n.knowledge, Colors.green[300]!),
+                _buildStepConnector(),
+                _buildProgressStep(2, context.l10n.exam, Colors.amber[300]!),
+                _buildStepConnector(),
+                _buildProgressStep(3, context.l10n.citizenship, Colors.red[300]!),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProgressStep(int number, String label, Color color) {
+    return Expanded(
+      child: Column(
+        children: [
+          Container(
+            width: 30,
+            height: 30,
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Text(
+                number.toString(),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(
+              color: color,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStepConnector() {
+    return Container(
+      width: 20,
+      height: 2,
+      color: Colors.white.withOpacity(0.3),
+    );
+  }
+
   Widget _buildStatItem({
     required String label,
     required String value,
@@ -207,68 +531,129 @@ class _HomeScreenState extends State<HomeScreen> {
     required VoidCallback onTap,
   }) {
     return Card(
-      elevation: 2,
+      elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(12),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12),
+        child: Stack(
+          children: [
+            // Amerikan Bayrağı Renkleri Arkaplanı
+            Positioned(
+              right: 0,
+              top: 0,
+              bottom: 0,
+              child: Container(
+                width: 8,
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(icon, color: color, size: 32),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      description,
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.red.shade100, Colors.red.shade300, Colors.blue.shade300],
+                  ),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(12),
+                    bottomRight: Radius.circular(12),
+                  ),
                 ),
               ),
-              Icon(Icons.arrow_forward_ios, color: Colors.grey[400]),
-            ],
-          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: color.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: color.withOpacity(0.2), width: 2),
+                    ),
+                    child: Icon(icon, color: color, size: 32),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          description,
+                          style: TextStyle(
+                            color: Colors.grey[700],
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Icon(Icons.arrow_forward_ios, color: Colors.grey[400]),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  void _navigateToQuiz(BuildContext context) {
+  void _navigateToQuizSelection(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => QuizScreen(questionService: widget.questionService),
+        builder: (context) => CategorySelectionScreen(
+          questionService: widget.questionService,
+          isForQuiz: true,
+        ),
       ),
     ).then((_) => _loadQuestions());
   }
 
-  void _navigateToFlashcards(BuildContext context) {
+  void _navigateToFlashcardSelection(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => FlashcardScreen(questionService: widget.questionService),
+        builder: (context) => CategorySelectionScreen(
+          questionService: widget.questionService,
+          isForQuiz: false,
+        ),
+      ),
+    ).then((_) => _loadQuestions());
+  }
+
+  void _navigateToWrongQuestions(BuildContext context) {
+    // Yanlış cevaplanmış soruları kontrol et
+    final wrongQuestions = widget.questionService.getIncorrectAnsweredQuestions();
+    
+    if (wrongQuestions.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Henüz yanlış cevaplanmış soru bulunmuyor. Önce bir quiz çözmelisiniz.'),
+        ),
+      );
+      return;
+    }
+    
+    // Yanlış cevaplanmış soruları quiz formatında al
+    final quizQuestions = widget.questionService.getIncorrectAnsweredQuestionsForQuiz();
+    final questionCount = quizQuestions.length > 10 ? 10 : quizQuestions.length;
+    
+    // Yanlış cevaplanmış sorularla bir quiz başlat
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => QuizScreen(
+          questionService: widget.questionService,
+          questionCount: questionCount,
+          questions: quizQuestions.take(questionCount).toList(),
+        ),
       ),
     ).then((_) => _loadQuestions());
   }

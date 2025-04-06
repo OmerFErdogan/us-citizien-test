@@ -30,6 +30,8 @@ class Question {
   bool isMarkedCorrect;
   bool isAttempted;
   String? selectedAnswer;
+  DateTime? lastAttemptDate; // Sorunun en son cevaplanma tarihi
+  int attemptCount; // Sorunun kaç kez denendiği
 
   Question({
     required this.id,
@@ -39,6 +41,8 @@ class Question {
     this.isMarkedCorrect = false,
     this.isAttempted = false,
     this.selectedAnswer,
+    this.lastAttemptDate,
+    this.attemptCount = 0,
   });
 
   factory Question.fromJson(Map<String, dynamic> json) {
@@ -49,6 +53,13 @@ class Question {
       options: (json['options'] as List)
           .map((option) => Option.fromJson(option as Map<String, dynamic>))
           .toList(),
+      isMarkedCorrect: json['isMarkedCorrect'] as bool? ?? false,
+      isAttempted: json['isAttempted'] as bool? ?? false,
+      selectedAnswer: json['selectedAnswer'] as String?,
+      lastAttemptDate: json['lastAttemptDate'] != null 
+          ? DateTime.parse(json['lastAttemptDate'] as String) 
+          : null,
+      attemptCount: json['attemptCount'] as int? ?? 0,
     );
   }
 
@@ -61,6 +72,8 @@ class Question {
       'isMarkedCorrect': isMarkedCorrect,
       'isAttempted': isAttempted,
       'selectedAnswer': selectedAnswer,
+      'lastAttemptDate': lastAttemptDate?.toIso8601String(),
+      'attemptCount': attemptCount,
     };
   }
 
@@ -72,6 +85,8 @@ class Question {
     bool? isMarkedCorrect,
     bool? isAttempted,
     String? selectedAnswer,
+    DateTime? lastAttemptDate,
+    int? attemptCount,
   }) {
     return Question(
       id: id ?? this.id,
@@ -81,6 +96,8 @@ class Question {
       isMarkedCorrect: isMarkedCorrect ?? this.isMarkedCorrect,
       isAttempted: isAttempted ?? this.isAttempted,
       selectedAnswer: selectedAnswer ?? this.selectedAnswer,
+      lastAttemptDate: lastAttemptDate ?? this.lastAttemptDate,
+      attemptCount: attemptCount ?? this.attemptCount,
     );
   }
   

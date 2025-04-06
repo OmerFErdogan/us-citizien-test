@@ -1,0 +1,229 @@
+{
+  "@@locale": "es",
+  "appTitle": "Aplicación de Examen Cívico de EE. UU.",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "americanDream": "SUEÑO AMERICANO",
+  "@americanDream": {
+    "description": "Title for American Dream banner"
+  },
+  "dreamMotivation": "Prepárate para el examen de ciudadanía y abre las puertas a tu nueva vida. ¡La Estatua de la Libertad te espera!",
+  "@dreamMotivation": {
+    "description": "Motivational text about American Dream"
+  },
+  "knowledge": "Conocimiento",
+  "@knowledge": {
+    "description": "First step in citizenship journey - Knowledge"
+  },
+  "exam": "Examen",
+  "@exam": {
+    "description": "Second step in citizenship journey - Exam"
+  },
+  "citizenship": "Ciudadanía",
+  "@citizenship": {
+    "description": "Third step in citizenship journey - Citizenship"
+  },
+  "dailyCitizenshipGoal": "Meta Diaria de Ciudadanía",
+  "@dailyCitizenshipGoal": {
+    "description": "Title for daily goal card"
+  },
+  "missionComplete": "¡Misión Cumplida!",
+  "@missionComplete": {
+    "description": "Text shown when daily goal is completed"
+  },
+  "citizenshipExam": "Examen de Ciudadanía",
+  "@citizenshipExam": {
+    "description": "Title for quiz button"
+  },
+  "oneStepCloser": "Un paso más cerca de tus sueños - cuestionario de 10 preguntas",
+  "@oneStepCloser": {
+    "description": "Description for quiz button"
+  },
+  "libertyCards": "Tarjetas de Libertad",
+  "@libertyCards": {
+    "description": "Title for flashcards button"
+  },
+  "learnWithCards": "Aprende conocimientos americanos con tarjetas",
+  "@learnWithCards": {
+    "description": "Description for flashcards button"
+  },
+  "secondChance": "Segunda Oportunidad",
+  "@secondChance": {
+    "description": "Title for wrong questions button"
+  },
+  "neverGiveUp": "Los sueños no se abandonan fácilmente - Repasa las preguntas que fallaste",
+  "@neverGiveUp": {
+    "description": "Description for wrong questions button"
+  },
+  "realizingDream": "¡Estás Realizando Tu Sueño Americano!",
+  "@realizingDream": {
+    "description": "Title for congratulation dialog"
+  },
+  "citizenshipJourney": "¡Un paso más en tu camino hacia la ciudadanía! Completaste todas las tarjetas.",
+  "@citizenshipJourney": {
+    "description": "Congratulation message for completing flashcards"
+  },
+  "libertyAwaits": "¡La Estatua de la Libertad te espera!",
+  "@libertyAwaits": {
+    "description": "Motivational message about Statue of Liberty"
+  },
+  "noCardsFound": "¡No se encontraron tarjetas para tu sueño americano!",
+  "@noCardsFound": {
+    "description": "Message shown when no flashcards are found"
+  },
+  "homeScreenTitle": "Aplicación de Aprendizaje",
+  "@homeScreenTitle": {
+    "description": "Title for the home screen"
+  },
+  "learningProgress": "Progreso de Aprendizaje",
+  "@learningProgress": {
+    "description": "Title for the progress section"
+  },
+  "totalQuestions": "Total de Preguntas",
+  "@totalQuestions": {
+    "description": "Label for total questions count"
+  },
+  "answered": "Respondidas",
+  "@answered": {
+    "description": "Label for answered questions count"
+  },
+  "successRate": "Tasa de Éxito",
+  "@successRate": {
+    "description": "Label for success rate percentage"
+  },
+  "startQuiz": "Iniciar Cuestionario",
+  "@startQuiz": {
+    "description": "Button text to start a quiz"
+  },
+  "quizDescription": "Pon a prueba tus conocimientos con un cuestionario de 10 preguntas",
+  "@quizDescription": {
+    "description": "Description for the quiz mode"
+  },
+  "flashcards": "Tarjetas de Memoria",
+  "@flashcards": {
+    "description": "Button text for flashcards mode"
+  },
+  "flashcardsDescription": "Aprende preguntas y respuestas con tarjetas",
+  "@flashcardsDescription": {
+    "description": "Description for the flashcards mode"
+  },
+  "detailedStatistics": "Estadísticas Detalladas",
+  "@detailedStatistics": {
+    "description": "Button text for detailed statistics"
+  },
+  "statisticsComingSoon": "Página de estadísticas próximamente",
+  "@statisticsComingSoon": {
+    "description": "Message for upcoming statistics feature"
+  },
+  "selectCategories": "Seleccionar Categorías",
+  "@selectCategories": {
+    "description": "Title for category selection screen"
+  },
+  "selectCategoriesDescription": "Elige categorías en las que enfocarte",
+  "@selectCategoriesDescription": {
+    "description": "Description for category selection"
+  },
+  "allCategories": "Todas las Categorías",
+  "@allCategories": {
+    "description": "Label for selecting all categories"
+  },
+  "startLearning": "Comenzar a Aprender",
+  "@startLearning": {
+    "description": "Button text to start learning"
+  },
+  "question": "Pregunta",
+  "@question": {
+    "description": "Label for question"
+  },
+  "correct": "Correcto",
+  "@correct": {
+    "description": "Label for correct answer"
+  },
+  "incorrect": "Incorrecto",
+  "@incorrect": {
+    "description": "Label for incorrect answer"
+  },
+  "next": "Siguiente",
+  "@next": {
+    "description": "Button text for next question"
+  },
+  "finish": "Finalizar",
+  "@finish": {
+    "description": "Button text to finish quiz"
+  },
+  "quizResults": "Resultados del Cuestionario",
+  "@quizResults": {
+    "description": "Title for quiz results screen"
+  },
+  "yourScore": "Tu Puntuación",
+  "@yourScore": {
+    "description": "Label for user's score"
+  },
+  "correctAnswers": "Respuestas Correctas",
+  "@correctAnswers": {
+    "description": "Label for correct answers count"
+  },
+  "incorrectAnswers": "Respuestas Incorrectas",
+  "@incorrectAnswers": {
+    "description": "Label for incorrect answers count"
+  },
+  "backToHome": "Volver al Inicio",
+  "@backToHome": {
+    "description": "Button text to return to home screen"
+  },
+  "reviewAnswers": "Revisar Respuestas",
+  "@reviewAnswers": {
+    "description": "Button text to review answers"
+  },
+  "loading": "Cargando...",
+  "@loading": {
+    "description": "Text shown during loading"
+  },
+  "errorLoading": "Ocurrió un error al cargar las preguntas: {error}",
+  "@errorLoading": {
+    "description": "Error message when loading fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "knewIt": "Lo Sabía",
+  "@knewIt": {
+    "description": "Button text for marking flashcard as known"
+  },
+  "stillLearning": "Aún Aprendiendo",
+  "@stillLearning": {
+    "description": "Button text for marking flashcard as still learning"
+  },
+  "tapToFlip": "Toca para voltear",
+  "@tapToFlip": {
+    "description": "Instruction to flip flashcard"
+  },
+  "principles": "Principios de la Democracia Americana",
+  "@principles": {
+    "description": "Category name for principles of American democracy"
+  },
+  "system": "Sistema de Gobierno",
+  "@system": {
+    "description": "Category name for system of government"
+  },
+  "rights": "Derechos y Responsabilidades",
+  "@rights": {
+    "description": "Category name for rights and responsibilities"
+  },
+  "history": "Historia Americana",
+  "@history": {
+    "description": "Category name for American history"
+  },
+  "geography": "Geografía",
+  "@geography": {
+    "description": "Category name for geography"
+  },
+  "symbols": "Símbolos y Días Festivos",
+  "@symbols": {
+    "description": "Category name for symbols and holidays"
+  }
+}

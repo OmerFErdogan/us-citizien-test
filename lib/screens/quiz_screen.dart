@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:us_civics_test_app/screens/answer_option.dart';
 import '../models/question.dart';
 import '../services/question_service.dart';
-import '../widgets/answer_option.dart';
 import 'result_screen.dart';
 
 class QuizScreen extends StatefulWidget {
   final QuestionService questionService;
   final int questionCount;
-  final List<String>? categories; // Yeni kategori parametresi
+  final List<String>? categories; // Kategori parametresi
+  final List<Question>? questions; // Doğrudan gönderilen sorular (özel quizler için)
 
   const QuizScreen({
     Key? key, 
     required this.questionService,
     this.questionCount = 10,
     this.categories, // Seçili kategoriler
+    this.questions, // Özel sorular
   }) : super(key: key);
 
   @override
@@ -35,43 +36,55 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   Future<void> _loadQuizQuestions() async {
-  setState(() {
-    _isLoading = true;
-  });
+    setState(() {
+      _isLoading = true;
+    });
 
-  try {
-    await widget.questionService.loadQuestions();
-    
-    // Kategori filtresi uygulandıysa onu kullan
-    List<Question> questions;
-    if (widget.categories != null && widget.categories!.isNotEmpty) {
-      questions = widget.questionService.getRandomQuestionsByCategories(
-        widget.questionCount, 
-        widget.categories!
-      );
-    } else {
-      questions = widget.questionService.getRandomQuestions(widget.questionCount);
-    }
-    
-    setState(() {
-      _questions = questions;
-      _currentQuestionIndex = 0;
-      _selectedAnswer = null;
-      _answerChecked = false;
-      _isLoading = false;
-    });
-  } catch (e) {
-    setState(() {
-      _isLoading = false;
-    });
-    
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Sorular yüklenirken hata oluştu: $e')),
-      );
+    try {
+      await widget.questionService.loadQuestions();
+      
+      // Özel sorular gönderildiyse onları kullan
+      if (widget.questions != null && widget.questions!.isNotEmpty) {
+        setState(() {
+          _questions = widget.questions!;
+          _currentQuestionIndex = 0;
+          _selectedAnswer = null;
+          _answerChecked = false;
+          _isLoading = false;
+        });
+        return;
+      }
+      
+      // Kategori filtresi uygulandıysa onu kullan
+      List<Question> questions;
+      if (widget.categories != null && widget.categories!.isNotEmpty) {
+        questions = widget.questionService.getRandomQuestionsByCategories(
+          widget.questionCount, 
+          widget.categories!
+        );
+      } else {
+        questions = widget.questionService.getRandomQuestions(widget.questionCount);
+      }
+      
+      setState(() {
+        _questions = questions;
+        _currentQuestionIndex = 0;
+        _selectedAnswer = null;
+        _answerChecked = false;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+      
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Sorular yüklenirken hata oluştu: $e')),
+        );
+      }
     }
   }
-}
 
   void _selectAnswer(String answer) {
     if (_answerChecked) return;

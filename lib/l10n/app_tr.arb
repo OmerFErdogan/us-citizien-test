@@ -1,0 +1,229 @@
+{
+  "@@locale": "tr",
+  "appTitle": "ABD Vatandaşlık Testi Uygulaması",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "americanDream": "AMERİKAN RÜYASI",
+  "@americanDream": {
+    "description": "Title for American Dream banner"
+  },
+  "dreamMotivation": "Vatandaşlık sınavına hazırlanarak yeni hayatının kapılarını arala. Özgürlük heykeli seni bekliyor!",
+  "@dreamMotivation": {
+    "description": "Motivational text about American Dream"
+  },
+  "knowledge": "Bilgi",
+  "@knowledge": {
+    "description": "First step in citizenship journey - Knowledge"
+  },
+  "exam": "Sınav",
+  "@exam": {
+    "description": "Second step in citizenship journey - Exam"
+  },
+  "citizenship": "Vatandaşlık",
+  "@citizenship": {
+    "description": "Third step in citizenship journey - Citizenship"
+  },
+  "dailyCitizenshipGoal": "Günlük Vatandaşlık Hedefi",
+  "@dailyCitizenshipGoal": {
+    "description": "Title for daily goal card"
+  },
+  "missionComplete": "Görev Tamamlandı!",
+  "@missionComplete": {
+    "description": "Text shown when daily goal is completed"
+  },
+  "citizenshipExam": "Vatandaşlık Sınavı",
+  "@citizenshipExam": {
+    "description": "Title for quiz button"
+  },
+  "oneStepCloser": "Hayallerine bir adım daha yaklaş - 10 soruluk quiz",
+  "@oneStepCloser": {
+    "description": "Description for quiz button"
+  },
+  "libertyCards": "Özgürlük Kartları",
+  "@libertyCards": {
+    "description": "Title for flashcards button"
+  },
+  "learnWithCards": "Amerikan bilgilerini flashcardlarla öğren",
+  "@learnWithCards": {
+    "description": "Description for flashcards button"
+  },
+  "secondChance": "İkinci Şans",
+  "@secondChance": {
+    "description": "Title for wrong questions button"
+  },
+  "neverGiveUp": "Hayaller kolay vazgeçilmez - Yanlış sorularını tekrar çöz",
+  "@neverGiveUp": {
+    "description": "Description for wrong questions button"
+  },
+  "realizingDream": "Amerikan Rüyanı Gerçekleştiriyorsun!",
+  "@realizingDream": {
+    "description": "Title for congratulation dialog"
+  },
+  "citizenshipJourney": "Vatandaşlık yolunda bir adım daha! Tüm kartları tamamladın.",
+  "@citizenshipJourney": {
+    "description": "Congratulation message for completing flashcards"
+  },
+  "libertyAwaits": "Özgürlük Heykeli seni bekliyor!",
+  "@libertyAwaits": {
+    "description": "Motivational message about Statue of Liberty"
+  },
+  "noCardsFound": "Amerikan rüyan için kart bulunamadı!",
+  "@noCardsFound": {
+    "description": "Message shown when no flashcards are found"
+  },
+  "homeScreenTitle": "Öğrenme Uygulaması",
+  "@homeScreenTitle": {
+    "description": "Title for the home screen"
+  },
+  "learningProgress": "Öğrenme İlerlemen",
+  "@learningProgress": {
+    "description": "Title for the progress section"
+  },
+  "totalQuestions": "Toplam Soru",
+  "@totalQuestions": {
+    "description": "Label for total questions count"
+  },
+  "answered": "Cevaplanan",
+  "@answered": {
+    "description": "Label for answered questions count"
+  },
+  "successRate": "Başarı Oranı",
+  "@successRate": {
+    "description": "Label for success rate percentage"
+  },
+  "startQuiz": "Quiz Başlat",
+  "@startQuiz": {
+    "description": "Button text to start a quiz"
+  },
+  "quizDescription": "Bilgilerini test etmek için 10 soruluk quiz",
+  "@quizDescription": {
+    "description": "Description for the quiz mode"
+  },
+  "flashcards": "Flashcardlar",
+  "@flashcards": {
+    "description": "Button text for flashcards mode"
+  },
+  "flashcardsDescription": "Soruları ve cevapları kartlarla öğren",
+  "@flashcardsDescription": {
+    "description": "Description for the flashcards mode"
+  },
+  "detailedStatistics": "Detaylı İstatistikler",
+  "@detailedStatistics": {
+    "description": "Button text for detailed statistics"
+  },
+  "statisticsComingSoon": "İstatistik sayfası yakında eklenecek",
+  "@statisticsComingSoon": {
+    "description": "Message for upcoming statistics feature"
+  },
+  "selectCategories": "Kategorileri Seç",
+  "@selectCategories": {
+    "description": "Title for category selection screen"
+  },
+  "selectCategoriesDescription": "Odaklanmak istediğin kategorileri seç",
+  "@selectCategoriesDescription": {
+    "description": "Description for category selection"
+  },
+  "allCategories": "Tüm Kategoriler",
+  "@allCategories": {
+    "description": "Label for selecting all categories"
+  },
+  "startLearning": "Öğrenmeye Başla",
+  "@startLearning": {
+    "description": "Button text to start learning"
+  },
+  "question": "Soru",
+  "@question": {
+    "description": "Label for question"
+  },
+  "correct": "Doğru",
+  "@correct": {
+    "description": "Label for correct answer"
+  },
+  "incorrect": "Yanlış",
+  "@incorrect": {
+    "description": "Label for incorrect answer"
+  },
+  "next": "Sonraki",
+  "@next": {
+    "description": "Button text for next question"
+  },
+  "finish": "Bitir",
+  "@finish": {
+    "description": "Button text to finish quiz"
+  },
+  "quizResults": "Quiz Sonuçları",
+  "@quizResults": {
+    "description": "Title for quiz results screen"
+  },
+  "yourScore": "Puanın",
+  "@yourScore": {
+    "description": "Label for user's score"
+  },
+  "correctAnswers": "Doğru Cevaplar",
+  "@correctAnswers": {
+    "description": "Label for correct answers count"
+  },
+  "incorrectAnswers": "Yanlış Cevaplar",
+  "@incorrectAnswers": {
+    "description": "Label for incorrect answers count"
+  },
+  "backToHome": "Ana Sayfaya Dön",
+  "@backToHome": {
+    "description": "Button text to return to home screen"
+  },
+  "reviewAnswers": "Cevapları İncele",
+  "@reviewAnswers": {
+    "description": "Button text to review answers"
+  },
+  "loading": "Yükleniyor...",
+  "@loading": {
+    "description": "Text shown during loading"
+  },
+  "errorLoading": "Sorular yüklenirken bir hata oluştu: {error}",
+  "@errorLoading": {
+    "description": "Error message when loading fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "knewIt": "Biliyordum",
+  "@knewIt": {
+    "description": "Button text for marking flashcard as known"
+  },
+  "stillLearning": "Hala Öğreniyorum",
+  "@stillLearning": {
+    "description": "Button text for marking flashcard as still learning"
+  },
+  "tapToFlip": "Çevirmek için dokun",
+  "@tapToFlip": {
+    "description": "Instruction to flip flashcard"
+  },
+  "principles": "Amerikan Demokrasisinin İlkeleri",
+  "@principles": {
+    "description": "Category name for principles of American democracy"
+  },
+  "system": "Hükümet Sistemi",
+  "@system": {
+    "description": "Category name for system of government"
+  },
+  "rights": "Haklar ve Sorumluluklar",
+  "@rights": {
+    "description": "Category name for rights and responsibilities"
+  },
+  "history": "Amerikan Tarihi",
+  "@history": {
+    "description": "Category name for American history"
+  },
+  "geography": "Coğrafya",
+  "@geography": {
+    "description": "Category name for geography"
+  },
+  "symbols": "Semboller ve Tatiller",
+  "@symbols": {
+    "description": "Category name for symbols and holidays"
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "@@locale": "en",
+  "appTitle": "US Civics Test App",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "americanDream": "AMERICAN DREAM",
+  "@americanDream": {
+    "description": "Title for American Dream banner"
+  },
+  "dreamMotivation": "Prepare for the citizenship test and open the doors to your new life. The Statue of Liberty awaits you!",
+  "@dreamMotivation": {
+    "description": "Motivational text about American Dream"
+  },
+  "knowledge": "Knowledge",
+  "@knowledge": {
+    "description": "First step in citizenship journey - Knowledge"
+  },
+  "exam": "Exam",
+  "@exam": {
+    "description": "Second step in citizenship journey - Exam"
+  },
+  "citizenship": "Citizenship",
+  "@citizenship": {
+    "description": "Third step in citizenship journey - Citizenship"
+  },
+  "dailyCitizenshipGoal": "Daily Citizenship Goal",
+  "@dailyCitizenshipGoal": {
+    "description": "Title for daily goal card"
+  },
+  "missionComplete": "Mission Complete!",
+  "@missionComplete": {
+    "description": "Text shown when daily goal is completed"
+  },
+  "citizenshipExam": "Citizenship Exam",
+  "@citizenshipExam": {
+    "description": "Title for quiz button"
+  },
+  "oneStepCloser": "Take one step closer to your dreams - 10 question quiz",
+  "@oneStepCloser": {
+    "description": "Description for quiz button"
+  },
+  "libertyCards": "Liberty Cards",
+  "@libertyCards": {
+    "description": "Title for flashcards button"
+  },
+  "learnWithCards": "Learn American knowledge with flashcards",
+  "@learnWithCards": {
+    "description": "Description for flashcards button"
+  },
+  "secondChance": "Second Chance",
+  "@secondChance": {
+    "description": "Title for wrong questions button"
+  },
+  "neverGiveUp": "Dreams are not easily abandoned - Review questions you missed",
+  "@neverGiveUp": {
+    "description": "Description for wrong questions button"
+  },
+  "realizingDream": "You're Realizing Your American Dream!",
+  "@realizingDream": {
+    "description": "Title for congratulation dialog"
+  },
+  "citizenshipJourney": "One more step on your citizenship journey! You completed all cards.",
+  "@citizenshipJourney": {
+    "description": "Congratulation message for completing flashcards"
+  },
+  "libertyAwaits": "The Statue of Liberty awaits you!",
+  "@libertyAwaits": {
+    "description": "Motivational message about Statue of Liberty"
+  },
+  "noCardsFound": "No cards found for your American dream!",
+  "@noCardsFound": {
+    "description": "Message shown when no flashcards are found"
+  },
+  "homeScreenTitle": "Learning App",
+  "@homeScreenTitle": {
+    "description": "Title for the home screen"
+  },
+  "learningProgress": "Learning Progress",
+  "@learningProgress": {
+    "description": "Title for the progress section"
+  },
+  "totalQuestions": "Total Questions",
+  "@totalQuestions": {
+    "description": "Label for total questions count"
+  },
+  "answered": "Answered",
+  "@answered": {
+    "description": "Label for answered questions count"
+  },
+  "successRate": "Success Rate",
+  "@successRate": {
+    "description": "Label for success rate percentage"
+  },
+  "startQuiz": "Start Quiz",
+  "@startQuiz": {
+    "description": "Button text to start a quiz"
+  },
+  "quizDescription": "Test your knowledge with a 10-question quiz",
+  "@quizDescription": {
+    "description": "Description for the quiz mode"
+  },
+  "flashcards": "Flashcards",
+  "@flashcards": {
+    "description": "Button text for flashcards mode"
+  },
+  "flashcardsDescription": "Learn questions and answers with cards",
+  "@flashcardsDescription": {
+    "description": "Description for the flashcards mode"
+  },
+  "detailedStatistics": "Detailed Statistics",
+  "@detailedStatistics": {
+    "description": "Button text for detailed statistics"
+  },
+  "statisticsComingSoon": "Statistics page coming soon",
+  "@statisticsComingSoon": {
+    "description": "Message for upcoming statistics feature"
+  },
+  "selectCategories": "Select Categories",
+  "@selectCategories": {
+    "description": "Title for category selection screen"
+  },
+  "selectCategoriesDescription": "Choose categories to focus on",
+  "@selectCategoriesDescription": {
+    "description": "Description for category selection"
+  },
+  "allCategories": "All Categories",
+  "@allCategories": {
+    "description": "Label for selecting all categories"
+  },
+  "startLearning": "Start Learning",
+  "@startLearning": {
+    "description": "Button text to start learning"
+  },
+  "question": "Question",
+  "@question": {
+    "description": "Label for question"
+  },
+  "correct": "Correct",
+  "@correct": {
+    "description": "Label for correct answer"
+  },
+  "incorrect": "Incorrect",
+  "@incorrect": {
+    "description": "Label for incorrect answer"
+  },
+  "next": "Next",
+  "@next": {
+    "description": "Button text for next question"
+  },
+  "finish": "Finish",
+  "@finish": {
+    "description": "Button text to finish quiz"
+  },
+  "quizResults": "Quiz Results",
+  "@quizResults": {
+    "description": "Title for quiz results screen"
+  },
+  "yourScore": "Your Score",
+  "@yourScore": {
+    "description": "Label for user's score"
+  },
+  "correctAnswers": "Correct Answers",
+  "@correctAnswers": {
+    "description": "Label for correct answers count"
+  },
+  "incorrectAnswers": "Incorrect Answers",
+  "@incorrectAnswers": {
+    "description": "Label for incorrect answers count"
+  },
+  "backToHome": "Back to Home",
+  "@backToHome": {
+    "description": "Button text to return to home screen"
+  },
+  "reviewAnswers": "Review Answers",
+  "@reviewAnswers": {
+    "description": "Button text to review answers"
+  },
+  "loading": "Loading...",
+  "@loading": {
+    "description": "Text shown during loading"
+  },
+  "errorLoading": "An error occurred while loading questions: {error}",
+  "@errorLoading": {
+    "description": "Error message when loading fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "knewIt": "Knew It",
+  "@knewIt": {
+    "description": "Button text for marking flashcard as known"
+  },
+  "stillLearning": "Still Learning",
+  "@stillLearning": {
+    "description": "Button text for marking flashcard as still learning"
+  },
+  "tapToFlip": "Tap to flip",
+  "@tapToFlip": {
+    "description": "Instruction to flip flashcard"
+  },
+  "principles": "Principles of American Democracy",
+  "@principles": {
+    "description": "Category name for principles of American democracy"
+  },
+  "system": "System of Government",
+  "@system": {
+    "description": "Category name for system of government"
+  },
+  "rights": "Rights and Responsibilities",
+  "@rights": {
+    "description": "Category name for rights and responsibilities"
+  },
+  "history": "American History",
+  "@history": {
+    "description": "Category name for American history"
+  },
+  "geography": "Geography",
+  "@geography": {
+    "description": "Category name for geography"
+  },
+  "symbols": "Symbols and Holidays",
+  "@symbols": {
+    "description": "Category name for symbols and holidays"
+  }
+}
