@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:us_civics_test_app/screens/language_selection_screen.dart';
 import 'package:us_civics_test_app/screens/static_screen.dart';
 import 'package:us_civics_test_app/screens/test_intro_screen.dart';
 import '../services/question_service.dart';
+import '../services/settings/language_service.dart';
 import '../utils/extensions.dart';
 import 'quiz_screen.dart';
 import 'category_selection_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../features/camp_mode/screens/camp_intro_screen.dart';
+import '../features/camp_mode/services/camp_service.dart';
 
 
 
 class HomeScreen extends StatefulWidget {
   final QuestionService questionService;
+  final LanguageService languageService;
 
   const HomeScreen({
     Key? key, 
-    required this.questionService, 
+    required this.questionService,
+    required this.languageService,
   }) : super(key: key);
 
   @override
@@ -66,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
     } catch (e) {
       setState(() {
         _isLoading = false;
-        _errorMessage = 'Sorular yüklenirken bir hata oluştu: $e';
+        _errorMessage = context.l10n.errorLoading('$e');
       });
     }
   }
@@ -129,8 +135,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }
               } else if (value == 'settings') {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Ayarlar yakında eklenecek')),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LanguageSelectionScreen(),
+                  ),
                 );
               }
             },
@@ -230,11 +239,20 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 16),
             _buildActionCard(
-              title: 'Vatandaşlık Sınavı',
-              description: 'Gerçek USCIS sınavı simülasyonu (10 soru, 10 dk)',
+              title: context.l10n.citizenshipExam,
+              description: context.l10n.realExamSimulation,
               icon: Icons.workspace_premium,
               color: Colors.green,
               onTap: () => _navigateToTestMode(context),
+              isHighlighted: true,
+            ),
+            const SizedBox(height: 16),
+            _buildActionCard(
+              title: context.l10n.tenDayCamp,
+              description: context.l10n.tenDayCampDescription,
+              icon: Icons.calendar_month,
+              color: Colors.purple,
+              onTap: () => _navigateToCampMode(context),
               isHighlighted: true,
             ),
             const SizedBox(height: 32),
@@ -252,7 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ).then((_) => _loadQuestions());
               },
               icon: const Icon(Icons.bar_chart),
-              label: const Text('Detaylı İstatistikler'),
+              label: Text(context.l10n.detailedStatisticsButton),
               style: OutlinedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 12),
               ),
@@ -350,7 +368,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '$_todayQuestions / $_dailyGoal soru',
+                          '${_todayQuestions} / ${_dailyGoal} soru',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -405,9 +423,9 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Öğrenme İlerlemen',
-              style: TextStyle(
+            Text(
+              context.l10n.learningProgressTitle,
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
@@ -417,17 +435,17 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildStatItem(
-                  label: 'Toplam Soru',
+                  label: context.l10n.totalQuestions,
                   value: '$_totalQuestions',
                   icon: Icons.help_outline,
                 ),
                 _buildStatItem(
-                  label: 'Cevaplanan',
+                  label: context.l10n.answered,
                   value: '$_answeredQuestions',
                   icon: Icons.check_circle_outline,
                 ),
                 _buildStatItem(
-                  label: 'Başarı Oranı',
+                  label: context.l10n.successRate,
                   value: '${(_correctRate * 100).toStringAsFixed(1)}%',
                   icon: Icons.trending_up,
                 ),
@@ -559,7 +577,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildStatItem({
-    required String label,
+    required dynamic label,
     required String value,
     required IconData icon,
   }) {
@@ -575,7 +593,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         Text(
-          label,
+          label.toString(),
           style: TextStyle(
             color: Colors.grey[600],
             fontSize: 12,
@@ -641,7 +659,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Icon(Icons.new_releases, color: Colors.white, size: 12),
                       SizedBox(width: 4),
                       Text(
-                        'YENİ',
+                        context.l10n.newFeature,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 10,
@@ -740,8 +758,8 @@ class _HomeScreenState extends State<HomeScreen> {
     
     if (wrongQuestions.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Henüz yanlış cevaplanmış soru bulunmuyor. Önce bir quiz çözmelisiniz.'),
+        SnackBar(
+          content: Text(context.l10n.noWrongQuestionsYet),
         ),
       );
       return;
@@ -762,5 +780,30 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     ).then((_) => _loadQuestions());
+  }
+  
+  void _navigateToCampMode(BuildContext context) async {
+    try {
+      // Kamp moduna geçmeden önce servisi başlat ve senkronize et
+      final campService = CampService();
+      await campService.initialize();
+      await campService.syncProgressWithActivities();
+      
+      // Kamp ekranına yönlendir
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const CampIntroScreen(),
+        ),
+      ).then((_) => _loadQuestions());
+    } catch (e) {
+      print('Kamp moduna geçiş hatası: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(context.l10n.campModeError),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 }

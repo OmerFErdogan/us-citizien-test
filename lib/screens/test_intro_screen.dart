@@ -27,7 +27,7 @@ class _TestIntroScreenState extends State<TestIntroScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ABD Vatandaşlık Sınavı Simülasyonu'),
+        title: Text(context.l10n.testSimulation),
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -58,7 +58,7 @@ class _TestIntroScreenState extends State<TestIntroScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Resmi Vatandaşlık Sınavı Simülasyonu',
+                                  context.l10n.officialTestSimulation,
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
@@ -67,7 +67,7 @@ class _TestIntroScreenState extends State<TestIntroScreen> {
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  'Gerçek ABD Vatandaşlık sınav tecrübesini yaşayın',
+                                  context.l10n.experienceRealTest,
                                   style: TextStyle(
                                     color: Colors.white.withOpacity(0.9),
                                     fontSize: 14,
@@ -83,9 +83,9 @@ class _TestIntroScreenState extends State<TestIntroScreen> {
                   const SizedBox(height: 24),
                   
                   // Sınav hakkında bilgi
-                  const Text(
-                    'Sınav Hakkında',
-                    style: TextStyle(
+                  Text(
+                    context.l10n.aboutExam,
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -94,23 +94,23 @@ class _TestIntroScreenState extends State<TestIntroScreen> {
                   
                   _buildInfoCard(
                     icon: Icons.quiz,
-                    title: '10 Sivil Eğitim Sorusu',
-                    description: 'USCIS görevlisi sınav sırasında 100 soruluk listeden 10 soru sorar.',
+                    title: context.l10n.civicsQuestions,
+                    description: context.l10n.uscisOfficerQuestions,
                   ),
                   _buildInfoCard(
                     icon: Icons.check_circle,
-                    title: 'Geçme Kriteri: 6/10',
-                    description: 'Sınavı geçmek için 10 sorudan en az 6 tanesini doğru cevaplamalısınız.',
+                    title: context.l10n.passingCriteria,
+                    description: context.l10n.needCorrectAnswers,
                   ),
                   _buildInfoCard(
                     icon: Icons.timer,
-                    title: '10 Dakika Süre',
-                    description: 'Bu simülasyonda, tüm soruları cevaplamak için 10 dakikanız var.',
+                    title: context.l10n.tenMinuteTime,
+                    description: context.l10n.timeDescription,
                   ),
                   _buildInfoCard(
                     icon: Icons.priority_high,
-                    title: 'Dikkat',
-                    description: 'Gerçek sınavda, soruları sözlü olarak cevaplandırmanız gerekir ve sınav yapan USCIS görevlisi sınavı istediği zaman durdurabilir.',
+                    title: context.l10n.attention,
+                    description: context.l10n.realExamNote,
                   ),
                   
                   const SizedBox(height: 24),
@@ -135,7 +135,7 @@ class _TestIntroScreenState extends State<TestIntroScreen> {
                           ),
                           Expanded(
                             child: Text(
-                              'Bu simülasyonun yalnızca pratik amaçlı olduğunu ve gerçek sınavdan farklı olabileceğini anlıyorum.',
+                              context.l10n.simulationDisclaimer,
                               style: TextStyle(fontSize: 14),
                             ),
                           ),
@@ -153,7 +153,7 @@ class _TestIntroScreenState extends State<TestIntroScreen> {
                     child: ElevatedButton.icon(
                       onPressed: _agreesToTerms ? _startTest : null,
                       icon: const Icon(Icons.play_arrow),
-                      label: const Text('Sınavı Başlat'),
+                      label: Text(context.l10n.startExam),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
                         foregroundColor: Colors.white,
@@ -239,7 +239,7 @@ class _TestIntroScreenState extends State<TestIntroScreen> {
       
       if (questions.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Soru yüklenirken hata oluştu!')),
+          SnackBar(content: Text(context.l10n.errorLoadingQuestions)),
         );
         setState(() {
           _isLoading = false;
@@ -259,7 +259,7 @@ class _TestIntroScreenState extends State<TestIntroScreen> {
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Hata: $e')),
+        SnackBar(content: Text(context.l10n.error(e.toString()))),
       );
       setState(() {
         _isLoading = false;

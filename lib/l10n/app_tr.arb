@@ -253,5 +253,429 @@
   "progressReset": "İlerlemeniz sıfırlandı",
   "@progressReset": {
     "description": "Message shown when progress is reset"
+  },
+  "learningProgressTitle": "Öğrenme İlerlemen",
+  "@learningProgressTitle": {
+    "description": "Title for the learning progress card"
+  },
+  "detailedStatisticsButton": "Detaylı İstatistikler",
+  "@detailedStatisticsButton": {
+    "description": "Button text for detailed statistics"
+  },
+  "realExamSimulation": "Gerçek USCIS sınavı simülasyonu (10 soru, 10 dk)",
+  "@realExamSimulation": {
+    "description": "Description for the real exam simulation mode"
+  },
+  "tenDayCamp": "10 Günde Vatandaşlık",
+  "@tenDayCamp": {
+    "description": "Title for 10-day citizenship camp"
+  },
+  "tenDayCampDescription": "10 günlük yoğun kamp programı ile sınava hazırlan",
+  "@tenDayCampDescription": {
+    "description": "Description for 10-day citizenship camp"
+  },
+  "noWrongQuestionsYet": "Henüz yanlış cevaplanmış soru bulunmuyor. Önce bir quiz çözmelisiniz.",
+  "@noWrongQuestionsYet": {
+    "description": "Message shown when there are no incorrect questions to review"
+  },
+  "campModeError": "Kamp modu yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.",
+  "@campModeError": {
+    "description": "Error message when loading camp mode fails"
+  },
+  "language": "Dil",
+  "@language": {
+    "description": "Title for language selection screen"
+  },
+  "selectLanguage": "Tercih ettiğin dili seç",
+  "@selectLanguage": {
+    "description": "Instruction for selecting language"
+  },
+  "save": "Kaydet",
+  "@save": {
+    "description": "Button text for save action"
+  },
+  "languageChanged": "Dil değiştirildi",
+  "@languageChanged": {
+    "description": "Message shown when language is changed"
+  },
+  "testSimulation": "ABD Vatandaşlık Sınavı Simülasyonu",
+  "@testSimulation": {
+    "description": "Title for test simulation screen"
+  },
+  "officialTestSimulation": "Resmi Vatandaşlık Sınavı Simülasyonu",
+  "@officialTestSimulation": {
+    "description": "Title for official test simulation banner"
+  },
+  "experienceRealTest": "Gerçek ABD Vatandaşlık sınav tecrübesini yaşayın",
+  "@experienceRealTest": {
+    "description": "Subtitle for test simulation"
+  },
+  "aboutExam": "Sınav Hakkında",
+  "@aboutExam": {
+    "description": "Header for exam information section"
+  },
+  "civicsQuestions": "10 Sivil Eğitim Sorusu",
+  "@civicsQuestions": {
+    "description": "Title for civics questions info card"
+  },
+  "uscisOfficerQuestions": "USCIS görevlisi sınav sırasında 100 soruluk listeden 10 soru sorar.",
+  "@uscisOfficerQuestions": {
+    "description": "Description of how questions are asked during exam"
+  },
+  "passingCriteria": "Geçme Kriteri: 6/10",
+  "@passingCriteria": {
+    "description": "Title for passing criteria info card"
+  },
+  "needCorrectAnswers": "Sınavı geçmek için 10 sorudan en az 6 tanesini doğru cevaplamalısınız.",
+  "@needCorrectAnswers": {
+    "description": "Description of passing criteria"
+  },
+  "tenMinuteTime": "10 Dakika Süre",
+  "@tenMinuteTime": {
+    "description": "Title for time limit info card"
+  },
+  "timeDescription": "Bu simülasyonda, tüm soruları cevaplamak için 10 dakikanız var.",
+  "@timeDescription": {
+    "description": "Description of time limit"
+  },
+  "realExamNote": "Gerçek sınavda, soruları sözlü olarak cevaplandırmanız gerekir ve sınav yapan USCIS görevlisi sınavı istediği zaman durdurabilir.",
+  "@realExamNote": {
+    "description": "Note about the real exam procedure"
+  },
+  "simulationDisclaimer": "Bu simülasyonun yalnızca pratik amaçlı olduğunu ve gerçek sınavdan farklı olabileceğini anlıyorum.",
+  "@simulationDisclaimer": {
+    "description": "Disclaimer text for test simulation"
+  },
+  "startExam": "Sınavı Başlat",
+  "@startExam": {
+    "description": "Button text to start the exam"
+  },
+  "errorLoadingQuestions": "Soru yüklenirken hata oluştu!",
+  "@errorLoadingQuestions": {
+    "description": "Error message when questions fail to load"
+  },
+  "error": "Hata: {message}",
+  "@error": {
+    "description": "Generic error message with details",
+    "placeholders": {
+      "message": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "usExam": "ABD Vatandaşlık Sınavı",
+  "@usExam": {
+    "description": "Title for US citizenship exam screen"
+  },
+  "question": "Soru {current}/{total}",
+  "@question": {
+    "description": "Question progress indicator",
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "example": "1"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "needSixCorrect": "Geçmek için en az 6 doğru cevap",
+  "@needSixCorrect": {
+    "description": "Reminder text about passing criteria"
+  },
+  "uscisOfficer": "USCIS Görevlisi",
+  "@uscisOfficer": {
+    "description": "USCIS officer label"
+  },
+  "previous": "Önceki",
+  "@previous": {
+    "description": "Button text for previous question"
+  },
+  "pause": "Duraklat",
+  "@pause": {
+    "description": "Button text to pause the timer"
+  },
+  "resume": "Devam Et",
+  "@resume": {
+    "description": "Button text to resume the timer"
+  },
+  "finishExam": "Sınavı Bitir",
+  "@finishExam": {
+    "description": "Button text to finish the exam"  
+  },
+  "examResults": "Sınav Sonuçları",
+  "@examResults": {
+    "description": "Title for exam results screen"
+  },
+  "quizResults": "Quiz Sonuçları",
+  "@quizResults": {
+    "description": "Title for quiz results screen"
+  },
+  "examCompleted": "Sınav Tamamlandı!",
+  "@examCompleted": {
+    "description": "Text shown when exam is completed"
+  },
+  "quizCompleted": "Quiz Tamamlandı!",
+  "@quizCompleted": {
+    "description": "Text shown when quiz is completed"
+  },
+  "pass": "GEÇTİNİZ!",
+  "@pass": {
+    "description": "Text shown when user passes the exam"
+  },
+  "fail": "KALDINIZ",
+  "@fail": {
+    "description": "Text shown when user fails the exam"
+  },
+  "correctIncorrect": "{correct} doğru, {incorrect} yanlış",
+  "@correctIncorrect": {
+    "description": "Text showing number of correct and incorrect answers",
+    "placeholders": {
+      "correct": {
+        "type": "int",
+        "example": "7"
+      },
+      "incorrect": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "passCriteria": "Geçme Kriteri: En az 6/10 doğru cevap",
+  "@passCriteria": {
+    "description": "Text showing the pass criteria"
+  },
+  "totalTime": "Toplam Süre: {time}",
+  "@totalTime": {
+    "description": "Text showing the total time spent",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "5:30"
+      }
+    }
+  },
+  "yourAnswers": "Cevaplarınız",
+  "@yourAnswers": {
+    "description": "Heading for answers section"
+  },
+  "homePage": "Ana Sayfa",
+  "@homePage": {
+    "description": "Button text for home page"
+  },
+  "newExam": "Yeni Sınav",
+  "@newExam": {
+    "description": "Button text for new exam"
+  },
+  "newQuiz": "Yeni Quiz",
+  "@newQuiz": {
+    "description": "Button text for new quiz"
+  },
+  "passedUSCISExam": "ABD Vatandaşlık Sınavını Geçtiniz!",
+  "@passedUSCISExam": {
+    "description": "Text shown when user passes the USCIS exam"
+  },
+  "greatAchievement": "Harika Başarı!",
+  "@greatAchievement": {
+    "description": "Text for achievement badge"
+  },
+  "category": "Kategori: {name}",
+  "@category": {
+    "description": "Text showing question category",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "History"
+      }
+    }
+  },
+  "correctAnswer": "Doğru Cevap:",
+  "@correctAnswer": {
+    "description": "Label for correct answer"
+  },
+  "yourAnswer": "Sizin Cevabınız:",
+  "@yourAnswer": {
+    "description": "Label for user's answer"
+  },
+  "passedUSCISExamBanner": "USCIS Vatandaşlık Sınavını Geçtiniz!",
+  "@passedUSCISExamBanner": {
+    "description": "Banner text when passed USCIS exam"
+  },
+  "failedUSCISExamBanner": "USCIS Vatandaşlık Sınavında Başarısız Oldunuz",
+  "@failedUSCISExamBanner": {
+    "description": "Banner text when failed USCIS exam"
+  },
+  "congratsPassedCivics": "Tebrikler! Sivil bilgisi testini başarıyla tamamladınız.",
+  "@congratsPassedCivics": {
+    "description": "Congratulation text for passing civics test"
+  },
+  "needMorePractice": "Sınavı geçmek için en az 6 soruyu doğru cevaplamanız gerekiyor. Daha fazla pratik yapın ve tekrar deneyin.",
+  "@needMorePractice": {
+    "description": "Encouragement text when failed the exam"
+  },
+  "excellent": "Mükemmel!",
+  "@excellent": {
+    "description": "Grade text for excellent score"
+  },
+  "veryGood": "Çok İyi!",
+  "@veryGood": {
+    "description": "Grade text for very good score"
+  },
+  "good": "İyi",
+  "@good": {
+    "description": "Grade text for good score"
+  },
+  "average": "Orta",
+  "@average": {
+    "description": "Grade text for average score"
+  },
+  "needsImprovement": "Geliştirilmesi Gerekli",
+  "@needsImprovement": {
+    "description": "Grade text for poor score"
+  },
+  "quizCategories": "Quiz Kategorileri",
+  "@quizCategories": {
+    "description": "Title for quiz categories screen"
+  },
+  "flashcardCategories": "Flashcard Kategorileri",
+  "@flashcardCategories": {
+    "description": "Title for flashcard categories screen"
+  },
+  "startQuiz": "Quiz Başlat",
+  "@startQuiz": {
+    "description": "Button text to start quiz"
+  },
+  "openFlashcards": "Flashcardları Aç",
+  "@openFlashcards": {
+    "description": "Button text to open flashcards"
+  },
+  "generalProgress": "Genel İlerleme",
+  "@generalProgress": {
+    "description": "Title for general progress section"
+  },
+  "completed": "Tamamlanan: {count} / {total} soru",
+  "@completed": {
+    "description": "Text showing completed questions count",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "categoriesCount": "Kategoriler ({selected}/{total})",
+  "@categoriesCount": {
+    "description": "Text showing selected categories count",
+    "placeholders": {
+      "selected": {
+        "type": "int",
+        "example": "2"
+      },
+      "total": {
+        "type": "int",
+        "example": "6"
+      }
+    }
+  },
+  "selectAll": "Tümünü Seç",
+  "@selectAll": {
+    "description": "Button text to select all categories"
+  },
+  "clear": "Temizle",
+  "@clear": {
+    "description": "Button text to clear all selections"
+  },
+  "questionsCount": "{count} soru",
+  "@questionsCount": {
+    "description": "Text showing number of questions in a category",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "20"
+      }
+    }
+  },
+  "successRate": "%{rate} başarı",
+  "@successRate": {
+    "description": "Text showing success rate percentage",
+    "placeholders": {
+      "rate": {
+        "type": "String",
+        "example": "85"
+      }
+    }
+  },
+  "pleaseSelectCategory": "Lütfen bir kategori seçin",
+  "@pleaseSelectCategory": {
+    "description": "Text shown when no category is selected"
+  },
+  "startQuizWithCategories": "{count} kategori ile Quiz başlat",
+  "@startQuizWithCategories": {
+    "description": "Button text to start quiz with selected categories",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "openWithCategories": "{count} kategori ile Flashcardları aç",
+  "@openWithCategories": {
+    "description": "Button text to open flashcards with selected categories",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "startWithCategory": "{count} kategori ile başlat",
+  "@startWithCategory": {
+    "description": "Button text for floating action button with one category",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "startWithCategories": "{count} kategori ile başlat",
+  "@startWithCategories": {
+    "description": "Button text for floating action button with multiple categories",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "loadingCategoriesError": "Kategoriler yüklenirken hata oluştu: {error}",
+  "@loadingCategoriesError": {
+    "description": "Error message when loading categories fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "selectCategoryPlease": "Lütfen en az bir kategori seçin",
+  "@selectCategoryPlease": {
+    "description": "Message shown when no category is selected"
+  },
+  "checkAnswer": "Cevabı Kontrol Et",
+  "@checkAnswer": {
+    "description": "Button text to check answer in quiz"
+  },
+  "newFeature": "YENİ",
+  "@newFeature": {
+    "description": "Label for new features"
   }
 }

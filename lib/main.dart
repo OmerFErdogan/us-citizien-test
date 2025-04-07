@@ -3,10 +3,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'screens/home_screen.dart';
 import 'services/question_service.dart';
+import 'services/settings/language_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'features/camp_mode/screens/camp_intro_screen.dart';
+import 'features/camp_mode/screens/camp_day_screen.dart';
+import 'features/camp_mode/screens/camp_progress_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  // Dil servisini başlat
+  final languageService = LanguageService();
+  await languageService.init();
   
   // Uygulama başlatılmadan önce soruları yükle
   final questionService = QuestionService();
@@ -23,13 +31,45 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
   
-  runApp(MyApp(questionService: questionService));
+  runApp(MyApp(
+    questionService: questionService,
+    languageService: languageService,
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   final QuestionService questionService;
+  final LanguageService languageService;
   
-  const MyApp({Key? key, required this.questionService}) : super(key: key);
+  const MyApp({
+    Key? key, 
+    required this.questionService,
+    required this.languageService,
+  }) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    // Dil değişimlerini dinle
+    widget.languageService.currentLocale.addListener(_onLocaleChange);
+  }
+
+  @override
+  void dispose() {
+    // Dinleyiciyi kaldır
+    widget.languageService.currentLocale.removeListener(_onLocaleChange);
+    super.dispose();
+  }
+
+  // Dil değişiminde state'i güncelle
+  void _onLocaleChange() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +85,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
+      locale: widget.languageService.currentLocale.value, // Dil servisinden al
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -107,7 +148,24 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: HomeScreen(questionService: questionService),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => HomeScreen(
+          questionService: widget.questionService,
+          languageService: widget.languageService,
+        ),
+        '/camp_mode': (context) => const CampIntroScreen(),
+        '/camp_progress': (context) => const CampProgressScreen(),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name == '/camp_day') {
+          final dayNumber = settings.arguments as int;
+          return MaterialPageRoute(
+            builder: (context) => CampDayScreen(dayNumber: dayNumber),
+          );
+        }
+        return null;
+      },
     );
   }
 }

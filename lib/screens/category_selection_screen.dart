@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/question.dart';
 import '../services/question_service.dart';
+import '../utils/extensions.dart';
+import '../widgets/category_selection_card.dart';
 import 'quiz_screen.dart';
 import 'flashcard_screen.dart';
 
@@ -102,7 +104,7 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
       
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Kategoriler yüklenirken hata oluştu: $e')),
+          SnackBar(content: Text(context.l10n.loadingCategoriesError(e.toString()))),
         );
       }
     }
@@ -133,7 +135,7 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
   void _startWithSelectedCategories() {
     if (_selectedCategories.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Lütfen en az bir kategori seçin')),
+        SnackBar(content: Text(context.l10n.selectCategoryPlease)),
       );
       return;
     }
@@ -163,8 +165,8 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final String title = widget.isForQuiz ? 'Quiz Kategorileri' : 'Flashcard Kategorileri';
-    final String buttonText = widget.isForQuiz ? 'Quiz Başlat' : 'Flashcardları Aç';
+    final String title = widget.isForQuiz ? context.l10n.quizCategories : context.l10n.flashcardCategories;
+    final String buttonText = widget.isForQuiz ? context.l10n.startQuiz : context.l10n.openFlashcards;
     
     return Scaffold(
       appBar: AppBar(
@@ -192,8 +194,8 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
               onPressed: _startWithSelectedCategories,
               label: Text(
                 _selectedCategories.length == 1
-                    ? '1 kategori ile başlat'
-                    : '${_selectedCategories.length} kategori ile başlat',
+                    ? context.l10n.startWithCategory(1)
+                    : context.l10n.startWithCategories(_selectedCategories.length),
               ),
               icon: const Icon(Icons.play_arrow),
             ),
@@ -224,9 +226,9 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Genel İlerleme',
-                      style: TextStyle(
+                    Text(
+                      context.l10n.generalProgress,
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -240,7 +242,7 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Tamamlanan: $totalCompleted / $totalQuestions soru',
+                      context.l10n.completed(totalCompleted, totalQuestions),
                       style: TextStyle(
                         color: Colors.grey[700],
                       ),
@@ -258,7 +260,7 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Kategoriler (${_selectedCategories.length}/${_categories.length})',
+                context.l10n.categoriesCount(_selectedCategories.length, _categories.length),
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -269,13 +271,13 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
                   TextButton.icon(
                     onPressed: _selectAllCategories,
                     icon: const Icon(Icons.select_all, size: 18),
-                    label: const Text('Tümünü Seç'),
+                    label: Text(context.l10n.selectAll),
                   ),
                   const SizedBox(width: 8),
                   TextButton.icon(
                     onPressed: _deselectAllCategories,
                     icon: const Icon(Icons.clear_all, size: 18),
-                    label: const Text('Temizle'),
+                    label: Text(context.l10n.clear),
                   ),
                 ],
               ),
@@ -297,130 +299,15 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
               
               final categoryColor = _categoryColorMap[category] ?? Colors.blue;
               
-              return Card(
-                elevation: isSelected ? 4 : 1,
-                margin: const EdgeInsets.only(bottom: 12.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  side: isSelected 
-                      ? BorderSide(color: categoryColor, width: 2) 
-                      : BorderSide.none,
-                ),
-                child: InkWell(
-                  onTap: () => _toggleCategory(category),
-                  borderRadius: BorderRadius.circular(12),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            // Seçim göstergesi
-                            Container(
-                              width: 24,
-                              height: 24,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: isSelected 
-                                      ? categoryColor 
-                                      : Colors.grey[400]!,
-                                  width: 2,
-                                ),
-                                color: isSelected 
-                                    ? categoryColor.withOpacity(0.2) 
-                                    : Colors.transparent,
-                              ),
-                              child: isSelected 
-                                  ? Icon(
-                                      Icons.check, 
-                                      color: categoryColor,
-                                      size: 16,
-                                    ) 
-                                  : null,
-                            ),
-                            const SizedBox(width: 12),
-                            
-                            // Kategori adı
-                            Expanded(
-                              child: Text(
-                                category,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: isSelected ? categoryColor : Colors.black,
-                                ),
-                              ),
-                            ),
-                            
-                            // Soru sayısı
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                              decoration: BoxDecoration(
-                                color: categoryColor.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                '$questionCount soru',
-                                style: TextStyle(
-                                  color: categoryColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        
-                        if (!widget.isForQuiz) // Flashcard kategorileri için ilerleme bilgisi
-                          Padding(
-                            padding: const EdgeInsets.only(top: 12.0, left: 36.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Tamamlanan: $completedCount / $questionCount',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.grey[700],
-                                      ),
-                                    ),
-                                    if (completedCount > 0)
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                                        decoration: BoxDecoration(
-                                          color: _getSuccessRateColor(successRate).withOpacity(0.1),
-                                          borderRadius: BorderRadius.circular(4),
-                                        ),
-                                        child: Text(
-                                          '%${(successRate * 100).toStringAsFixed(0)} başarı',
-                                          style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.bold,
-                                            color: _getSuccessRateColor(successRate),
-                                          ),
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                                const SizedBox(height: 4),
-                                LinearProgressIndicator(
-                                  value: questionCount > 0 ? completedCount / questionCount : 0.0,
-                                  minHeight: 4,
-                                  backgroundColor: Colors.grey[200],
-                                  valueColor: AlwaysStoppedAnimation<Color>(categoryColor),
-                                ),
-                              ],
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
-                ),
+              return CategorySelectionCard(
+                category: category,
+                isSelected: isSelected,
+                questionCount: questionCount,
+                completedCount: completedCount,
+                successRate: successRate,
+                categoryColor: categoryColor,
+                showProgressIndicator: !widget.isForQuiz,
+                onTap: () => _toggleCategory(category),
               );
             },
           ),
@@ -439,10 +326,10 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
               ),
               child: Text(
                 _selectedCategories.isEmpty
-                    ? 'Lütfen kategori seçin'
+                    ? context.l10n.pleaseSelectCategory
                     : widget.isForQuiz
-                        ? '${_selectedCategories.length} kategori ile Quiz başlat'
-                        : '${_selectedCategories.length} kategori ile Flashcardları aç',
+                        ? context.l10n.startQuizWithCategories(_selectedCategories.length)
+                        : context.l10n.openWithCategories(_selectedCategories.length),
               ),
             ),
           ),
@@ -451,11 +338,5 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
     );
   }
   
-  Color _getSuccessRateColor(double rate) {
-    if (rate >= 0.9) return Colors.green[700]!;
-    if (rate >= 0.7) return Colors.green;
-    if (rate >= 0.5) return Colors.orange;
-    if (rate >= 0.3) return Colors.orange[700]!;
-    return Colors.red;
-  }
+  // Method moved to CategorySelectionCard widget
 }

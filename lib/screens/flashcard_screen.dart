@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import '../models/question.dart';
 import '../services/question_service.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-// Extension to easily access localizations
-extension LocalizationsExtension on BuildContext {
-  AppLocalizations get l10n => AppLocalizations.of(this)!;
-}
+import '../utils/extensions.dart';
 
 class FlashcardScreen extends StatefulWidget {
   final QuestionService questionService;

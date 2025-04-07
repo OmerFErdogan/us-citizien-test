@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../models/question.dart';
 import '../services/question_service.dart';
+import '../utils/extensions.dart';
 import 'result_screen.dart';
 
 class TestModeScreen extends StatefulWidget {
@@ -123,7 +124,7 @@ class _TestModeScreenState extends State<TestModeScreen> {
     
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ABD Vatandaşlık Sınavı'),
+        title: Text(context.l10n.usExam),
         actions: [
           // Zamanlayıcı göstergesi
           Padding(
@@ -167,7 +168,7 @@ class _TestModeScreenState extends State<TestModeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Soru ${_currentQuestionIndex + 1}/${widget.questions.length}',
+                  context.l10n.question(_currentQuestionIndex + 1, widget.questions.length),
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -183,7 +184,7 @@ class _TestModeScreenState extends State<TestModeScreen> {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      'Geçmek için en az 6 doğru cevap',
+                      context.l10n.needSixCorrect,
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.blue[700],
@@ -267,7 +268,7 @@ class _TestModeScreenState extends State<TestModeScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'USCIS Görevlisi',
+                                        context.l10n.uscisOfficer,
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Colors.grey[600],
@@ -319,7 +320,7 @@ class _TestModeScreenState extends State<TestModeScreen> {
                       });
                     },
                     icon: const Icon(Icons.arrow_back),
-                    label: const Text('Önceki'),
+                    label: Text(context.l10n.previous),
                   ),
                 
                 const SizedBox(width: 16),
@@ -328,7 +329,7 @@ class _TestModeScreenState extends State<TestModeScreen> {
                 OutlinedButton.icon(
                   onPressed: _pauseTimer,
                   icon: Icon(_isTimerRunning ? Icons.pause : Icons.play_arrow),
-                  label: Text(_isTimerRunning ? 'Duraklat' : 'Devam Et'),
+                  label: Text(_isTimerRunning ? context.l10n.pause : context.l10n.resume),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: Colors.orange,
                   ),
@@ -340,7 +341,7 @@ class _TestModeScreenState extends State<TestModeScreen> {
                 ElevatedButton.icon(
                   onPressed: _finishTest,
                   icon: const Icon(Icons.done_all),
-                  label: const Text('Sınavı Bitir'),
+                  label: Text(context.l10n.finishExam),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
                     foregroundColor: Colors.white,

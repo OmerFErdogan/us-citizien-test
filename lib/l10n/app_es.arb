@@ -253,5 +253,429 @@
   "progressReset": "Tu progreso ha sido reiniciado",
   "@progressReset": {
     "description": "Message shown when progress is reset"
+  },
+  "learningProgressTitle": "Progreso de Aprendizaje",
+  "@learningProgressTitle": {
+    "description": "Title for the learning progress card"
+  },
+  "detailedStatisticsButton": "Estadísticas Detalladas",
+  "@detailedStatisticsButton": {
+    "description": "Button text for detailed statistics"
+  },
+  "realExamSimulation": "Simulación de examen USCIS real (10 preguntas, 10 min)",
+  "@realExamSimulation": {
+    "description": "Description for the real exam simulation mode"
+  },
+  "tenDayCamp": "Ciudadanía en 10 Días",
+  "@tenDayCamp": {
+    "description": "Title for 10-day citizenship camp"
+  },
+  "tenDayCampDescription": "Prepárate para el examen con un programa de campamento intensivo de 10 días",
+  "@tenDayCampDescription": {
+    "description": "Description for 10-day citizenship camp"
+  },
+  "noWrongQuestionsYet": "Aún no hay preguntas incorrectas. Primero debes realizar un cuestionario.",
+  "@noWrongQuestionsYet": {
+    "description": "Message shown when there are no incorrect questions to review"
+  },
+  "campModeError": "Hubo un problema al cargar el modo campamento. Por favor, intenta de nuevo.",
+  "@campModeError": {
+    "description": "Error message when loading camp mode fails"
+  },
+  "language": "Idioma",
+  "@language": {
+    "description": "Title for language selection screen"
+  },
+  "selectLanguage": "Selecciona tu idioma preferido",
+  "@selectLanguage": {
+    "description": "Instruction for selecting language"
+  },
+  "save": "Guardar",
+  "@save": {
+    "description": "Button text for save action"
+  },
+  "languageChanged": "El idioma ha sido cambiado",
+  "@languageChanged": {
+    "description": "Message shown when language is changed"
+  },
+  "testSimulation": "Simulación del Examen de Ciudadanía de EE. UU.",
+  "@testSimulation": {
+    "description": "Title for test simulation screen"
+  },
+  "officialTestSimulation": "Simulación Oficial del Examen de Ciudadanía",
+  "@officialTestSimulation": {
+    "description": "Title for official test simulation banner"
+  },
+  "experienceRealTest": "Experimente el examen real de ciudadanía de EE. UU.",
+  "@experienceRealTest": {
+    "description": "Subtitle for test simulation"
+  },
+  "aboutExam": "Acerca del Examen",
+  "@aboutExam": {
+    "description": "Header for exam information section"
+  },
+  "civicsQuestions": "10 Preguntas de Educación Cívica",
+  "@civicsQuestions": {
+    "description": "Title for civics questions info card"
+  },
+  "uscisOfficerQuestions": "El oficial de USCIS le hará 10 preguntas de una lista de 100 durante el examen.",
+  "@uscisOfficerQuestions": {
+    "description": "Description of how questions are asked during exam"
+  },
+  "passingCriteria": "Criterio de Aprobación: 6/10",
+  "@passingCriteria": {
+    "description": "Title for passing criteria info card"
+  },
+  "needCorrectAnswers": "Debe responder correctamente al menos 6 de 10 preguntas para aprobar el examen.",
+  "@needCorrectAnswers": {
+    "description": "Description of passing criteria"
+  },
+  "tenMinuteTime": "Límite de Tiempo de 10 Minutos",
+  "@tenMinuteTime": {
+    "description": "Title for time limit info card"
+  },
+  "timeDescription": "En esta simulación, tiene 10 minutos para responder todas las preguntas.",
+  "@timeDescription": {
+    "description": "Description of time limit"
+  },
+  "realExamNote": "En el examen real, debe responder las preguntas verbalmente, y el oficial de USCIS puede detener el examen en cualquier momento.",
+  "@realExamNote": {
+    "description": "Note about the real exam procedure"
+  },
+  "simulationDisclaimer": "Entiendo que esta simulación es solo para fines de práctica y puede diferir del examen real.",
+  "@simulationDisclaimer": {
+    "description": "Disclaimer text for test simulation"
+  },
+  "startExam": "Comenzar Examen",
+  "@startExam": {
+    "description": "Button text to start the exam"
+  },
+  "errorLoadingQuestions": "¡Error al cargar las preguntas!",
+  "@errorLoadingQuestions": {
+    "description": "Error message when questions fail to load"
+  },
+  "error": "Error: {message}",
+  "@error": {
+    "description": "Generic error message with details",
+    "placeholders": {
+      "message": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "usExam": "Examen de Ciudadanía de EE. UU.",
+  "@usExam": {
+    "description": "Title for US citizenship exam screen"
+  },
+  "question": "Pregunta {current}/{total}",
+  "@question": {
+    "description": "Question progress indicator",
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "example": "1"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "needSixCorrect": "Se necesitan al menos 6 respuestas correctas para aprobar",
+  "@needSixCorrect": {
+    "description": "Reminder text about passing criteria"
+  },
+  "uscisOfficer": "Oficial de USCIS",
+  "@uscisOfficer": {
+    "description": "USCIS officer label"
+  },
+  "previous": "Anterior",
+  "@previous": {
+    "description": "Button text for previous question"
+  },
+  "pause": "Pausar",
+  "@pause": {
+    "description": "Button text to pause the timer"
+  },
+  "resume": "Reanudar",
+  "@resume": {
+    "description": "Button text to resume the timer"
+  },
+  "finishExam": "Finalizar Examen",
+  "@finishExam": {
+    "description": "Button text to finish the exam"  
+  },
+  "examResults": "Resultados del Examen",
+  "@examResults": {
+    "description": "Title for exam results screen"
+  },
+  "quizResults": "Resultados del Cuestionario",
+  "@quizResults": {
+    "description": "Title for quiz results screen"
+  },
+  "examCompleted": "¡Examen Completado!",
+  "@examCompleted": {
+    "description": "Text shown when exam is completed"
+  },
+  "quizCompleted": "¡Cuestionario Completado!",
+  "@quizCompleted": {
+    "description": "Text shown when quiz is completed"
+  },
+  "pass": "¡APROBADO!",
+  "@pass": {
+    "description": "Text shown when user passes the exam"
+  },
+  "fail": "REPROBADO",
+  "@fail": {
+    "description": "Text shown when user fails the exam"
+  },
+  "correctIncorrect": "{correct} correctas, {incorrect} incorrectas",
+  "@correctIncorrect": {
+    "description": "Text showing number of correct and incorrect answers",
+    "placeholders": {
+      "correct": {
+        "type": "int",
+        "example": "7"
+      },
+      "incorrect": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "passCriteria": "Criterio de Aprobación: Al menos 6/10 respuestas correctas",
+  "@passCriteria": {
+    "description": "Text showing the pass criteria"
+  },
+  "totalTime": "Tiempo Total: {time}",
+  "@totalTime": {
+    "description": "Text showing the total time spent",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "5:30"
+      }
+    }
+  },
+  "yourAnswers": "Tus Respuestas",
+  "@yourAnswers": {
+    "description": "Heading for answers section"
+  },
+  "homePage": "Página Principal",
+  "@homePage": {
+    "description": "Button text for home page"
+  },
+  "newExam": "Nuevo Examen",
+  "@newExam": {
+    "description": "Button text for new exam"
+  },
+  "newQuiz": "Nuevo Cuestionario",
+  "@newQuiz": {
+    "description": "Button text for new quiz"
+  },
+  "passedUSCISExam": "¡Has Aprobado el Examen de Ciudadanía de USCIS!",
+  "@passedUSCISExam": {
+    "description": "Text shown when user passes the USCIS exam"
+  },
+  "greatAchievement": "¡Gran Logro!",
+  "@greatAchievement": {
+    "description": "Text for achievement badge"
+  },
+  "category": "Categoría: {name}",
+  "@category": {
+    "description": "Text showing question category",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "History"
+      }
+    }
+  },
+  "correctAnswer": "Respuesta Correcta:",
+  "@correctAnswer": {
+    "description": "Label for correct answer"
+  },
+  "yourAnswer": "Tu Respuesta:",
+  "@yourAnswer": {
+    "description": "Label for user's answer"
+  },
+  "passedUSCISExamBanner": "¡Aprobaste el Examen de Ciudadanía de USCIS!",
+  "@passedUSCISExamBanner": {
+    "description": "Banner text when passed USCIS exam"
+  },
+  "failedUSCISExamBanner": "Reprobaste el Examen de Ciudadanía de USCIS",
+  "@failedUSCISExamBanner": {
+    "description": "Banner text when failed USCIS exam"
+  },
+  "congratsPassedCivics": "¡Felicitaciones! Has completado exitosamente la prueba de educación cívica.",
+  "@congratsPassedCivics": {
+    "description": "Congratulation text for passing civics test"
+  },
+  "needMorePractice": "Necesitas responder al menos 6 preguntas correctamente para aprobar. Practica más e inténtalo nuevamente.",
+  "@needMorePractice": {
+    "description": "Encouragement text when failed the exam"
+  },
+  "excellent": "¡Excelente!",
+  "@excellent": {
+    "description": "Grade text for excellent score"
+  },
+  "veryGood": "¡Muy Bien!",
+  "@veryGood": {
+    "description": "Grade text for very good score"
+  },
+  "good": "Bien",
+  "@good": {
+    "description": "Grade text for good score"
+  },
+  "average": "Regular",
+  "@average": {
+    "description": "Grade text for average score"
+  },
+  "needsImprovement": "Necesita Mejorar",
+  "@needsImprovement": {
+    "description": "Grade text for poor score"
+  },
+  "quizCategories": "Categorías de Cuestionario",
+  "@quizCategories": {
+    "description": "Title for quiz categories screen"
+  },
+  "flashcardCategories": "Categorías de Tarjetas",
+  "@flashcardCategories": {
+    "description": "Title for flashcard categories screen"
+  },
+  "startQuiz": "Iniciar Cuestionario",
+  "@startQuiz": {
+    "description": "Button text to start quiz"
+  },
+  "openFlashcards": "Abrir Tarjetas",
+  "@openFlashcards": {
+    "description": "Button text to open flashcards"
+  },
+  "generalProgress": "Progreso General",
+  "@generalProgress": {
+    "description": "Title for general progress section"
+  },
+  "completed": "Completado: {count} / {total} preguntas",
+  "@completed": {
+    "description": "Text showing completed questions count",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "categoriesCount": "Categorías ({selected}/{total})",
+  "@categoriesCount": {
+    "description": "Text showing selected categories count",
+    "placeholders": {
+      "selected": {
+        "type": "int",
+        "example": "2"
+      },
+      "total": {
+        "type": "int",
+        "example": "6"
+      }
+    }
+  },
+  "selectAll": "Seleccionar Todo",
+  "@selectAll": {
+    "description": "Button text to select all categories"
+  },
+  "clear": "Limpiar",
+  "@clear": {
+    "description": "Button text to clear all selections"
+  },
+  "questionsCount": "{count} preguntas",
+  "@questionsCount": {
+    "description": "Text showing number of questions in a category",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "20"
+      }
+    }
+  },
+  "successRate": "{rate}% de éxito",
+  "@successRate": {
+    "description": "Text showing success rate percentage",
+    "placeholders": {
+      "rate": {
+        "type": "String",
+        "example": "85"
+      }
+    }
+  },
+  "pleaseSelectCategory": "Por favor, selecciona una categoría",
+  "@pleaseSelectCategory": {
+    "description": "Text shown when no category is selected"
+  },
+  "startQuizWithCategories": "Iniciar cuestionario con {count} categorías",
+  "@startQuizWithCategories": {
+    "description": "Button text to start quiz with selected categories",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "openWithCategories": "Abrir tarjetas con {count} categorías",
+  "@openWithCategories": {
+    "description": "Button text to open flashcards with selected categories",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "startWithCategory": "Comenzar con {count} categoría",
+  "@startWithCategory": {
+    "description": "Button text for floating action button with one category",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "startWithCategories": "Comenzar con {count} categorías",
+  "@startWithCategories": {
+    "description": "Button text for floating action button with multiple categories",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "loadingCategoriesError": "Error al cargar las categorías: {error}",
+  "@loadingCategoriesError": {
+    "description": "Error message when loading categories fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "selectCategoryPlease": "Por favor, selecciona al menos una categoría",
+  "@selectCategoryPlease": {
+    "description": "Message shown when no category is selected"
+  },
+  "checkAnswer": "Verificar Respuesta",
+  "@checkAnswer": {
+    "description": "Button text to check answer in quiz"
+  },
+  "newFeature": "NUEVO",
+  "@newFeature": {
+    "description": "Label for new features"
   }
 }

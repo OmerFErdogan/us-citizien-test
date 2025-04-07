@@ -58,7 +58,7 @@ class ResultScreen extends StatelessWidget {
           children: [
             // Test modu için geçti/kaldı bilgisi
             if (isTestMode)
-              _buildTestResultBanner(context, passedTest),
+              _buildTestResultBanner(passedTest),
             
             // Sonuç özeti kartı
             Card(
@@ -186,7 +186,7 @@ class ResultScreen extends StatelessWidget {
             const SizedBox(height: 8),
             
             // Soru listesi
-            _buildQuestionsList(context),
+            _buildQuestionsList(),
             
             const SizedBox(height: 24),
             
@@ -259,101 +259,105 @@ class ResultScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildQuestionsList(BuildContext parentContext) {
-    return ListView.separated(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: questions.length,
-      separatorBuilder: (_, index) => const SizedBox(height: 8),
-      itemBuilder: (_, index) {
-        final question = questions[index];
-        late bool isCorrect;
-        
-        // Test modunda sonuçları parametreden, normal quiz modunda sorudan al
-        if (isTestMode && results != null) {
-          isCorrect = results![index];
-        } else {
-          isCorrect = question.isMarkedCorrect;
-        }
-        
-        return Container(
-          decoration: BoxDecoration(
-            color: isCorrect ? Colors.green[50] : Colors.red[50],
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: isCorrect ? Colors.green[300]! : Colors.red[300]!,
-              width: 1,
+  Widget _buildQuestionsList() {
+    // Get the context from the build method
+    return Builder(builder: (BuildContext buildContext) {
+      return ListView.separated(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: questions.length,
+        separatorBuilder: (_, index) => const SizedBox(height: 8),
+        itemBuilder: (_, index) {
+          final question = questions[index];
+          late bool isCorrect;
+          
+          // Test modunda sonuçları parametreden, normal quiz modunda sorudan al
+          if (isTestMode && results != null) {
+            isCorrect = results![index];
+          } else {
+            isCorrect = question.isMarkedCorrect;
+          }
+          
+          return Container(
+            decoration: BoxDecoration(
+              color: isCorrect ? Colors.green[50] : Colors.red[50],
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: isCorrect ? Colors.green[300]! : Colors.red[300]!,
+                width: 1,
+              ),
             ),
-          ),
-          child: Theme(
-            data: Theme.of(parentContext).copyWith(
-              dividerColor: Colors.transparent,
-            ),
-            child: ExpansionTile(
-              leading: Icon(
-                isCorrect ? Icons.check_circle : Icons.cancel,
-                color: isCorrect ? Colors.green : Colors.red,
+            child: Theme(
+              data: Theme.of(buildContext).copyWith(
+                dividerColor: Colors.transparent,
               ),
-              title: Text(
-                question.question,
-                style: TextStyle(
-                  color: isCorrect ? Colors.green[800] : Colors.red[800],
-                  fontWeight: FontWeight.bold,
+              child: ExpansionTile(
+                leading: Icon(
+                  isCorrect ? Icons.check_circle : Icons.cancel,
+                  color: isCorrect ? Colors.green : Colors.red,
                 ),
-              ),
-              subtitle: Text(
-                parentContext.l10n.category(question.category),
-                style: TextStyle(
-                  color: isCorrect ? Colors.green[600] : Colors.red[600],
-                  fontSize: 12,
-                ),
-              ),
-              childrenPadding: const EdgeInsets.all(16),
-              expandedCrossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  parentContext.l10n.correctAnswer,
-                  style: const TextStyle(
+                title: Text(
+                  question.question,
+                  style: TextStyle(
+                    color: isCorrect ? Colors.green[800] : Colors.red[800],
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 4),
-                
-                // Birden fazla doğru cevap olabilir
-                ...question.allCorrectAnswers.map((correctAnswer) => 
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 4.0),
-                    child: Text('• $correctAnswer'),
-                  )
+                subtitle: Text(
+                  buildContext.l10n.category(question.category),
+                  style: TextStyle(
+                    color: isCorrect ? Colors.green[600] : Colors.red[600],
+                    fontSize: 12,
+                  ),
                 ),
-                
-                if (question.selectedAnswer != null) ...[  
-                  const SizedBox(height: 12),
+                childrenPadding: const EdgeInsets.all(16),
+                expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Text(
-                    parentContext.l10n.yourAnswer,
+                    buildContext.l10n.correctAnswer,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    question.selectedAnswer!,
-                    style: TextStyle(
-                      color: isCorrect ? Colors.green[700] : Colors.red[700],
-                      fontWeight: FontWeight.bold,
-                    ),
+                  
+                  // Birden fazla doğru cevap olabilir
+                  ...question.allCorrectAnswers.map((correctAnswer) => 
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 4.0),
+                      child: Text('• $correctAnswer'),
+                    )
                   ),
+                  
+                  if (question.selectedAnswer != null) ...[  
+                    const SizedBox(height: 12),
+                    Text(
+                      buildContext.l10n.yourAnswer,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      question.selectedAnswer!,
+                      style: TextStyle(
+                        color: isCorrect ? Colors.green[700] : Colors.red[700],
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ],
-              ],
+              ),
             ),
-          ),
-        );
-      },
-    );
+          );
+        },
+      );
+    });
   }
 
-  Widget _buildTestResultBanner(BuildContext context, bool passed) {
-    return Container(
+  Widget _buildTestResultBanner(bool passed) {
+    return Builder(builder: (BuildContext buildContext) {
+      return Container(
       margin: const EdgeInsets.only(bottom: 16),
       width: double.infinity,
       decoration: BoxDecoration(
@@ -375,7 +379,7 @@ class ResultScreen extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              passed ? context.l10n.passedUSCISExamBanner : context.l10n.failedUSCISExamBanner,
+              passed ? buildContext.l10n.passedUSCISExamBanner : buildContext.l10n.failedUSCISExamBanner,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 18,
@@ -386,8 +390,8 @@ class ResultScreen extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               passed 
-                ? context.l10n.congratsPassedCivics
-                : context.l10n.needMorePractice,
+                ? buildContext.l10n.congratsPassedCivics
+                : buildContext.l10n.needMorePractice,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: passed ? Colors.green[700] : Colors.red[700],
@@ -397,6 +401,7 @@ class ResultScreen extends StatelessWidget {
         ),
       ),
     );
+    });
   }
   
   String _formatDuration(int seconds) {

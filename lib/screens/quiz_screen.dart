@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:us_civics_test_app/screens/answer_option.dart';
 import '../models/question.dart';
 import '../services/question_service.dart';
+import '../utils/extensions.dart';
 import 'result_screen.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -9,6 +10,7 @@ class QuizScreen extends StatefulWidget {
   final int questionCount;
   final List<String>? categories; // Kategori parametresi
   final List<Question>? questions; // Doğrudan gönderilen sorular (özel quizler için)
+  final bool Function(List<Question>)? onResultScreen; // Quiz tamamlandığında çağrılacak callback
 
   const QuizScreen({
     Key? key, 
@@ -16,6 +18,7 @@ class QuizScreen extends StatefulWidget {
     this.questionCount = 10,
     this.categories, // Seçili kategoriler
     this.questions, // Özel sorular
+    this.onResultScreen, // Callback fonksiyonu
   }) : super(key: key);
 
   @override
@@ -80,7 +83,7 @@ class _QuizScreenState extends State<QuizScreen> {
       
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Sorular yüklenirken hata oluştu: $e')),
+        SnackBar(content: Text(context.l10n.errorLoading('$e'))),
         );
       }
     }
@@ -133,6 +136,18 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   void _showResults() {
+    // Eğer onResultScreen callback'i varsa çağır
+    if (widget.onResultScreen != null) {
+      // Eğer callback false döndürürse, sonuç ekranını gösterme
+      bool showResultScreen = widget.onResultScreen!(_questions);
+      if (!showResultScreen) {
+        // Navigasyon yığınından geri dön
+        Navigator.pop(context);
+        return;
+      }
+    }
+    
+    // Sonuç ekranına git - pushreplacement ile önceki route'u yenisi ile değiştir
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -148,33 +163,33 @@ class _QuizScreenState extends State<QuizScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Quiz'),
+        title: Text(context.l10n.startQuiz),
         actions: [
           TextButton.icon(
             onPressed: () {
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  title: const Text('Quiz\'i Sonlandır'),
-                  content: const Text('Quiz\'i sonlandırmak istediğinize emin misiniz? İlerlemeniz kaydedilmeyecektir.'),
+                  title: Text(context.l10n.finish),
+                  content: Text(context.l10n.resetProgressWarning),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: const Text('İptal'),
+                      child: Text(context.l10n.cancel),
                     ),
                     TextButton(
                       onPressed: () {
                         Navigator.pop(context); // Dialog'u kapat
                         Navigator.pop(context); // Quiz ekranından çık
                       },
-                      child: const Text('Sonlandır'),
+                      child: Text(context.l10n.finish),
                     ),
                   ],
                 ),
               );
             },
             icon: const Icon(Icons.close, color: Colors.white),
-            label: const Text('Bitir', style: TextStyle(color: Colors.white)),
+            label: Text(context.l10n.finish, style: const TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -193,19 +208,19 @@ class _QuizScreenState extends State<QuizScreen> {
         children: [
           const Icon(Icons.warning, size: 48, color: Colors.orange),
           const SizedBox(height: 16),
-          const Text(
-            'Hiç soru bulunamadı!',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+           Text(
+            context.l10n.noCardsFound,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
-          const Text(
-            'Lütfen daha sonra tekrar deneyin veya soruları yeniden yükleyin.',
+           Text(
+            context.l10n.errorLoadingQuestions,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 24),
           ElevatedButton(
             onPressed: _loadQuizQuestions,
-            child: const Text('Yeniden Dene'),
+            child: Text(context.l10n.startQuiz),
           ),
         ],
       ),
@@ -231,12 +246,13 @@ class _QuizScreenState extends State<QuizScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              // Use direct parameter passing instead of replaceAll
               Text(
-                'Soru ${_currentQuestionIndex + 1}/${_questions.length}',
+                context.l10n.question((_currentQuestionIndex + 1), _questions.length),
                 style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               Text(
-                'Kategori: ${currentQuestion.category}',
+                context.l10n.category(currentQuestion.category),
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.grey[700],
@@ -319,7 +335,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  isCorrect ? 'Doğru!' : 'Yanlış!',
+                                  isCorrect ? context.l10n.correct : context.l10n.incorrect,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: isCorrect ? Colors.green : Colors.red,
@@ -329,9 +345,9 @@ class _QuizScreenState extends State<QuizScreen> {
                             ),
                             if (!isCorrect) ...[
                               const SizedBox(height: 8),
-                              const Text(
-                                'Doğru cevap:',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                               Text(
+                                context.l10n.correctAnswer,
+                                style: const TextStyle(fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(height: 4),
                               // Birden fazla doğru cevap olabilir
@@ -379,8 +395,8 @@ class _QuizScreenState extends State<QuizScreen> {
                         ),
                         child: Text(
                           _currentQuestionIndex < _questions.length - 1
-                              ? 'Sonraki Soru'
-                              : 'Sonuçları Gör',
+                              ? context.l10n.next
+                              : context.l10n.reviewAnswers,
                         ),
                       )
                     : ElevatedButton(
@@ -390,7 +406,7 @@ class _QuizScreenState extends State<QuizScreen> {
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 12),
                         ),
-                        child: const Text('Cevabı Kontrol Et'),
+                        child: Text(context.l10n.checkAnswer),
                       ),
               ),
             ],
