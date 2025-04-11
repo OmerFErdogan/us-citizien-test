@@ -4,6 +4,26 @@
   "@appTitle": {
     "description": "The title of the application"
   },
+
+  "activeStatus": "Active",
+  "@activeStatus": {
+    "description": "Status text for active items"
+  },
+
+  "lockedStatus": "Locked",
+  "@lockedStatus": {
+    "description": "Status text for locked items"
+  },
+
+  "waitingStatus": "Waiting",
+  "@waitingStatus": {
+    "description": "Status text for waiting items"
+  },
+
+  "studyAgain": "Study Again",
+  "@studyAgain": {
+    "description": "Button text to study again"
+  },
   "americanDream": "AMERICAN DREAM",
   "@americanDream": {
     "description": "Title for American Dream banner"
@@ -681,5 +701,350 @@
   "newFeature": "NEW",
   "@newFeature": {
     "description": "Label for new features"
+  },
+
+  "campIntroTitle": "10-Day Citizenship Camp",
+  "@campIntroTitle": {
+    "description": "Title for camp intro screen"
+  },
+
+  "completedStatus": "Completed",
+  "@completedStatus": {
+    "description": "Text shown when something is completed"
+  },
+
+  "start": "Start",
+  "@start": {
+    "description": "Button text to start"
+  },
+
+  "principlesOfDemocracy": "Principles of American Democracy",
+  "@principlesOfDemocracy": {
+    "description": "Category name for principles of American democracy"  
+  },
+
+  "card": "Card",
+  "@card": {
+    "description": "Text for card label"
+  },
+
+  "answer": "ANSWER",
+  "@answer": {
+    "description": "Text for answer label"
+  },
+
+  "refreshData": "Refresh",
+  "@refreshData": {
+    "description": "Text for refresh data button"
+  },
+
+  "successRate": "Success Rate: {rate}%",
+  "@successRate": {
+    "description": "Text showing success rate with percentage",
+    "placeholders": {
+      "rate": {
+        "type": "String",
+        "example": "85.5"
+      }
+    }
+  },
+
+  "shuffle": "Shuffle",
+  "@shuffle": {
+    "description": "Text for shuffle button"
+  },
+
+  "statistics": "Statistics",
+  "@statistics": {
+    "description": "Title for statistics screen"
+  },
+
+  "generalTab": "General",
+  "@generalTab": {
+    "description": "Tab title for general statistics"
+  },
+
+  "categoriesTab": "Categories",
+  "@categoriesTab": {
+    "description": "Tab title for categories statistics"
+  },
+
+  "difficultiesTab": "Difficulties",
+  "@difficultiesTab": {
+    "description": "Tab title for difficulties statistics"
+  },
+
+  "progressTab": "Progress",
+  "@progressTab": {
+    "description": "Tab title for progress statistics"
+  },
+
+  "generalProgress": "General Progress",
+  "@generalProgress": {
+    "description": "Title for general progress card"
+  },
+
+  "completed": "Completed: {count} / {total} ({rate}%)",
+  "@completed": {
+    "description": "Text showing completed count, total, and percentage",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      },
+      "rate": {
+        "type": "String",
+        "example": "50.0"
+      }
+    }
+  },
+
+  "accuracyRate": "Accuracy Rate",
+  "@accuracyRate": {
+    "description": "Title for accuracy rate card"
+  },
+
+  "excellentPerformance": "Excellent! You seem to have mastered the topics.",
+  "@excellentPerformance": {
+    "description": "Comment for excellent score (90%+)"
+  },
+
+  "veryGoodPerformance": "Very good! You could work on a few more topics.",
+  "@veryGoodPerformance": {
+    "description": "Comment for very good score (80-89%)"
+  },
+
+  "goodPerformance": "Good! You should practice a bit more.",
+  "@goodPerformance": {
+    "description": "Comment for good score (70-79%)"
+  },
+
+  "averagePerformance": "Not bad. You need to study more.",
+  "@averagePerformance": {
+    "description": "Comment for average score (60-69%)"
+  },
+
+  "improvablePerformance": "Can be improved. Practice more.",
+  "@improvablePerformance": {
+    "description": "Comment for below average score (40-59%)"
+  },
+
+  "needsWorkPerformance": "Needs more work. Flashcards can help.",
+  "@needsWorkPerformance": {
+    "description": "Comment for poor score (below 40%)"
+  },
+
+  "answeredLabel": "Answered",
+  "@answeredLabel": {
+    "description": "Label for answered questions count"
+  },
+
+  "correctLabel": "Correct",
+  "@correctLabel": {
+    "description": "Label for correct answers count"
+  },
+
+  "incorrectLabel": "Incorrect",
+  "@incorrectLabel": {
+    "description": "Label for incorrect answers count"
+  },
+
+  "categorySuccessRate": "Category Success Rate",
+  "@categorySuccessRate": {
+    "description": "Title for category success rate card"
+  },
+
+  "categoryDetails": "Category Details",
+  "@categoryDetails": {
+    "description": "Title for category details section"
+  },
+
+  "completedCount": "Completed: {attempted} / {total}",
+  "@completedCount": {
+    "description": "Text showing completed count out of total",
+    "placeholders": {
+      "attempted": {
+        "type": "int",
+        "example": "5"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+
+  "accuracyCount": "Accuracy: {correct} / {attempted}",
+  "@accuracyCount": {
+    "description": "Text showing correct count out of attempted",
+    "placeholders": {
+      "correct": {
+        "type": "int",
+        "example": "4"
+      },
+      "attempted": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "noWrongAnsweredQuestions": "There are no incorrectly answered questions yet.",
+  "@noWrongAnsweredQuestions": {
+    "description": "Message shown when there are no difficult questions"
+  },
+
+  "studySuggestions": "Study Suggestions",
+  "@studySuggestions": {
+    "description": "Title for study suggestions section"
+  },
+
+  "studyRegularly": "Study Regularly",
+  "@studyRegularly": {
+    "description": "Title for regular study tip"
+  },
+
+  "studyRegularlyDesc": "Studying for 10-15 minutes every day is more effective than studying for a long time in one day.",
+  "@studyRegularlyDesc": {
+    "description": "Description for regular study tip"
+  },
+
+  "focusDifficulties": "Focus on Difficult Topics",
+  "@focusDifficulties": {
+    "description": "Title for focusing on difficulties tip"
+  },
+
+  "focusDifficultiesDesc": "Regularly review the questions you've answered incorrectly.",
+  "@focusDifficultiesDesc": {
+    "description": "Description for focusing on difficulties tip"
+  },
+
+  "repetitionImportant": "Repetition is Important",
+  "@repetitionImportant": {
+    "description": "Title for repetition tip"
+  },
+
+  "repetitionImportantDesc": "Solve the same questions on different days. It improves your memory.",
+  "@repetitionImportantDesc": {
+    "description": "Description for repetition tip"
+  },
+
+  "loadingStatisticsError": "Error loading statistics: {error}",
+  "@loadingStatisticsError": {
+    "description": "Error message when loading statistics fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+
+  "weeklyProgress": "Weekly Progress",
+  "@weeklyProgress": {
+    "description": "Title for weekly progress chart"
+  },
+
+  "refresh": "Refresh",
+  "@refresh": {
+    "description": "Text for refresh button"
+  },
+
+  "questions": "questions",
+  "@questions": {
+    "description": "Text for questions label"
+  },
+
+  "weeklyDataLoadingError": "Error loading weekly data: {error}",
+  "@weeklyDataLoadingError": {
+    "description": "Error message when loading weekly data fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+
+  "thisWeekSolvedQuestions": "This week you solved {count} questions",
+  "@thisWeekSolvedQuestions": {
+    "description": "Text showing number of questions solved this week",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "25"
+      }
+    }
+  },
+
+  "weeklyGoalCompleted": "Congratulations! You have completed your weekly goal.",
+  "@weeklyGoalCompleted": {
+    "description": "Message shown when weekly goal is completed"
+  },
+
+  "weeklyGoalTarget": "Your weekly goal: {count} questions",
+  "@weeklyGoalTarget": {
+    "description": "Text showing weekly goal target",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "70"
+      }
+    }
+  },
+
+  "dailyGoal": "Daily Goal",
+  "@dailyGoal": {
+    "description": "Title for daily goal chart"
+  },
+
+  "editDailyGoal": "Edit daily goal",
+  "@editDailyGoal": {
+    "description": "Tooltip for edit daily goal button"
+  },
+
+  "dailyGoalProgress": "{current} / {total} questions",
+  "@dailyGoalProgress": {
+    "description": "Text showing daily goal progress",
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "example": "5"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+
+  "dailyGoalCompleted": "Congratulations! You have completed your daily goal.",
+  "@dailyGoalCompleted": {
+    "description": "Message shown when daily goal is completed"
+  },
+
+  "dailyGoalRemaining": "You have {count} questions remaining to complete your daily goal.",
+  "@dailyGoalRemaining": {
+    "description": "Text showing remaining questions for daily goal",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "setDailyGoal": "Set Daily Goal",
+  "@setDailyGoal": {
+    "description": "Title for daily goal dialog"
+  },
+
+  "determineNumberOfQuestionsDaily": "Determine the number of questions you want to solve daily:",
+  "@determineNumberOfQuestionsDaily": {
+    "description": "Instruction for setting daily goal"
   }
 }

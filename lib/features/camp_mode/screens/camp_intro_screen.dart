@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:us_civics_test_app/utils/extensions.dart';
 import '../models/camp_plan.dart';
 import '../services/camp_service.dart';
 import 'camp_day_screen.dart';
@@ -66,7 +67,7 @@ class _CampIntroScreenState extends State<CampIntroScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('10 Günde Vatandaşlık'),
+        title: Text(context.l10n.campIntroTitle),
         elevation: 0,
       ),
       body: _isLoading

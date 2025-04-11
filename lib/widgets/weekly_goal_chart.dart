@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../services/question_service.dart';
+import '../utils/extensions.dart';
 
 class WeeklyProgressChart extends StatefulWidget {
   final QuestionService questionService;
@@ -17,7 +18,12 @@ class WeeklyProgressChart extends StatefulWidget {
 class _WeeklyProgressChartState extends State<WeeklyProgressChart> {
   bool _isLoading = true;
   Map<String, int> _weeklyData = {};
-  final List<String> _weekDays = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
+  final Map<String, List<String>> _weekDaysMap = {
+    'en': ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    'tr': ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'],
+    'es': ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']
+  };
+  List<String> get _weekDays => _weekDaysMap[Localizations.localeOf(context).languageCode] ?? _weekDaysMap['en']!;
 
   @override
   void initState() {
@@ -45,7 +51,7 @@ class _WeeklyProgressChartState extends State<WeeklyProgressChart> {
       
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Haftalık veriler yüklenirken hata: $e')),
+        SnackBar(content: Text(context.l10n.weeklyDataLoadingError(e.toString()))),
         );
       }
     }
@@ -114,8 +120,8 @@ class _WeeklyProgressChartState extends State<WeeklyProgressChart> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              'Haftalık İlerleme',
+            Text(
+              context.l10n.weeklyProgress,
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -124,7 +130,7 @@ class _WeeklyProgressChartState extends State<WeeklyProgressChart> {
             IconButton(
               icon: const Icon(Icons.refresh),
               onPressed: _loadData,
-              tooltip: 'Yenile',
+              tooltip: context.l10n.refresh,
               color: Colors.grey[600],
             ),
           ],
@@ -147,7 +153,7 @@ class _WeeklyProgressChartState extends State<WeeklyProgressChart> {
                           final dateString = '${date.day}/${date.month}';
                           
                           return BarTooltipItem(
-                            '$dateString\n${rod.toY.toInt()} soru',
+                            '$dateString\n${rod.toY.toInt()} ${context.l10n.questions}',
                             const TextStyle(color: Colors.white),
                           );
                         },
@@ -266,7 +272,7 @@ class _WeeklyProgressChartState extends State<WeeklyProgressChart> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Bu hafta toplam $totalThisWeek soru çözdünüz',
+                    context.l10n.thisWeekSolvedQuestions(totalThisWeek),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.blue[800],
@@ -275,8 +281,8 @@ class _WeeklyProgressChartState extends State<WeeklyProgressChart> {
                   const SizedBox(height: 4),
                   Text(
                     completion >= 1
-                        ? 'Tebrikler! Haftalık hedefinizi tamamladınız.'
-                        : 'Haftalık hedefiniz: $weeklyGoal soru',
+                        ? context.l10n.weeklyGoalCompleted
+                        : context.l10n.weeklyGoalTarget(weeklyGoal),
                     style: TextStyle(
                       color: Colors.blue[800],
                       fontSize: 13,

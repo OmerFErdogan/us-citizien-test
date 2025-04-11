@@ -96,7 +96,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
       setState(() => _isLoading = false);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Flashcardlar yüklenirken hata oluştu: $e')),
+          SnackBar(content: Text(context.l10n.errorLoading(e.toString())))
         );
       }
     }
@@ -217,7 +217,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
                       child: Text(
                         context.l10n.citizenshipJourney,
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],
@@ -236,13 +236,13 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
                 _buildSummaryItem(
                   icon: Icons.check_circle,
                   value: _knownCount.toString(),
-                  label: 'Biliyorum',
+                  label: context.l10n.knewIt,
                   color: Colors.green,
                 ),
                 _buildSummaryItem(
                   icon: Icons.cancel,
                   value: _unknownCount.toString(),
-                  label: 'Bilmiyorum',
+                  label: context.l10n.stillLearning,
                   color: Colors.red,
                 ),
               ],
@@ -256,7 +256,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
             ),
             const SizedBox(height: 8),
             Text(
-              'Başarı Oranı: %${((_knownCount / (_knownCount + _unknownCount)) * 100).toStringAsFixed(1)}',
+              context.l10n.successRate(((_knownCount / (_knownCount + _unknownCount)) * 100).toStringAsFixed(1)),
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ],
@@ -267,7 +267,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
               Navigator.pop(context);
               Navigator.pop(context); // Ana ekrana dön
             },
-            child: const Text('Çıkış'),
+            child: Text(context.l10n.backToHome),
           ),
           ElevatedButton(
             onPressed: () {
@@ -281,7 +281,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
               });
               _flipController.reset();
             },
-            child: const Text('Tekrar Başlat'),
+            child: Text(context.l10n.studyAgain),
           ),
         ],
       ),
@@ -325,7 +325,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
         actions: [
           IconButton(
             icon: const Icon(Icons.shuffle),
-            tooltip: 'Kartları Karıştır',
+            tooltip: context.l10n.shuffle,
             onPressed: () {
               if (_questions.isNotEmpty) {
                 setState(() {
@@ -341,7 +341,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
           ),
           IconButton(
             icon: const Icon(Icons.refresh),
-            tooltip: 'Yeniden Yükle',
+            tooltip: context.l10n.refreshData,
             onPressed: _loadFlashcards,
           ),
         ],
@@ -371,14 +371,14 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
-          const Text(
-            'Lütfen farklı kategoriler seçin veya soruları yeniden yükleyin.',
+          Text(
+            context.l10n.pleaseSelectCategory,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 24),
           ElevatedButton(
             onPressed: _loadFlashcards,
-            child: const Text('Yeniden Dene'),
+            child: Text(context.l10n.startLearning),
           ),
         ],
       ),
@@ -422,7 +422,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Kart ${_currentCardIndex + 1}/${_questions.length}',
+                '${context.l10n.card} ${_currentCardIndex + 1}/${_questions.length}',
                 style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               if (_questions.isNotEmpty && _currentCardIndex < _questions.length)
@@ -465,12 +465,12 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _buildSessionStats(
-                    text: 'Biliyorum: $_knownCount',
+                    text: '${context.l10n.knewIt}: $_knownCount',
                     color: Colors.green,
                   ),
                   const SizedBox(width: 8),
                   _buildSessionStats(
-                    text: 'Bilmiyorum: $_unknownCount',
+                    text: '${context.l10n.stillLearning}: $_unknownCount',
                     color: Colors.red,
                   ),
                 ],
@@ -523,7 +523,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
           ElevatedButton.icon(
             onPressed: _isCardFlipped ? () => _markCard(known: false) : null,
             icon: const Icon(Icons.close),
-            label: const Text('Bilmiyorum'),
+            label: Text(context.l10n.stillLearning),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red[400],
               disabledBackgroundColor: Colors.red[100],
@@ -532,7 +532,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
           ElevatedButton.icon(
             onPressed: _isCardFlipped ? () => _markCard(known: true) : null,
             icon: const Icon(Icons.check),
-            label: const Text('Biliyorum'),
+            label: Text(context.l10n.knewIt),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.green[400],
               disabledBackgroundColor: Colors.green[100],
@@ -635,7 +635,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
                 const Icon(Icons.touch_app, size: 20, color: Colors.grey),
                 const SizedBox(width: 8),
                 Text(
-                  'Cevabı görmek için kartı çevirin',
+                  context.l10n.tapToFlip,
                   style: TextStyle(
                     color: Colors.grey[700],
                     fontSize: 14,
@@ -669,8 +669,8 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
         children: [
           const Icon(Icons.check_circle_outline, size: 48, color: Colors.green),
           const SizedBox(height: 16),
-          const Text(
-            'CEVAP',
+          Text(
+            context.l10n.answer,
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -720,8 +720,8 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildBackCardHint(Icons.close, 'Bilmiyorum', Colors.red[400]),
-              _buildBackCardHint(Icons.check, 'Biliyorum', Colors.green[400]),
+              _buildBackCardHint(Icons.close, context.l10n.stillLearning, Colors.red[400]),
+              _buildBackCardHint(Icons.check, context.l10n.knewIt, Colors.green[400]),
             ],
           ),
         ],

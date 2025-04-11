@@ -677,5 +677,246 @@
   "newFeature": "NUEVO",
   "@newFeature": {
     "description": "Label for new features"
+  },
+
+  "campIntroTitle": "Campamento de Ciudadanía de 10 Días",
+  "@campIntroTitle": {
+    "description": "Title for camp intro screen"
+  },
+
+  "completedStatus": "Completado",
+  "@completedStatus": {
+    "description": "Text shown when something is completed"
+  },
+
+  "start": "Iniciar",
+  "@start": {
+    "description": "Button text to start"
+  },
+
+  "principlesOfDemocracy": "Principios de la Democracia Americana",
+  "@principlesOfDemocracy": {
+    "description": "Category name for principles of American democracy"  
+  },
+
+  "card": "Tarjeta",
+  "@card": {
+    "description": "Text for card label"
+  },
+
+  "answer": "RESPUESTA",
+  "@answer": {
+    "description": "Text for answer label"
+  },
+
+  "refreshData": "Actualizar",
+  "@refreshData": {
+    "description": "Text for refresh data button"
+  },
+
+  "successRate": "Tasa de Éxito: {rate}%",
+  "@successRate": {
+    "description": "Text showing success rate with percentage",
+    "placeholders": {
+      "rate": {
+        "type": "String",
+        "example": "85.5"
+      }
+    }
+  },
+
+  "shuffle": "Mezclar",
+  "@shuffle": {
+    "description": "Text for shuffle button"
+  },
+
+  "statistics": "Estadísticas",
+  "@statistics": {
+    "description": "Title for statistics screen"
+  },
+
+  "generalTab": "General",
+  "@generalTab": {
+    "description": "Tab title for general statistics"
+  },
+
+  "categoriesTab": "Categorías",
+  "@categoriesTab": {
+    "description": "Tab title for categories statistics"
+  },
+
+  "difficultiesTab": "Dificultades",
+  "@difficultiesTab": {
+    "description": "Tab title for difficulties statistics"
+  },
+
+  "progressTab": "Progreso",
+  "@progressTab": {
+    "description": "Tab title for progress statistics"
+  },
+
+  "generalProgress": "Progreso General",
+  "@generalProgress": {
+    "description": "Title for general progress card"
+  },
+
+  "completed": "Completado: {count} / {total} ({rate}%)",
+  "@completed": {
+    "description": "Text showing completed count, total, and percentage",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      },
+      "rate": {
+        "type": "String",
+        "example": "50.0"
+      }
+    }
+  },
+
+  "accuracyRate": "Tasa de Precisión",
+  "@accuracyRate": {
+    "description": "Title for accuracy rate card"
+  },
+
+  "excellentPerformance": "¡Excelente! Parece que has dominado los temas.",
+  "@excellentPerformance": {
+    "description": "Comment for excellent score (90%+)"
+  },
+
+  "veryGoodPerformance": "¡Muy bien! Podrías trabajar en algunos temas más.",
+  "@veryGoodPerformance": {
+    "description": "Comment for very good score (80-89%)"
+  },
+
+  "goodPerformance": "¡Bien! Deberías practicar un poco más.",
+  "@goodPerformance": {
+    "description": "Comment for good score (70-79%)"
+  },
+
+  "averagePerformance": "No está mal. Necesitas estudiar más.",
+  "@averagePerformance": {
+    "description": "Comment for average score (60-69%)"
+  },
+
+  "improvablePerformance": "Se puede mejorar. Practica más.",
+  "@improvablePerformance": {
+    "description": "Comment for below average score (40-59%)"
+  },
+
+  "needsWorkPerformance": "Necesita más trabajo. Las tarjetas de memoria pueden ayudar.",
+  "@needsWorkPerformance": {
+    "description": "Comment for poor score (below 40%)"
+  },
+
+  "answeredLabel": "Respondidas",
+  "@answeredLabel": {
+    "description": "Label for answered questions count"
+  },
+
+  "correctLabel": "Correctas",
+  "@correctLabel": {
+    "description": "Label for correct answers count"
+  },
+
+  "incorrectLabel": "Incorrectas",
+  "@incorrectLabel": {
+    "description": "Label for incorrect answers count"
+  },
+
+  "categorySuccessRate": "Éxito por Categoría",
+  "@categorySuccessRate": {
+    "description": "Title for category success rate card"
+  },
+
+  "categoryDetails": "Detalles de Categoría",
+  "@categoryDetails": {
+    "description": "Title for category details section"
+  },
+
+  "completedCount": "Completado: {attempted} / {total}",
+  "@completedCount": {
+    "description": "Text showing completed count out of total",
+    "placeholders": {
+      "attempted": {
+        "type": "int",
+        "example": "5"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+
+  "accuracyCount": "Precisión: {correct} / {attempted}",
+  "@accuracyCount": {
+    "description": "Text showing correct count out of attempted",
+    "placeholders": {
+      "correct": {
+        "type": "int",
+        "example": "4"
+      },
+      "attempted": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "noWrongAnsweredQuestions": "Aún no hay preguntas respondidas incorrectamente.",
+  "@noWrongAnsweredQuestions": {
+    "description": "Message shown when there are no difficult questions"
+  },
+
+  "studySuggestions": "Sugerencias de Estudio",
+  "@studySuggestions": {
+    "description": "Title for study suggestions section"
+  },
+
+  "studyRegularly": "Estudia Regularmente",
+  "@studyRegularly": {
+    "description": "Title for regular study tip"
+  },
+
+  "studyRegularlyDesc": "Estudiar durante 10-15 minutos todos los días es más efectivo que estudiar durante mucho tiempo en un solo día.",
+  "@studyRegularlyDesc": {
+    "description": "Description for regular study tip"
+  },
+
+  "focusDifficulties": "Concéntrate en los Temas Difíciles",
+  "@focusDifficulties": {
+    "description": "Title for focusing on difficulties tip"
+  },
+
+  "focusDifficultiesDesc": "Revisa regularmente las preguntas que has respondido incorrectamente.",
+  "@focusDifficultiesDesc": {
+    "description": "Description for focusing on difficulties tip"
+  },
+
+  "repetitionImportant": "La Repetición es Importante",
+  "@repetitionImportant": {
+    "description": "Title for repetition tip"
+  },
+
+  "repetitionImportantDesc": "Resuelve las mismas preguntas en diferentes días. Mejora tu memoria.",
+  "@repetitionImportantDesc": {
+    "description": "Description for repetition tip"
+  },
+
+  "loadingStatisticsError": "Error al cargar las estadísticas: {error}",
+  "@loadingStatisticsError": {
+    "description": "Error message when loading statistics fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
   }
 }

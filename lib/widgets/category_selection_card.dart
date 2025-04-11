@@ -119,7 +119,7 @@ class CategorySelectionCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            context.l10n.completed(completedCount, questionCount),
+                            context.l10n.completed(completedCount, questionCount, questionCount > 0 ? (completedCount * 100 / questionCount).toStringAsFixed(1) : '0'),
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey[700],

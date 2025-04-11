@@ -4,6 +4,26 @@
   "@appTitle": {
     "description": "The title of the application"
   },
+
+  "activeStatus": "Aktif",
+  "@activeStatus": {
+    "description": "Status text for active items"
+  },
+
+  "lockedStatus": "Kilitli",
+  "@lockedStatus": {
+    "description": "Status text for locked items"
+  },
+
+  "waitingStatus": "Bekliyor",
+  "@waitingStatus": {
+    "description": "Status text for waiting items"
+  },
+
+  "studyAgain": "Tekrar Çalış",
+  "@studyAgain": {
+    "description": "Button text to study again"
+  },
   "americanDream": "AMERİKAN RÜYASI",
   "@americanDream": {
     "description": "Title for American Dream banner"
@@ -677,5 +697,786 @@
   "newFeature": "YENİ",
   "@newFeature": {
     "description": "Label for new features"
+  },
+  
+  "campIntroTitle": "10 Günde Vatandaşlık",
+  "@campIntroTitle": {
+    "description": "Title for camp intro screen"
+  },
+  
+  "dayLoading": "Gün Yükleniyor...",
+  "@dayLoading": {
+    "description": "Text shown when loading a camp day"
+  },
+  
+  "dayTitle": "Gün {number}: {title}",
+  "@dayTitle": {
+    "description": "Title for a camp day",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      },
+      "title": {
+        "type": "String",
+        "example": "American History Basics"
+      }
+    }
+  },
+  
+  "dayLocked": "Bu gün henüz kilitli",
+  "@dayLocked": {
+    "description": "Text shown when a day is locked"
+  },
+  
+  "completePreviousDay": "Önceki günü tamamlayarak kilidini açabilirsiniz",
+  "@completePreviousDay": {
+    "description": "Instruction to complete previous day"
+  },
+  
+  "returnToPreviousDay": "Önceki Güne Dön",
+  "@returnToPreviousDay": {
+    "description": "Button text to return to previous day"
+  },
+  
+  "programInfo": "Program Hakkında",
+  "@programInfo": {
+    "description": "Header for program information section"
+  },
+  
+  "campDescriptionLong": "10 Günde Vatandaşlık programı, ABD vatandaşlık sınavına hızlı ve etkili bir şekilde hazırlanmanızı sağlayan yoğunlaştırılmış bir çalışma kampıdır. Her gün farklı bir konu üzerinde çalışarak, sistematik bir yaklaşımla sınavın tüm alanlarını kapsarsınız.",
+  "@campDescriptionLong": {
+    "description": "Long description for the camp program"
+  },
+  
+  "campRequirements": "Program, en az 8 günün başarıyla tamamlanmasını gerektiren, günlük hedeflere dayalı bir yaklaşım sunar. Her gün sabah, öğle ve akşam oturumlarından oluşur.",
+  "@campRequirements": {
+    "description": "Description of camp requirements"
+  },
+  
+  "tenDayPlan": "10 Günlük Plan",
+  "@tenDayPlan": {
+    "description": "Title for 10-day plan section"
+  },
+  
+  "viewFullPlan": "Tüm Planı Gör",
+  "@viewFullPlan": {
+    "description": "Button text to view full plan"
+  },
+  
+  "benefits": "Faydaları",
+  "@benefits": {
+    "description": "Title for benefits section"
+  },
+  
+  "fastProgress": "Hızlı İlerleme",
+  "@fastProgress": {
+    "description": "Title for fast progress benefit"
+  },
+  
+  "fastProgressDesc": "Sadece 10 günde sistematik öğrenme",
+  "@fastProgressDesc": {
+    "description": "Description for fast progress benefit"
+  },
+  
+  "comprehensiveContent": "Kapsamlı İçerik",
+  "@comprehensiveContent": {
+    "description": "Title for comprehensive content benefit"
+  },
+  
+  "comprehensiveContentDesc": "Vatandaşlık sınavının tüm konu alanlarını kapsar",
+  "@comprehensiveContentDesc": {
+    "description": "Description for comprehensive content benefit"
+  },
+  
+  "badgesAndCertificates": "Rozetler ve Sertifikalar",
+  "@badgesAndCertificates": {
+    "description": "Title for badges and certificates benefit"
+  },
+  
+  "badgesAndCertificatesDesc": "İlerlemenizi göstermenin somut yolları",
+  "@badgesAndCertificatesDesc": {
+    "description": "Description for badges and certificates benefit"
+  },
+  
+  "progressTracking": "İlerleme Takibi",
+  "@progressTracking": {
+    "description": "Title for progress tracking benefit"
+  },
+  
+  "progressTrackingDesc": "Gelişiminizi günlük olarak görün",
+  "@progressTrackingDesc": {
+    "description": "Description for progress tracking benefit"
+  },
+  
+  "startCamp": "Kampa Başla",
+  "@startCamp": {
+    "description": "Button text to start camp"
+  },
+  
+  "continueCamp": "Kampa Devam Et",
+  "@continueCamp": {
+    "description": "Button text to continue camp"
+  },
+  
+  "continueToDay": "Gün {day}'e Devam Et",
+  "@continueToDay": {
+    "description": "Button text to continue to specific day",
+    "placeholders": {
+      "day": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  
+  "viewProgress": "İlerleme Durumunu Gör",
+  "@viewProgress": {
+    "description": "Button text to view progress"
+  },
+  
+  "resetCamp": "Kampı Sıfırla",
+  "@resetCamp": {
+    "description": "Button text to reset camp"
+  },
+  
+  "campPlanTitle": "10 Günlük Kamp Planı",
+  "@campPlanTitle": {
+    "description": "Title for camp plan modal"
+  },
+  
+  "campPlanDescription": "Her gün farklı bir konuya odaklanarak, vatandaşlık sınavı için gereken tüm bilgileri sistematik olarak öğrenin.",
+  "@campPlanDescription": {
+    "description": "Description for camp plan modal"
+  },
+  
+  "newCampTitle": "Yeni Kamp Başlat",
+  "@newCampTitle": {
+    "description": "Title for new camp dialog"
+  },
+  
+  "newCampDescription": "10 günlük vatandaşlık kampına başlamak üzeresiniz. Her gün düzenli olarak çalışmanız önerilir. Başlamak istiyor musunuz?",
+  "@newCampDescription": {
+    "description": "Description for new camp dialog"
+  },
+  
+  "start": "Başlat",
+  "@start": {
+    "description": "Button text to start"
+  },
+  
+  "dailyProgress": "Günlük İlerleme",
+  "@dailyProgress": {
+    "description": "Title for daily progress section"
+  },
+  
+  "completedStatus": "Tamamlandı",
+  "@completedStatus": {
+    "description": "Text shown when something is completed"
+  },
+  
+  "target": "Hedef",
+  "@target": {
+    "description": "Label for target"
+  },
+  
+  "success": "Başarı",
+  "@success": {
+    "description": "Label for success"
+  },
+  
+  "progress": "İlerleme",
+  "@progress": {
+    "description": "Label for progress"
+  },
+  
+  "dailyActivities": "Günlük Aktiviteler",
+  "@dailyActivities": {
+    "description": "Title for daily activities section"
+  },
+  
+  "solveAllQuestions": "Tüm Soruları Çöz",
+  "@solveAllQuestions": {
+    "description": "Button text to solve all questions"
+  },
+  
+  "openStudyMaterial": "Çalışma Materyalini Aç",
+  "@openStudyMaterial": {
+    "description": "Button text to open study material"
+  },
+  
+  "completeDayTest": "Günü Test Amaçlı Tamamla",
+  "@completeDayTest": {
+    "description": "Button text for testing to complete day"
+  },
+  
+  "dayCompletedSuccess": "Bu günü başarıyla tamamladınız!",
+  "@dayCompletedSuccess": {
+    "description": "Message shown when day is completed successfully"
+  },
+  
+  "simulationMode": "Simülasyon Modu",
+  "@simulationMode": {
+    "description": "Title for simulation mode dialog"
+  },
+  
+  "simulationDescription": "Bu işlem, test amaçlı olarak günü simüle edecek ve başarı ile tamamlayacaktır.",
+  "@simulationDescription": {
+    "description": "Description for simulation mode dialog"
+  },
+  
+  "successLevel": "Başarı seviyesini seçin:",
+  "@successLevel": {
+    "description": "Prompt to select success level"
+  },
+  
+  "minimum": "Minimum",
+  "@minimum": {
+    "description": "Option for minimum success level"
+  },
+  
+  "medium": "Orta",
+  "@medium": {
+    "description": "Option for medium success level"
+  },
+  
+  "high": "Yüksek",
+  "@high": {
+    "description": "Option for high success level"
+  },
+  
+  "difficultyLevel": "Zorluk: {level}",
+  "@difficultyLevel": {
+    "description": "Text showing difficulty level",
+    "placeholders": {
+      "level": {
+        "type": "String",
+        "example": "Medium"
+      }
+    }
+  },
+  
+  "campProgressTitle": "Kamp İlerlemesi",
+  "@campProgressTitle": {
+    "description": "Title for camp progress screen"
+  },
+  
+  "refreshData": "İlerleme verilerini yenile",
+  "@refreshData": {
+    "description": "Text for refresh data button tooltip"
+  },
+  
+  "refreshingData": "Veriler yenileniyor...",
+  "@refreshingData": {
+    "description": "Message shown when refreshing data"
+  },
+  
+  "overview": "Genel Bakış",
+  "@overview": {
+    "description": "Tab title for overview"
+  },
+  
+  "days": "Günler",
+  "@days": {
+    "description": "Tab title for days"
+  },
+  
+  "badges": "Rozetler",
+  "@badges": {
+    "description": "Tab title for badges"
+  },
+  
+  "campProgress": "Kamp İlerlemesi",
+  "@campProgress": {
+    "description": "Title for camp progress section"
+  },
+  
+  "startDate": "Başlama",
+  "@startDate": {
+    "description": "Label for start date"
+  },
+  
+  "completedDays": "Tamamlanan Gün",
+  "@completedDays": {
+    "description": "Label for completed days"
+  },
+  
+  "overallSuccess": "Toplam Başarı",
+  "@overallSuccess": {
+    "description": "Label for overall success"
+  },
+  
+  "zeroDays": "0 gün",
+  "@zeroDays": {
+    "description": "Text for zero days"
+  },
+  
+  "minDays": "{count} gün",
+  "@minDays": {
+    "description": "Text showing minimum number of days",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "8"
+      }
+    }
+  },
+  
+  "totalDays": "{count} gün",
+  "@totalDays": {
+    "description": "Text showing total number of days",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  
+  "campCompleted": "Tebrikler! Kampı tamamladınız.",
+  "@campCompleted": {
+    "description": "Message shown when camp is completed"
+  },
+  
+  "campCompletionRequirement": "Kampı tamamlamak için en az {count} günü başarıyla bitirmelisiniz.",
+  "@campCompletionRequirement": {
+    "description": "Text explaining camp completion requirement",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "8"
+      }
+    }
+  },
+  
+  "strengthsWeaknesses": "Güçlü ve Zayıf Alanlar",
+  "@strengthsWeaknesses": {
+    "description": "Title for strengths and weaknesses section"
+  },
+  
+  "notEnoughData": "Henüz yeterli veri yok. Daha fazla gün tamamlayarak detaylı analizleri görebilirsiniz.",
+  "@notEnoughData": {
+    "description": "Message shown when there is not enough data"
+  },
+  
+  "extraStudySuggestions": "Ekstra Çalışma Önerileri",
+  "@extraStudySuggestions": {
+    "description": "Button text for extra study suggestions"
+  },
+  
+  "congratulations": "Tebrikler!",
+  "@congratulations": {
+    "description": "Congratulations text"
+  },
+  
+  "campCompletedMessage": "Vatandaşlık kamp programını başarıyla tamamladınız.",
+  "@campCompletedMessage": {
+    "description": "Message shown when camp is completed"
+  },
+  
+  "downloadCertificate": "Sertifikanı İndir",
+  "@downloadCertificate": {
+    "description": "Button text to download certificate"
+  },
+  
+  "downloadingCertificate": "Sertifika indiriliyor",
+  "@downloadingCertificate": {
+    "description": "Message shown when downloading certificate"
+  },
+  
+  "tenDayCampCalendar": "10 Günlük Kamp Takvimi",
+  "@tenDayCampCalendar": {
+    "description": "Title for 10-day camp calendar"
+  },
+  
+  "dailySummary": "Günlük Özet",
+  "@dailySummary": {
+    "description": "Title for daily summary"
+  },
+  
+  "badgeGallery": "Rozet Galerisi",
+  "@badgeGallery": {
+    "description": "Title for badge gallery"
+  },
+  
+  "earned": "Kazanılan",
+  "@earned": {
+    "description": "Label for earned items"
+  },
+  
+  "remaining": "Kalan",
+  "@remaining": {
+    "description": "Label for remaining items"
+  },
+  
+  "completion": "Tamamlama",
+  "@completion": {
+    "description": "Label for completion percentage"
+  },
+  
+  "specialBadges": "Özel Rozetler",
+  "@specialBadges": {
+    "description": "Title for special badges"
+  },
+  
+  "dayCompletionBadges": "Gün Tamamlama Rozetleri",
+  "@dayCompletionBadges": {
+    "description": "Title for day completion badges"
+  },
+  
+  "dayNumber": "Gün {number}",
+  "@dayNumber": {
+    "description": "Text showing day number",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  
+  "perfectDayBadges": "Mükemmel Gün Rozetleri",
+  "@perfectDayBadges": {
+    "description": "Title for perfect day badges"
+  },
+  
+  "campNotStarted": "Henüz kamp başlatılmadı",
+  "@campNotStarted": {
+    "description": "Message shown when camp is not started"
+  },
+  
+  "startTenDayCamp": "10 günlük kampı başlatarak ilerlemenizi takip edebilirsiniz",
+  "@startTenDayCamp": {
+    "description": "Instruction to start 10-day camp"
+  },
+
+  "principlesOfDemocracy": "Amerikan Demokrasisinin İlkeleri",
+  "@principlesOfDemocracy": {
+    "description": "Category name for principles of American democracy"  
+  },
+
+  "card": "Kart",
+  "@card": {
+    "description": "Text for card label"
+  },
+
+  "answer": "CEVAP",
+  "@answer": {
+    "description": "Text for answer label"
+  },
+
+  "refreshData": "Yenile",
+  "@refreshData": {
+    "description": "Text for refresh data button"
+  },
+
+  "successRate": "Başarı Oranı: %{rate}",
+  "@successRate": {
+    "description": "Text showing success rate with percentage",
+    "placeholders": {
+      "rate": {
+        "type": "String",
+        "example": "85.5"
+      }
+    }
+  },
+
+  "shuffle": "Karıştır",
+  "@shuffle": {
+    "description": "Text for shuffle button"
+  },
+
+  "statistics": "İstatistikler",
+  "@statistics": {
+    "description": "Title for statistics screen"
+  },
+
+  "generalTab": "Genel",
+  "@generalTab": {
+    "description": "Tab title for general statistics"
+  },
+
+  "categoriesTab": "Kategoriler",
+  "@categoriesTab": {
+    "description": "Tab title for categories statistics"
+  },
+
+  "difficultiesTab": "Zorluklar",
+  "@difficultiesTab": {
+    "description": "Tab title for difficulties statistics"
+  },
+
+  "progressTab": "İlerleme",
+  "@progressTab": {
+    "description": "Tab title for progress statistics"
+  },
+
+  "generalProgress": "Genel İlerleme",
+  "@generalProgress": {
+    "description": "Title for general progress card"
+  },
+
+  "completed": "Tamamlanan: {count} / {total} (%{rate})",
+  "@completed": {
+    "description": "Text showing completed count, total, and percentage",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      },
+      "rate": {
+        "type": "String",
+        "example": "50.0"
+      }
+    }
+  },
+
+  "accuracyRate": "Doğruluk Oranı",
+  "@accuracyRate": {
+    "description": "Title for accuracy rate card"
+  },
+
+  "excellentPerformance": "Mükemmel! Konulara hakim görünüyorsunuz.",
+  "@excellentPerformance": {
+    "description": "Comment for excellent score (90%+)"
+  },
+
+  "veryGoodPerformance": "Çok iyi! Birkaç konu üzerinde daha çalışabilirsiniz.",
+  "@veryGoodPerformance": {
+    "description": "Comment for very good score (80-89%)"
+  },
+
+  "goodPerformance": "İyi! Biraz daha pratik yapmalısınız.",
+  "@goodPerformance": {
+    "description": "Comment for good score (70-79%)"
+  },
+
+  "averagePerformance": "Fena değil. Daha fazla çalışmalısınız.",
+  "@averagePerformance": {
+    "description": "Comment for average score (60-69%)"
+  },
+
+  "improvablePerformance": "Geliştirilebilir. Daha çok pratik yapın.",
+  "@improvablePerformance": {
+    "description": "Comment for below average score (40-59%)"
+  },
+
+  "needsWorkPerformance": "Daha fazla çalışma gerekiyor. Flashcardlar yardımcı olabilir.",
+  "@needsWorkPerformance": {
+    "description": "Comment for poor score (below 40%)"
+  },
+
+  "answeredLabel": "Cevaplanan",
+  "@answeredLabel": {
+    "description": "Label for answered questions count"
+  },
+
+  "correctLabel": "Doğru",
+  "@correctLabel": {
+    "description": "Label for correct answers count"
+  },
+
+  "incorrectLabel": "Yanlış",
+  "@incorrectLabel": {
+    "description": "Label for incorrect answers count"
+  },
+
+  "categorySuccessRate": "Kategori Bazlı Başarı",
+  "@categorySuccessRate": {
+    "description": "Title for category success rate card"
+  },
+
+  "categoryDetails": "Kategori Detayları",
+  "@categoryDetails": {
+    "description": "Title for category details section"
+  },
+
+  "completedCount": "Tamamlanan: {attempted} / {total}",
+  "@completedCount": {
+    "description": "Text showing completed count out of total",
+    "placeholders": {
+      "attempted": {
+        "type": "int",
+        "example": "5"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+
+  "accuracyCount": "Doğruluk: {correct} / {attempted}",
+  "@accuracyCount": {
+    "description": "Text showing correct count out of attempted",
+    "placeholders": {
+      "correct": {
+        "type": "int",
+        "example": "4"
+      },
+      "attempted": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "noWrongAnsweredQuestions": "Henüz yanlış cevaplanmış soru bulunmamaktadır.",
+  "@noWrongAnsweredQuestions": {
+    "description": "Message shown when there are no difficult questions"
+  },
+
+  "studySuggestions": "Çalışma Önerileri",
+  "@studySuggestions": {
+    "description": "Title for study suggestions section"
+  },
+
+  "studyRegularly": "Düzenli Çalışın",
+  "@studyRegularly": {
+    "description": "Title for regular study tip"
+  },
+
+  "studyRegularlyDesc": "Her gün 10-15 dakika düzenli çalışmak, bir günde uzun süre çalışmaktan daha etkilidir.",
+  "@studyRegularlyDesc": {
+    "description": "Description for regular study tip"
+  },
+
+  "focusDifficulties": "Zorlanılan Konulara Odaklanın",
+  "@focusDifficulties": {
+    "description": "Title for focusing on difficulties tip"
+  },
+
+  "focusDifficultiesDesc": "Yanlış cevapladığınız soruları düzenli olarak tekrar edin.",
+  "@focusDifficultiesDesc": {
+    "description": "Description for focusing on difficulties tip"
+  },
+
+  "repetitionImportant": "Tekrar Önemlidir",
+  "@repetitionImportant": {
+    "description": "Title for repetition tip"
+  },
+
+  "repetitionImportantDesc": "Aynı soruları farklı günlerde tekrar çözün. Hatırlama yeteneğinizi geliştirir.",
+  "@repetitionImportantDesc": {
+    "description": "Description for repetition tip"
+  },
+
+  "loadingStatisticsError": "İstatistikler yüklenirken hata oluştu: {error}",
+  "@loadingStatisticsError": {
+    "description": "Error message when loading statistics fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+
+  "weeklyProgress": "Haftalık İlerleme",
+  "@weeklyProgress": {
+    "description": "Title for weekly progress chart"
+  },
+
+  "refresh": "Yenile",
+  "@refresh": {
+    "description": "Text for refresh button"
+  },
+
+  "questions": "soru",
+  "@questions": {
+    "description": "Text for questions label"
+  },
+
+  "weeklyDataLoadingError": "Haftalık veriler yüklenirken hata: {error}",
+  "@weeklyDataLoadingError": {
+    "description": "Error message when loading weekly data fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+
+  "thisWeekSolvedQuestions": "Bu hafta toplam {count} soru çözdünüz",
+  "@thisWeekSolvedQuestions": {
+    "description": "Text showing number of questions solved this week",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "25"
+      }
+    }
+  },
+
+  "weeklyGoalCompleted": "Tebrikler! Haftalık hedefinizi tamamladınız.",
+  "@weeklyGoalCompleted": {
+    "description": "Message shown when weekly goal is completed"
+  },
+
+  "weeklyGoalTarget": "Haftalık hedefiniz: {count} soru",
+  "@weeklyGoalTarget": {
+    "description": "Text showing weekly goal target",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "70"
+      }
+    }
+  },
+
+  "dailyGoal": "Günlük Hedef",
+  "@dailyGoal": {
+    "description": "Title for daily goal chart"
+  },
+
+  "editDailyGoal": "Günlük hedefi düzenle",
+  "@editDailyGoal": {
+    "description": "Tooltip for edit daily goal button"
+  },
+
+  "dailyGoalProgress": "{current} / {total} soru",
+  "@dailyGoalProgress": {
+    "description": "Text showing daily goal progress",
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "example": "5"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+
+  "dailyGoalCompleted": "Tebrikler! Bugünkü hedefinizi tamamladınız.",
+  "@dailyGoalCompleted": {
+    "description": "Message shown when daily goal is completed"
+  },
+
+  "dailyGoalRemaining": "Bugünkü hedefinizi tamamlamak için {count} soru kaldı.",
+  "@dailyGoalRemaining": {
+    "description": "Text showing remaining questions for daily goal",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "setDailyGoal": "Günlük Hedefi Ayarla",
+  "@setDailyGoal": {
+    "description": "Title for daily goal dialog"
+  },
+
+  "determineNumberOfQuestionsDaily": "Günlük çözmek istediğiniz soru sayısını belirleyin:",
+  "@determineNumberOfQuestionsDaily": {
+    "description": "Instruction for setting daily goal"
   }
 }

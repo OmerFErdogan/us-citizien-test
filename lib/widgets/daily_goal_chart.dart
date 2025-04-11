@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/question_service.dart';
+import '../utils/extensions.dart';
 
 class DailyGoalChart extends StatefulWidget {
   final QuestionService questionService;
@@ -52,8 +53,8 @@ class _DailyGoalChartState extends State<DailyGoalChart> {
                       size: 24,
                     ),
                     const SizedBox(width: 8),
-                    const Text(
-                      'Günlük Hedef',
+                    Text(
+                      context.l10n.dailyGoal,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -64,7 +65,7 @@ class _DailyGoalChartState extends State<DailyGoalChart> {
                 IconButton(
                   icon: const Icon(Icons.edit),
                   onPressed: () => _showDailyGoalDialog(context),
-                  tooltip: 'Günlük hedefi düzenle',
+                  tooltip: context.l10n.editDailyGoal,
                   color: Colors.grey[600],
                 ),
               ],
@@ -78,7 +79,7 @@ class _DailyGoalChartState extends State<DailyGoalChart> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '$_todayCount / $_dailyGoal soru',
+                      context.l10n.dailyGoalProgress(_todayCount, _dailyGoal),
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -138,7 +139,7 @@ class _DailyGoalChartState extends State<DailyGoalChart> {
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  'Tebrikler! Bugünkü hedefinizi tamamladınız.',
+                  context.l10n.dailyGoalCompleted,
                   style: TextStyle(color: Colors.green[800]),
                 ),
               ),
@@ -163,7 +164,7 @@ class _DailyGoalChartState extends State<DailyGoalChart> {
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  'Bugünkü hedefinizi tamamlamak için $remainingCount soru kaldı.',
+                  context.l10n.dailyGoalRemaining(remainingCount),
                   style: TextStyle(color: Colors.blue[800]),
                 ),
               ),
@@ -180,11 +181,11 @@ class _DailyGoalChartState extends State<DailyGoalChart> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Günlük Hedefi Ayarla'),
+        title: Text(context.l10n.setDailyGoal),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('Günlük çözmek istediğiniz soru sayısını belirleyin:'),
+            Text(context.l10n.determineNumberOfQuestionsDaily),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -230,7 +231,7 @@ class _DailyGoalChartState extends State<DailyGoalChart> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('İptal'),
+            child: Text(context.l10n.cancel),
           ),
           ElevatedButton(
             onPressed: () async {
@@ -240,7 +241,7 @@ class _DailyGoalChartState extends State<DailyGoalChart> {
                 _loadData();
               });
             },
-            child: const Text('Kaydet'),
+            child: Text(context.l10n.save),
           ),
         ],
       ),

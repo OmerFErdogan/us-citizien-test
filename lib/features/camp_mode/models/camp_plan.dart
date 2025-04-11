@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'camp_day.dart';
 
 class CampPlan {
@@ -57,26 +59,64 @@ class CampPlan {
   }
   
   // Varsayılan 10 günlük kamp planını oluştur
-  factory CampPlan.createDefault() {
+  factory CampPlan.createDefault({Locale? locale}) {
+    // Şu anda kullanılan dili belirle veya varsayılan olarak İngilizce kullan
+    final languageCode = locale?.languageCode ?? 'en';
+    
+    // Dile göre başlık ve açıklama seç
+    String title = "10-Day Citizenship";
+    String description = "Intensive study program to prepare for the US citizenship exam in 10 days";
+    
+    if (languageCode == 'tr') {
+      title = "10 Günde Vatandaşlık";
+      description = "Amerikan Vatandaşlık Sınavına 10 günde hazırlanmak için yoğun çalışma programı";
+    } else if (languageCode == 'es') {
+      title = "Ciudadanía en 10 Días";
+      description = "Programa intensivo de estudio para prepararse para el examen de ciudadanía de EE. UU. en 10 días";
+    }
+    
     return CampPlan(
       id: 1,
-      title: "10 Günde Vatandaşlık",
-      description: "Amerikan Vatandaşlık Sınavına 10 günde hazırlanmak için yoğun çalışma programı",
+      title: title,
+      description: description,
       durationDays: 10,
       minCompletionDays: 8,
-      badges: {
+      badges: _getBadgesForLanguage(languageCode),
+      days: _createDefaultDays(languageCode), // Dil bilgisiyle varsayılan günleri oluştur
+    );
+  }
+  
+  // Dile göre rozet tanımlarını getir
+  static Map<String, String> _getBadgesForLanguage(String languageCode) {
+    if (languageCode == 'tr') {
+      return {
         'day_complete': 'Günü tamamladınız',
         'perfect_day': 'Mükemmel gün: %100 başarı',
         'halfway': 'Yolun yarısını tamamladınız',
         'camp_complete': 'Kampı tamamladınız',
         'perfect_camp': 'Mükemmel kamp: 10/10 gün'
-      },
-      days: _createDefaultDays(), // Varsayılan günleri oluştur
-    );
+      };
+    } else if (languageCode == 'es') {
+      return {
+        'day_complete': 'Día completado',
+        'perfect_day': 'Día perfecto: éxito del 100%',
+        'halfway': 'Has completado la mitad del camino',
+        'camp_complete': 'Campamento completado',
+        'perfect_camp': 'Campamento perfecto: 10/10 días'
+      };
+    } else {
+      return {
+        'day_complete': 'Day completed',
+        'perfect_day': 'Perfect day: 100% success',
+        'halfway': 'Halfway completed',
+        'camp_complete': 'Camp completed',
+        'perfect_camp': 'Perfect camp: 10/10 days'
+      };
+    }
   }
   
   // Varsayılan günleri oluştur
-  static List<CampDay> _createDefaultDays() {
+  static List<CampDay> _createDefaultDays(String languageCode) {
     return [
       CampDay(
         dayNumber: 1,

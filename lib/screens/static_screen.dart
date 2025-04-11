@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:us_civics_test_app/utils/extensions.dart';
 import 'package:us_civics_test_app/widgets/weekly_goal_chart.dart';
 import '../models/question.dart';
 import '../services/question_service.dart';
@@ -65,7 +66,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> with SingleTickerPr
       
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('İstatistikler yüklenirken hata oluştu: $e')),
+          SnackBar(content: Text(context.l10n.loadingStatisticsError(e.toString()))),
         );
       }
     }
@@ -145,14 +146,14 @@ class _StatisticsScreenState extends State<StatisticsScreen> with SingleTickerPr
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('İstatistikler'),
+        title: Text(context.l10n.statistics),
         bottom: TabBar(
           controller: _tabController,
-          tabs: const [
-            Tab(text: 'Genel'),
-            Tab(text: 'Kategoriler'),
-            Tab(text: 'Zorluklar'),
-            Tab(text: 'İlerleme'),
+          tabs: [
+            Tab(text: context.l10n.generalTab),
+            Tab(text: context.l10n.categoriesTab),
+            Tab(text: context.l10n.difficultiesTab),
+            Tab(text: context.l10n.progressTab),
           ],
         ),
       ),
@@ -207,8 +208,8 @@ class _StatisticsScreenState extends State<StatisticsScreen> with SingleTickerPr
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Genel İlerleme',
+                     Text(
+                      context.l10n.generalProgress,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -223,11 +224,11 @@ class _StatisticsScreenState extends State<StatisticsScreen> with SingleTickerPr
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Tamamlanan: $attemptedQuestions / $totalQuestions (%${progressRate.toStringAsFixed(1)})',
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                        fontWeight: FontWeight.bold,
-                      ),
+                    context.l10n.completed(attemptedQuestions, totalQuestions, progressRate.toStringAsFixed(1)),
+                    style: TextStyle(
+                    color: Colors.grey[700],
+                    fontWeight: FontWeight.bold,
+                    ),
                     ),
                   ],
                 ),
@@ -244,9 +245,9 @@ class _StatisticsScreenState extends State<StatisticsScreen> with SingleTickerPr
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Doğruluk Oranı',
-                      style: TextStyle(
+                    Text(
+                      context.l10n.accuracyRate,
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -308,7 +309,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> with SingleTickerPr
               children: [
                 Expanded(
                   child: StatsInfoCard(
-                    title: 'Cevaplanan',
+                    title: context.l10n.answeredLabel,
                     value: attemptedQuestions.toString(),
                     icon: Icons.check_circle_outline,
                     color: Colors.blue,
@@ -317,7 +318,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> with SingleTickerPr
                 const SizedBox(width: 12),
                 Expanded(
                   child: StatsInfoCard(
-                    title: 'Doğru',
+                    title: context.l10n.correctLabel,
                     value: correctAnswers.toString(),
                     icon: Icons.thumb_up_alt_outlined,
                     color: Colors.green,
@@ -326,7 +327,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> with SingleTickerPr
                 const SizedBox(width: 12),
                 Expanded(
                   child: StatsInfoCard(
-                    title: 'Yanlış',
+                    title: context.l10n.incorrectLabel,
                     value: (attemptedQuestions - correctAnswers).toString(),
                     icon: Icons.thumb_down_alt_outlined,
                     color: Colors.red,
@@ -358,9 +359,9 @@ class _StatisticsScreenState extends State<StatisticsScreen> with SingleTickerPr
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Kategori Bazlı Başarı',
-                      style: TextStyle(
+                    Text(
+                      context.l10n.categorySuccessRate,
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -385,9 +386,9 @@ class _StatisticsScreenState extends State<StatisticsScreen> with SingleTickerPr
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Kategori Detayları',
-                      style: TextStyle(
+                    Text(
+                      context.l10n.categoryDetails,
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -422,8 +423,8 @@ class _StatisticsScreenState extends State<StatisticsScreen> with SingleTickerPr
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Tamamlanan: $attemptedCount / $totalCount'),
-                                      Text('Doğruluk: $correctCount / $attemptedCount'),
+                                      Text(context.l10n.completedCount(attemptedCount, totalCount)),
+                                      Text(context.l10n.accuracyCount(correctCount, attemptedCount)),
                                     ],
                                   ),
                                 ),
@@ -470,10 +471,10 @@ class _StatisticsScreenState extends State<StatisticsScreen> with SingleTickerPr
     return RefreshIndicator(
       onRefresh: _loadStatistics,
       child: _difficultQuestions.isEmpty
-          ? const Center(
+          ? Center(
               child: Text(
-                'Henüz yanlış cevaplanmış soru bulunmamaktadır.',
-                style: TextStyle(fontSize: 16),
+                context.l10n.noWrongAnsweredQuestions,
+                style: const TextStyle(fontSize: 16),
               ),
             )
           : DifficultQuestionsList(questions: _difficultQuestions),
@@ -514,9 +515,9 @@ class _StatisticsScreenState extends State<StatisticsScreen> with SingleTickerPr
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Çalışma Önerileri',
-                      style: TextStyle(
+                    Text(
+                      context.l10n.studySuggestions,
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -525,20 +526,20 @@ class _StatisticsScreenState extends State<StatisticsScreen> with SingleTickerPr
                     
                     _buildStudyTip(
                       icon: Icons.calendar_today,
-                      title: 'Düzenli Çalışın',
-                      description: 'Her gün 10-15 dakika düzenli çalışmak, bir günde uzun süre çalışmaktan daha etkilidir.',
+                      title: context.l10n.studyRegularly,
+                      description: context.l10n.studyRegularlyDesc,
                     ),
                     
                     _buildStudyTip(
                       icon: Icons.trending_up,
-                      title: 'Zorlanılan Konulara Odaklanın',
-                      description: 'Yanlış cevapladığınız soruları düzenli olarak tekrar edin.',
+                      title: context.l10n.focusDifficulties,
+                      description: context.l10n.focusDifficultiesDesc,
                     ),
                     
                     _buildStudyTip(
                       icon: Icons.repeat,
-                      title: 'Tekrar Önemlidir',
-                      description: 'Aynı soruları farklı günlerde tekrar çözün. Hatırlama yeteneğinizi geliştirir.',
+                      title: context.l10n.repetitionImportant,
+                      description: context.l10n.repetitionImportantDesc,
                     ),
                   ],
                 ),
@@ -605,11 +606,11 @@ class _StatisticsScreenState extends State<StatisticsScreen> with SingleTickerPr
   }
 
   String _getScoreComment(double score) {
-    if (score >= 90) return 'Mükemmel! Konulara hakim görünüyorsunuz.';
-    if (score >= 80) return 'Çok iyi! Birkaç konu üzerinde daha çalışabilirsiniz.';
-    if (score >= 70) return 'İyi! Biraz daha pratik yapmalısınız.';
-    if (score >= 60) return 'Fena değil. Daha fazla çalışmalısınız.';
-    if (score >= 40) return 'Geliştirilebilir. Daha çok pratik yapın.';
-    return 'Daha fazla çalışma gerekiyor. Flashcardlar yardımcı olabilir.';
+    if (score >= 90) return context.l10n.excellentPerformance;
+    if (score >= 80) return context.l10n.veryGoodPerformance;
+    if (score >= 70) return context.l10n.goodPerformance;
+    if (score >= 60) return context.l10n.averagePerformance;
+    if (score >= 40) return context.l10n.improvablePerformance;
+    return context.l10n.needsWorkPerformance;
   }
 }

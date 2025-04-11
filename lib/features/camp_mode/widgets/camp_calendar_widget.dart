@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:us_civics_test_app/utils/extensions.dart';
 import '../models/camp_day.dart';
 import '../models/camp_plan.dart';
 import '../models/camp_progress.dart';
@@ -63,7 +64,7 @@ class CampCalendarWidget extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  _getDayStatus(day, isCompleted, isActive),
+                  _getLocalizedStatus(_getDayStatus(day, isCompleted, isActive), context),
                   style: TextStyle(
                     fontSize: 10,
                     color: _getTextColor(day, isCompleted, isActive),
@@ -138,14 +139,32 @@ class CampCalendarWidget extends StatelessWidget {
   }
 
   String _getDayStatus(CampDay day, bool isCompleted, bool isActive) {
+    // Metni direkt döndürmek yerine BuildContext'i kullanamadığımız için
+    // duruma göre key string'leri döndürüp, UI tarafında çeviriyi yapmalıyız
     if (isCompleted) {
-      return 'Tamamlandı';
+      return 'completed';
     } else if (isActive) {
-      return 'Aktif';
+      return 'active';
     } else if (day.isLocked) {
-      return 'Kilitli';
+      return 'locked';
     } else {
-      return 'Bekliyor';
+      return 'waiting';
+    }
+  }
+
+  // Durum anahtarını bağlama duyarlı çeviriye dönüştür
+  String _getLocalizedStatus(String status, BuildContext context) {
+    switch (status) {
+      case 'completed':
+        return context.l10n.completedStatus;
+      case 'active':
+        return context.l10n.activeStatus;
+      case 'locked':
+        return context.l10n.lockedStatus;
+      case 'waiting':
+        return context.l10n.waitingStatus;
+      default:
+        return status;
     }
   }
 

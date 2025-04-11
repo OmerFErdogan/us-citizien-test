@@ -242,7 +242,7 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      context.l10n.completed(totalCompleted, totalQuestions),
+                      context.l10n.completed(totalCompleted, totalQuestions, totalQuestions > 0 ? (totalCompleted * 100 / totalQuestions).toStringAsFixed(1) : '0'),
                       style: TextStyle(
                         color: Colors.grey[700],
                       ),

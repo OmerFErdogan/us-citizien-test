@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:us_civics_test_app/models/question.dart';
 import '../models/camp_day.dart';
@@ -21,14 +22,20 @@ class CampService {
   CampProgress? _userProgress;
   bool _isInitialized = false;
   final QuestionService _questionService = QuestionService();
+  Locale _currentLocale = const Locale('en'); // Varsayılan olarak İngilizce
   
   // Sabitleri
   static const String _campPlanKey = 'camp_plan';
   static const String _userProgressKey = 'user_camp_progress';
   
   // Servisi başlat
-  Future<void> initialize() async {
+  Future<void> initialize({Locale? locale}) async {
     if (_isInitialized) return;
+    
+    // Dil bilgisini güncelle
+    if (locale != null) {
+      _currentLocale = locale;
+    }
     
     try {
       await _questionService.loadQuestions();
@@ -51,7 +58,7 @@ class CampService {
       _campPlan = CampPlan.fromJson(jsonDecode(campPlanJson));
     } else {
       // Varsayılan kamp planını oluştur
-      _campPlan = CampPlan.createDefault();
+      _campPlan = CampPlan.createDefault(locale: _currentLocale);
       await _saveCampPlan();
     }
   }
@@ -538,6 +545,46 @@ class CampService {
       }
     } catch (e) {
       print('İlerleme ve aktivite durumu senkronize edilirken hata: $e');
+    }
+  }
+  
+  // Dili güncelle
+  Future<void> updateLocale(Locale locale) async {
+    _currentLocale = locale;
+    
+    // Kamp planını yeniden oluşturma (verileri kaybetmeden)
+    if (_isInitialized) {
+      // Verileri korumak için günlerin kilit durumlarını önce kaydediyoruz
+      final dayLockStatuses = <int, bool>{};
+      for (var day in _campPlan.days) {
+        dayLockStatuses[day.dayNumber] = day.isLocked;
+      }
+      
+      // Yeni bir kamp planı oluştur
+      final newCampPlan = CampPlan.createDefault(locale: locale);
+      
+      // Önceki kilit durumlarını geri yükle
+      final updatedDays = <CampDay>[];
+      for (var day in newCampPlan.days) {
+        if (dayLockStatuses.containsKey(day.dayNumber)) {
+          updatedDays.add(day.copyWith(isLocked: dayLockStatuses[day.dayNumber]!));
+        } else {
+          updatedDays.add(day);
+        }
+      }
+      
+      // Yeni kamp planını kaydedip servisi yeniden başlat
+      _campPlan = CampPlan(
+        id: newCampPlan.id,
+        title: newCampPlan.title,
+        description: newCampPlan.description,
+        durationDays: newCampPlan.durationDays,
+        minCompletionDays: newCampPlan.minCompletionDays,
+        badges: newCampPlan.badges,
+        days: updatedDays
+      );
+      
+      await _saveCampPlan();
     }
   }
 }

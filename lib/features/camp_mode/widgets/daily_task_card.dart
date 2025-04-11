@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:us_civics_test_app/utils/extensions.dart';
 import '../models/camp_day.dart';
 
 class DailyTaskCard extends StatelessWidget {
@@ -89,13 +90,13 @@ class DailyTaskCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            'Tamamlandı',
+                            context.l10n.completedStatus,
                             style: TextStyle(
-                              color: Colors.green.shade700,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
+                            color: Colors.green.shade700,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
                             ),
-                          ),
+                            ),
                         ],
                       ),
                     ),
@@ -114,7 +115,7 @@ class DailyTaskCard extends StatelessWidget {
                 children: [
                   _buildInfoChip(
                     Icons.question_answer,
-                    '${activity.questionCount} soru',
+                    context.l10n.questionsCount(activity.questionCount),
                     Colors.blue.shade700,
                   ),
                   const SizedBox(width: 8),
@@ -143,7 +144,7 @@ class DailyTaskCard extends StatelessWidget {
                   color: isCompleted ? Colors.green : _getDayColor(dayNumber),
                 ),
                 label: Text(
-                  isCompleted ? 'Tekrar Çalış' : 'Başlat',
+                  isCompleted ? context.l10n.studyAgain : context.l10n.start,
                   style: TextStyle(
                     color: isCompleted ? Colors.green : _getDayColor(dayNumber),
                   ),
