@@ -187,7 +187,19 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : _buildCategoryList(),
+          : LayoutBuilder(
+              builder: (context, constraints) {
+                // Genişliğe ve yüksekliğe bağlı daha esnek responsive mantığı
+                final isLargeScreen = constraints.maxWidth > 900;
+                final isMediumScreen = constraints.maxWidth > 600 && constraints.maxWidth <= 900;
+                final isPortrait = constraints.maxHeight > constraints.maxWidth;
+                
+                // Hem orientasyon hem de ekran boyutu dikkate alınıyor
+                final useGridLayout = !isPortrait || constraints.maxWidth > 600;
+                
+                return _buildCategoryList(isLargeScreen, isMediumScreen, useGridLayout);
+              },
+            ),
       floatingActionButton: _selectedCategories.isEmpty
           ? null
           : FloatingActionButton.extended(
@@ -202,7 +214,7 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
     );
   }
 
-  Widget _buildCategoryList() {
+  Widget _buildCategoryList(bool isLargeScreen, bool isMediumScreen, bool useGridLayout) {
     // Tüm kategorilerdeki toplam istatistikleri hesapla
     int totalQuestions = 0;
     int totalCompleted = 0;
@@ -212,39 +224,105 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
       totalCompleted += _completedCounts[category] ?? 0;
     }
     
+    // For grid layout in medium and large screens
+    Widget buildCategoryGrid() {
+      // Ekran ölçüsüne göre grid sütun sayısını belirle
+      final int crossAxisCount = isLargeScreen ? 3 : (isMediumScreen ? 2 : 1);
+      
+      return GridView.builder(
+        padding: EdgeInsets.all(isLargeScreen ? 24.0 : 16.0),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount,
+          childAspectRatio: isLargeScreen ? 2.5 : 2.2,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+        ),
+        itemCount: _categories.length,
+        itemBuilder: (context, index) {
+          final category = _categories[index];
+          final isSelected = _selectedCategories.contains(category);
+          final questionCount = _questionCounts[category] ?? 0;
+          final completedCount = _completedCounts[category] ?? 0;
+          final successRate = _successRates[category] ?? 0.0;
+          
+          final categoryColor = _categoryColorMap[category] ?? Colors.blue;
+          
+          return CategorySelectionCard(
+            category: category,
+            isSelected: isSelected,
+            questionCount: questionCount,
+            completedCount: completedCount,
+            successRate: successRate,
+            categoryColor: categoryColor,
+            showProgressIndicator: !widget.isForQuiz,
+            onTap: () => _toggleCategory(category),
+          );
+        },
+      );
+    }
+    
+    // For list layout in small screens
+    Widget buildCategoryList() {
+      return ListView.builder(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        itemCount: _categories.length,
+        itemBuilder: (context, index) {
+          final category = _categories[index];
+          final isSelected = _selectedCategories.contains(category);
+          final questionCount = _questionCounts[category] ?? 0;
+          final completedCount = _completedCounts[category] ?? 0;
+          final successRate = _successRates[category] ?? 0.0;
+          
+          final categoryColor = _categoryColorMap[category] ?? Colors.blue;
+          
+          return CategorySelectionCard(
+            category: category,
+            isSelected: isSelected,
+            questionCount: questionCount,
+            completedCount: completedCount,
+            successRate: successRate,
+            categoryColor: categoryColor,
+            showProgressIndicator: !widget.isForQuiz,
+            onTap: () => _toggleCategory(category),
+          );
+        },
+      );
+    }
+    
     return Column(
       children: [
         // Genel ilerleme
         if (!widget.isForQuiz) // Flashcard kategorileri için
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(isLargeScreen ? 24.0 : 16.0),
             child: Card(
               elevation: 4,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(isLargeScreen ? 24.0 : 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       context.l10n.generalProgress,
-                      style: const TextStyle(
-                        fontSize: 18,
+                      style: TextStyle(
+                        fontSize: isLargeScreen ? 22 : 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: isLargeScreen ? 16 : 12),
                     LinearProgressIndicator(
                       value: totalQuestions > 0 ? totalCompleted / totalQuestions : 0.0,
-                      minHeight: 8,
+                      minHeight: isLargeScreen ? 10 : 8,
                       backgroundColor: Colors.grey[300],
                       valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: isLargeScreen ? 12 : 8),
                     Text(
                       context.l10n.completed(totalCompleted, totalQuestions, totalQuestions > 0 ? (totalCompleted * 100 / totalQuestions).toStringAsFixed(1) : '0'),
                       style: TextStyle(
                         color: Colors.grey[700],
+                        fontSize: isLargeScreen ? 16 : 14,
                       ),
                     ),
                   ],
@@ -255,28 +333,31 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
           
         // Seçim kontrolü butonları
         Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(isLargeScreen ? 24.0 : 16.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                context.l10n.categoriesCount(_selectedCategories.length, _categories.length),
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+              Flexible(
+                child: Text(
+                  context.l10n.categoriesCount(_selectedCategories.length, _categories.length),
+                  style: TextStyle(
+                    fontSize: isLargeScreen ? 18 : 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Row(
+              Wrap(
+                spacing: 8,
                 children: [
                   TextButton.icon(
                     onPressed: _selectAllCategories,
-                    icon: const Icon(Icons.select_all, size: 18),
+                    icon: Icon(Icons.select_all, size: isLargeScreen ? 20 : 18),
                     label: Text(context.l10n.selectAll),
                   ),
-                  const SizedBox(width: 8),
                   TextButton.icon(
                     onPressed: _deselectAllCategories,
-                    icon: const Icon(Icons.clear_all, size: 18),
+                    icon: Icon(Icons.clear_all, size: isLargeScreen ? 20 : 18),
                     label: Text(context.l10n.clear),
                   ),
                 ],
@@ -285,44 +366,22 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
           ),
         ),
         
-        // Kategori listesi
+        // Kategori listesi veya ızgarası
         Expanded(
-          child: ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            itemCount: _categories.length,
-            itemBuilder: (context, index) {
-              final category = _categories[index];
-              final isSelected = _selectedCategories.contains(category);
-              final questionCount = _questionCounts[category] ?? 0;
-              final completedCount = _completedCounts[category] ?? 0;
-              final successRate = _successRates[category] ?? 0.0;
-              
-              final categoryColor = _categoryColorMap[category] ?? Colors.blue;
-              
-              return CategorySelectionCard(
-                category: category,
-                isSelected: isSelected,
-                questionCount: questionCount,
-                completedCount: completedCount,
-                successRate: successRate,
-                categoryColor: categoryColor,
-                showProgressIndicator: !widget.isForQuiz,
-                onTap: () => _toggleCategory(category),
-              );
-            },
-          ),
+          child: useGridLayout ? buildCategoryGrid() : buildCategoryList(),
         ),
         
         // Başlatma butonu
         SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(isLargeScreen ? 24.0 : 16.0),
             child: ElevatedButton(
               onPressed: _selectedCategories.isEmpty
                   ? null
                   : _startWithSelectedCategories,
               style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(50),
+                minimumSize: Size.fromHeight(isLargeScreen ? 60 : 50),
+                padding: EdgeInsets.symmetric(vertical: isLargeScreen ? 16 : 12),
               ),
               child: Text(
                 _selectedCategories.isEmpty
@@ -330,6 +389,7 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
                     : widget.isForQuiz
                         ? context.l10n.startQuizWithCategories(_selectedCategories.length)
                         : context.l10n.openWithCategories(_selectedCategories.length),
+                style: TextStyle(fontSize: isLargeScreen ? 18 : 16),
               ),
             ),
           ),

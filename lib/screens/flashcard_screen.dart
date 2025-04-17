@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'package:auto_size_text/auto_size_text.dart';
 import '../models/question.dart';
 import '../services/question_service.dart';
 import '../utils/extensions.dart';
+import '../utils/responsive/responsive.dart';
 
 class FlashcardScreen extends StatefulWidget {
   final QuestionService questionService;
@@ -22,6 +24,7 @@ class FlashcardScreen extends StatefulWidget {
 
 class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProviderStateMixin {
   late AnimationController _flipController;
+  late Animation<double> _flipAnimation; // Eğrili animasyon için yeni değişken
 
   List<Question> _questions = [];
   Map<String, Color> _categoryColorMap = {};
@@ -45,10 +48,19 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
   @override
   void initState() {
     super.initState();
+    // AnimationController oluştur - 800ms süreli
     _flipController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 800),
     );
+    
+    // CurvedAnimation ile daha gerçekçi kart çevirme hissi
+    _flipAnimation = CurvedAnimation(
+      parent: _flipController,
+      curve: Curves.easeOut,
+      reverseCurve: Curves.easeIn,
+    );
+    
     _loadFlashcards();
   }
 
@@ -138,15 +150,6 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
     }
   }
 
-  void _flipCard() {
-    setState(() => _isCardFlipped = !_isCardFlipped);
-    if (_isCardFlipped) {
-      _flipController.forward();
-    } else {
-      _flipController.reverse();
-    }
-  }
-
   /// Bilmiyorum (yanlış) veya Biliyorum (doğru) buton tıklama işlemleri tek metod
   void _markCard({required bool known}) {
     if (_questions.isEmpty || _currentCardIndex >= _questions.length) return;
@@ -186,15 +189,36 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
       _flipController.reset();
     }
   }
+  
+  void _flipCard() {
+    if (_isCardFlipped) {
+      // Kartı ön yüzüne çevir
+      setState(() => _isCardFlipped = false);
+      _flipController.reverse();
+    } else {
+      // Kartı arka yüzüne çevir
+      setState(() => _isCardFlipped = true);
+      _flipController.forward();
+    }
+  }
 
   void _showSummaryDialog() {
+    // Get responsive helper for responsive design
+    final responsive = ResponsiveHelper.of(context);
+    
+    final double titleFontSize = responsive.value(small: 18.0, medium: 20.0, large: 22.0);
+    final double textFontSize = responsive.value(small: 14.0, medium: 15.0, large: 16.0);
+    final double iconSize = responsive.value(small: 32.0, medium: 36.0, large: 40.0);
+    final double spacing = responsive.value(small: 12.0, medium: 16.0, large: 20.0);
+    final double barHeight = responsive.value(small: 8.0, medium: 10.0, large: 12.0);
+    
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
         title: Text(context.l10n.realizingDream),
         titleTextStyle: TextStyle(
-          fontSize: 18, 
+          fontSize: titleFontSize, 
           fontWeight: FontWeight.bold, 
           color: Colors.blue[700],
         ),
@@ -208,28 +232,35 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
                   children: [
                     Image.asset(
                       'assets/images/eagle_icon.png',
-                      width: 32,
-                      height: 32,
+                      width: iconSize,
+                      height: iconSize,
                       color: Colors.blue[800],
                     ),
-                    const SizedBox(width: 8),
+                    SizedBox(width: spacing / 2),
                     Flexible(
                       child: Text(
                         context.l10n.citizenshipJourney,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: textFontSize,
+                        ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: spacing / 2),
                 Text(
                   context.l10n.libertyAwaits,
-                  style: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey[600]),
+                  style: TextStyle(
+                    fontStyle: FontStyle.italic, 
+                    color: Colors.grey[600],
+                    fontSize: textFontSize - 2,
+                  ),
                 ),
               ],
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: spacing),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -247,17 +278,20 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
                 ),
               ],
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: spacing),
             LinearProgressIndicator(
               value: _knownCount / (_knownCount + _unknownCount),
               backgroundColor: Colors.red[100],
               valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
-              minHeight: 10,
+              minHeight: barHeight,
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: spacing / 2),
             Text(
               context.l10n.successRate(((_knownCount / (_knownCount + _unknownCount)) * 100).toStringAsFixed(1)),
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontWeight: FontWeight.bold, 
+                fontSize: textFontSize,
+              ),
             ),
           ],
         ),
@@ -267,7 +301,10 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
               Navigator.pop(context);
               Navigator.pop(context); // Ana ekrana dön
             },
-            child: Text(context.l10n.backToHome),
+            child: Text(
+              context.l10n.backToHome,
+              style: TextStyle(fontSize: textFontSize),
+            ),
           ),
           ElevatedButton(
             onPressed: () {
@@ -281,7 +318,10 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
               });
               _flipController.reset();
             },
-            child: Text(context.l10n.studyAgain),
+            child: Text(
+              context.l10n.studyAgain,
+              style: TextStyle(fontSize: textFontSize),
+            ),
           ),
         ],
       ),
@@ -293,24 +333,38 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
     required String value,
     required String label,
     required Color color,
+    bool isLargeScreen = false, // Geriye dönük uyumluluk için korundu
   }) {
+    final responsive = ResponsiveHelper.of(context);
+    
+    // Sabit değerler yerine uyarlanabilir değerler kullan
+    final iconSize = responsive.adaptiveIconSize(size: 32.0, densityFactor: 0.6);
+    final spacingHeight = responsive.heightPercent(1.0); // Ekran yüksekliğinin %1'i
+    final valueFontSize = responsive.scaledFontSize(small: 24.0, medium: 26.0, large: 28.0);
+    final labelFontSize = responsive.scaledFontSize(small: 14.0, medium: 15.0, large: 16.0);
+    
     return Column(
       children: [
-        Icon(icon, size: 32, color: color),
-        const SizedBox(height: 8),
-        Text(
+        Icon(icon, size: iconSize, color: color),
+        SizedBox(height: spacingHeight),
+        AutoSizeText(
           value,
           style: TextStyle(
-            fontSize: 24,
+            fontSize: valueFontSize,
             fontWeight: FontWeight.bold,
             color: color,
           ),
+          minFontSize: 18.0,
+          maxLines: 1,
         ),
-        Text(
+        AutoSizeText(
           label,
           style: TextStyle(
             color: Colors.grey[600],
+            fontSize: labelFontSize,
           ),
+          minFontSize: 12.0,
+          maxLines: 1,
         ),
       ],
     );
@@ -350,72 +404,325 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
           ? const Center(child: CircularProgressIndicator())
           : _questions.isEmpty
               ? _buildEmptyState()
-              : _buildFlashcardContent(),
+              : LayoutBuilder(
+                  builder: (context, constraints) {
+                    // Responsive helper kullanarak ekran bilgilerini al
+                    final responsive = ResponsiveHelper.of(context);
+                    final screenWidth = constraints.maxWidth;
+                    final screenHeight = constraints.maxHeight;
+                    
+                    // Responsive helper ile ekran boyutlarını belirle
+                    final isLargeScreen = responsive.isLarge;
+                    final isMediumScreen = responsive.isMedium;
+                    
+                    // Öncelikle genişlik bazlı karar verme
+                    // Sadece geniş ekranlar ve yatay konumdaki orta boy ekranlar geniş yerleşim kullanacak
+                    final useWideLayout = responsive.shouldUseWideLayout;
+                    
+                    return useWideLayout 
+                        ? _buildWideFlashcardContent(screenWidth, screenHeight, isLargeScreen, isMediumScreen)
+                        : _buildStandardFlashcardContent(screenWidth, screenHeight, isLargeScreen, isMediumScreen);
+                  },
+                ),
     );
   }
 
   Widget _buildEmptyState() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/images/statue_of_liberty_icon.png',
-            width: 80,
-            height: 80,
-            color: Colors.blue[700],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final responsive = ResponsiveHelper.of(context);
+        
+        final double iconSize = responsive.value(small: 80.0, medium: 100.0, large: 120.0);
+        final double spacing = responsive.value(small: 16.0, medium: 20.0, large: 24.0);
+        final double titleFontSize = responsive.value(small: 18.0, medium: 20.0, large: 24.0);
+        final double textFontSize = responsive.value(small: 14.0, medium: 16.0, large: 18.0);
+        final double buttonHeight = responsive.value(small: 40.0, medium: 45.0, large: 50.0);
+        final double buttonFontSize = responsive.value(small: 16.0, medium: 17.0, large: 18.0);
+        
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/statue_of_liberty_icon.png',
+                width: iconSize,
+                height: iconSize,
+                color: Colors.blue[700],
+              ),
+              SizedBox(height: spacing),
+              Text(
+                context.l10n.noCardsFound,
+                style: TextStyle(fontSize: titleFontSize, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: spacing / 2),
+              Text(
+                context.l10n.pleaseSelectCategory,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: textFontSize),
+              ),
+              SizedBox(height: spacing * 1.5),
+              SizedBox(
+                height: buttonHeight,
+                child: ElevatedButton(
+                  onPressed: _loadFlashcards,
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: spacing * 2,
+                      vertical: spacing / 2
+                    ),
+                  ),
+                  child: Text(
+                    context.l10n.startLearning,
+                    style: TextStyle(fontSize: buttonFontSize),
+                  ),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 16),
-          Text(
-            context.l10n.noCardsFound,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            context.l10n.pleaseSelectCategory,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
-          ElevatedButton(
-            onPressed: _loadFlashcards,
-            child: Text(context.l10n.startLearning),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 
-  Widget _buildFlashcardContent() {
+  // Normal dikey yönlendirilmiş yerleşim (telefon için)
+  Widget _buildStandardFlashcardContent(double screenWidth, double screenHeight, bool isLargeScreen, bool isMediumScreen) {
+    final responsive = ResponsiveHelper.of(context);
     final progressPercent =
         _questions.isEmpty ? 0.0 : (_currentCardIndex + 1) / _questions.length;
+    
+    final double padding = responsive.value(small: 16.0, medium: 20.0, large: 24.0);
+    final double spacing = responsive.value(small: 8.0, medium: 16.0, large: 24.0);
+    final double fontSize = responsive.value(small: 14.0, medium: 16.0, large: 18.0);
 
     return Column(
       children: [
         // Üst kısım: progress bar, sayaç, vs.
-        _buildProgressIndicatorAndStats(progressPercent),
+        _buildProgressIndicatorAndStats(progressPercent, isLargeScreen: isLargeScreen),
 
         // Ortadaki kart
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(padding),
             child: GestureDetector(
               onTap: _flipCard,
               child: _questions.isNotEmpty
-                      ? _buildFlipCard(_questions[_currentCardIndex])
+                      ? _buildFlipCard(_questions[_currentCardIndex], isLargeScreen: isLargeScreen)
                       : const SizedBox(),
             ),
           ),
         ),
 
         // Alt butonlar
-        _buildBottomButtons(),
+        _buildBottomButtons(isLargeScreen: isLargeScreen),
+      ],
+    );
+  }
+  
+  // Geniş ekran için yan yana yerleşim (tablet/yatay mod)
+  Widget _buildWideFlashcardContent(double screenWidth, double screenHeight, bool isLargeScreen, bool isMediumScreen) {
+    final responsive = ResponsiveHelper.of(context);
+    final progressPercent =
+        _questions.isEmpty ? 0.0 : (_currentCardIndex + 1) / _questions.length;
+    
+    final double padding = responsive.value(small: 16.0, medium: 20.0, large: 24.0);
+    final double spacing = responsive.value(small: 8.0, medium: 16.0, large: 24.0);
+    
+    return Column(
+      children: [
+        // Üst kısım: progress bar, sayaç, vs.
+        _buildProgressIndicatorAndStats(progressPercent, isLargeScreen: isLargeScreen),
+        
+        // Ana içerik
+        Expanded(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Sol taraf: Bilgi kartları
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: EdgeInsets.all(padding),
+                  child: GestureDetector(
+                    onTap: _flipCard,
+                    child: _questions.isNotEmpty
+                            ? _buildFlipCard(_questions[_currentCardIndex], isLargeScreen: isLargeScreen)
+                            : const SizedBox(),
+                  ),
+                ),
+              ),
+              
+              // Sağ taraf: Butonlar ve ek bilgiler
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: EdgeInsets.all(padding),
+                  child: _buildSideButtons(isLargeScreen: isLargeScreen),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+  
+  // Geniş ekran için sağ taraftaki butonlar
+  Widget _buildSideButtons({bool isLargeScreen = false}) { // isLargeScreen parametresi geriye dönük uyumluluk için korundu
+    final responsive = ResponsiveHelper.of(context);
+    final double buttonHeight = responsive.value(small: 50.0, medium: 55.0, large: 60.0);
+    final double fontSize = responsive.value(small: 16.0, medium: 17.0, large: 18.0);
+    final double iconSize = responsive.value(small: 24.0, medium: 26.0, large: 28.0);
+    final double spacing = responsive.value(small: 16.0, medium: 18.0, large: 20.0);
+    
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        // Gezinme butonları
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton.icon(
+              onPressed: _currentCardIndex > 0 ? _previousCard : null,
+              icon: Icon(Icons.arrow_back, size: iconSize),
+              label: Text(context.l10n.previous, style: TextStyle(fontSize: fontSize)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              ),
+            ),
+            SizedBox(width: spacing),
+            ElevatedButton.icon(
+              onPressed: _currentCardIndex < _questions.length - 1 ? _nextCard : null,
+              icon: Icon(Icons.arrow_forward, size: iconSize),
+              label: Text(context.l10n.next, style: TextStyle(fontSize: fontSize)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              ),
+            ),
+          ],
+        ),
+        
+        SizedBox(height: spacing * 2),
+        
+        // Biliyorum/Bilmiyorum butonları
+        Text(
+          _isCardFlipped ? context.l10n.knewIt : context.l10n.tapToFlip,
+          style: TextStyle(
+            fontSize: fontSize,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey[700],
+          ),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: spacing),
+        
+        // Bilmiyorum butonu
+        SizedBox(
+          height: buttonHeight,
+          child: ElevatedButton.icon(
+            onPressed: _isCardFlipped ? () => _markCard(known: false) : null,
+            icon: Icon(Icons.close, size: iconSize),
+            label: Text(context.l10n.stillLearning, style: TextStyle(fontSize: fontSize)),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red[400],
+              disabledBackgroundColor: Colors.red[100],
+            ),
+          ),
+        ),
+        SizedBox(height: spacing),
+        
+        // Biliyorum butonu
+        SizedBox(
+          height: buttonHeight,
+          child: ElevatedButton.icon(
+            onPressed: _isCardFlipped ? () => _markCard(known: true) : null,
+            icon: Icon(Icons.check, size: iconSize),
+            label: Text(context.l10n.knewIt, style: TextStyle(fontSize: fontSize)),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green[400],
+              disabledBackgroundColor: Colors.green[100],
+            ),
+          ),
+        ),
+        
+        if (_knownCount > 0 || _unknownCount > 0) ... [
+          SizedBox(height: spacing * 2),
+          // Oturum istatistikleri büyük gösterim
+          Container(
+            padding: responsive.adaptivePadding(horizontal: 16.0, vertical: 16.0, densityFactor: 0.7),
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.circular(responsive.widthPercent(3)),
+              border: Border.all(color: Colors.grey[300]!),
+            ),
+            child: Column(
+              children: [
+                AutoSizeText(
+                  context.l10n.flashcardStats,
+                  style: TextStyle(
+                    fontSize: responsive.scaledFontSize(small: 16.0, medium: 17.0, large: 18.0),
+                    fontWeight: FontWeight.bold,
+                  ),
+                  minFontSize: 14.0,
+                  maxLines: 1,
+                ),
+                SizedBox(height: responsive.heightPercent(2)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _buildSummaryItem(
+                      icon: Icons.check_circle,
+                      value: _knownCount.toString(),
+                      label: context.l10n.knewIt,
+                      color: Colors.green,
+                      // isLargeScreen artık gerekli değil
+                    ),
+                    _buildSummaryItem(
+                      icon: Icons.cancel,
+                      value: _unknownCount.toString(),
+                      label: context.l10n.stillLearning,
+                      color: Colors.red,
+                      // isLargeScreen artık gerekli değil
+                    ),
+                  ],
+                ),
+                SizedBox(height: responsive.heightPercent(1.5)),
+                LinearProgressIndicator(
+                  value: _knownCount / (_knownCount + _unknownCount),
+                  backgroundColor: Colors.red[100],
+                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
+                  minHeight: responsive.heightPercent(1.0), // Yüksekliğin %1'i
+                ),
+                SizedBox(height: responsive.heightPercent(1.0)),
+                AutoSizeText(
+                  context.l10n.successRate(((_knownCount / (_knownCount + _unknownCount)) * 100).toStringAsFixed(1)),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold, 
+                    fontSize: responsive.scaledFontSize(small: 14.0, medium: 16.0, large: 18.0)
+                  ),
+                  minFontSize: 12.0,
+                  maxLines: 1,
+                ),
+              ],
+            ),
+          ),
+        ],
       ],
     );
   }
 
-  Widget _buildProgressIndicatorAndStats(double progressPercent) {
+  Widget _buildProgressIndicatorAndStats(double progressPercent, {bool isLargeScreen = false}) { // isLargeScreen parametresi geriye dönük uyumluluk için korundu
+    final responsive = ResponsiveHelper.of(context);
+    final double padding = responsive.value(small: 16.0, medium: 18.0, large: 20.0);
+    final double spacing = responsive.value(small: 8.0, medium: 10.0, large: 12.0);
+    final double fontSize = responsive.value(small: 16.0, medium: 17.0, large: 18.0);
+    final double barHeight = responsive.value(small: 8.0, medium: 9.0, large: 10.0);
+    final double badgeFontSize = responsive.value(small: 12.0, medium: 13.0, large: 14.0);
+    
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: EdgeInsets.symmetric(horizontal: padding, vertical: spacing),
       child: Column(
         children: [
           Row(
@@ -423,34 +730,40 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
             children: [
               Text(
                 '${context.l10n.card} ${_currentCardIndex + 1}/${_questions.length}',
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
               ),
               if (_questions.isNotEmpty && _currentCardIndex < _questions.length)
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: responsive.adaptivePadding(
+                    horizontal: 8.0, 
+                    vertical: 4.0,
+                    densityFactor: 0.5
+                  ),
                   decoration: BoxDecoration(
                     color: _getCategoryColor(_questions[_currentCardIndex].category)
                         .withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(responsive.widthPercent(2)),
                   ),
-                  child: Text(
+                  child: AutoSizeText(
                     _questions[_currentCardIndex].category,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: responsive.scaledFontSize(small: 12.0, medium: 13.0, large: 14.0),
                       color: _getCategoryColor(_questions[_currentCardIndex].category),
                       fontWeight: FontWeight.bold,
                     ),
+                    minFontSize: 10.0,
+                    maxLines: 1,
                   ),
                 ),
             ],
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: spacing),
           // İlerleme çubuğu
           ClipRRect(
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(isLargeScreen ? 6 : 4),
             child: LinearProgressIndicator(
               value: progressPercent,
-              minHeight: 8,
+              minHeight: barHeight,
               backgroundColor: Colors.grey[300],
               valueColor: AlwaysStoppedAnimation<Color>(
                 Theme.of(context).primaryColor,
@@ -460,18 +773,20 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
           // Oturum istatistikleri
           if (_knownCount > 0 || _unknownCount > 0)
             Padding(
-              padding: const EdgeInsets.only(top: 8.0),
+              padding: EdgeInsets.only(top: spacing),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _buildSessionStats(
                     text: '${context.l10n.knewIt}: $_knownCount',
                     color: Colors.green,
+                    isLargeScreen: isLargeScreen,
                   ),
-                  const SizedBox(width: 8),
+                  SizedBox(width: spacing),
                   _buildSessionStats(
                     text: '${context.l10n.stillLearning}: $_unknownCount',
                     color: Colors.red,
+                    isLargeScreen: isLargeScreen,
                   ),
                 ],
               ),
@@ -481,17 +796,26 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
     );
   }
 
-  Widget _buildSessionStats({required String text, required Color color}) {
+  Widget _buildSessionStats({required String text, required Color color, bool isLargeScreen = false}) { // isLargeScreen parametresi geriye dönük uyumluluk için korundu
+    final responsive = ResponsiveHelper.of(context);
+    final horizontalPadding = responsive.value(small: 8.0, medium: 9.0, large: 10.0);
+    final verticalPadding = responsive.value(small: 4.0, medium: 5.0, large: 6.0);
+    final borderRadius = responsive.value(small: 4.0, medium: 5.0, large: 6.0);
+    final fontSize = responsive.value(small: 12.0, medium: 13.0, large: 14.0);
+    
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: EdgeInsets.symmetric(
+        horizontal: horizontalPadding, 
+        vertical: verticalPadding
+      ),
       decoration: BoxDecoration(
         color: color.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: Text(
         text,
         style: TextStyle(
-          fontSize: 12,
+          fontSize: fontSize,
           color: color,
           fontWeight: FontWeight.bold,
         ),
@@ -499,9 +823,15 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
     );
   }
 
-  Widget _buildBottomButtons() {
+  Widget _buildBottomButtons({bool isLargeScreen = false}) { // isLargeScreen parametresi geriye dönük uyumluluk için korundu
+    final responsive = ResponsiveHelper.of(context);
+    final double padding = responsive.value(small: 16.0, medium: 18.0, large: 20.0);
+    final double iconSize = responsive.value(small: 24.0, medium: 27.0, large: 30.0);
+    final double buttonHeight = responsive.value(small: 40.0, medium: 44.0, large: 48.0);
+    final double fontSize = responsive.value(small: 14.0, medium: 15.0, large: 16.0);
+    
     return Container(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -516,69 +846,157 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: Icon(Icons.arrow_back, size: iconSize),
             onPressed: _currentCardIndex > 0 ? _previousCard : null,
             color: Colors.blue,
+            iconSize: iconSize,
           ),
           ElevatedButton.icon(
             onPressed: _isCardFlipped ? () => _markCard(known: false) : null,
-            icon: const Icon(Icons.close),
-            label: Text(context.l10n.stillLearning),
+            icon: Icon(Icons.close, size: isLargeScreen ? iconSize * 0.8 : iconSize * 0.75),
+            label: Text(
+              context.l10n.stillLearning, 
+              style: TextStyle(fontSize: fontSize),
+            ),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red[400],
               disabledBackgroundColor: Colors.red[100],
+              minimumSize: Size(isLargeScreen ? 140 : 120, buttonHeight),
             ),
           ),
           ElevatedButton.icon(
             onPressed: _isCardFlipped ? () => _markCard(known: true) : null,
-            icon: const Icon(Icons.check),
-            label: Text(context.l10n.knewIt),
+            icon: Icon(Icons.check, size: isLargeScreen ? iconSize * 0.8 : iconSize * 0.75),
+            label: Text(
+              context.l10n.knewIt,
+              style: TextStyle(fontSize: fontSize),
+            ),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.green[400],
               disabledBackgroundColor: Colors.green[100],
+              minimumSize: Size(isLargeScreen ? 140 : 120, buttonHeight),
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.arrow_forward),
+            icon: Icon(Icons.arrow_forward, size: iconSize),
             onPressed: _currentCardIndex < _questions.length - 1 ? _nextCard : null,
             color: Colors.blue,
+            iconSize: iconSize,
           ),
         ],
       ),
     );
   }
 
-  Widget _buildFlipCard(Question question) {
-    return AnimatedBuilder(
-      animation: _flipController,
-      builder: (context, child) {
-        // İsterseniz buradaki açı değeriyle (angle) dönüşüm ekleyebilirsiniz.
-        // final angle = _isCardFlipped ? math.pi : 0.0;
+  Widget _buildFlipCard(Question question, {bool isLargeScreen = false}) { // isLargeScreen parametresi geriye dönük uyumluluk için korundu
+    final responsive = ResponsiveHelper.of(context);
+    final elevation = responsive.value(small: 8.0, medium: 9.0, large: 10.0);
+    final borderRadius = responsive.value(small: 20.0, medium: 22.0, large: 24.0);
+    
+    // GestureDetector'un büyüklüğünü sınırlamak yerine Stack'i sınırlayalım
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Mevcut container boyutlarını kullan
+        final double cardWidth = constraints.maxWidth;
+        final double cardHeight = constraints.maxHeight;
 
-        return Card(
-          elevation: 8,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            child: _isCardFlipped
-                ? _buildCardBack(question)
-                : _buildCardFront(question),
-          ),
+        return AnimatedBuilder(
+          animation: _flipAnimation, // _flipController yerine eğrili animasyonu kullan
+          builder: (context, child) {
+            // 0..1 aralığında animasyon değeri, 0..pi aralığında açı
+            final angle = _flipAnimation.value * math.pi;
+            
+            // 0.5 eşiğinde kart yüzü değişimi
+            final showFrontSide = _flipAnimation.value <= 0.5;
+
+            return Stack(
+              // Stack'in maksimum büyüklüğünü belirle
+              children: [
+                // Ön yüz
+                AnimatedOpacity(
+                  opacity: showFrontSide ? 1.0 : 0.0,
+                  duration: Duration(milliseconds: 250),
+                  child: Transform(
+                    // Görüntünün ortasından döndür
+                    alignment: Alignment.center,
+                    // Perspektif ve dönüş
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, 0.001) // perspektif
+                      ..rotateY(angle),
+                    child: Card(
+                      elevation: elevation,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(borderRadius),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(borderRadius),
+                        child: SizedBox(
+                          width: cardWidth,
+                          height: cardHeight,
+                          child: _buildCardFront(question, isLargeScreen: responsive.isLarge),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                
+                // Arka yüz
+                AnimatedOpacity(
+                  opacity: showFrontSide ? 0.0 : 1.0,
+                  duration: Duration(milliseconds: 250),
+                  child: Transform(
+                    alignment: Alignment.center,
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, 0.001) // perspektif
+                      ..rotateY(angle - math.pi), // Arka yüz için 180 derece çevrilmiş başla
+                    child: Card(
+                      elevation: elevation,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(borderRadius),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(borderRadius),
+                        child: SizedBox(
+                          width: cardWidth,
+                          height: cardHeight,
+                          child: _buildCardBack(question, isLargeScreen: responsive.isLarge),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
         );
       },
     );
   }
 
-  Widget _buildCardFront(Question question) {
+  Widget _buildCardFront(Question question, {bool isLargeScreen = false}) { // isLargeScreen parametresi geriye dönük uyumluluk için korundu
+    final responsive = ResponsiveHelper.of(context);
     final categoryColor = _getCategoryColor(question.category);
+    
+    // Sabit değerler yerine ekran boyutuna göre orantısal değerler kullan
+    final double padding = responsive.widthPercent(4); // Ekran genişliğinin %4'ü
+    final double spacing = responsive.heightPercent(2.5); // Ekran yüksekliğinin %2.5'i
+    
+    // Font boyutları için scaledFontSize kullan
+    final double fontSize = responsive.scaledFontSize(small: 22.0, medium: 24.0, large: 26.0);
+    final double badgeFontSize = responsive.scaledFontSize(small: 12.0, medium: 13.0, large: 14.0);
+    
+    // İkon boyutu için adaptiveIconSize kullan
+    final double iconSize = responsive.adaptiveIconSize(size: 48.0, densityFactor: 0.6);
+    
+    // Border radius için ekran genişliğiyle orantısal değer
+    final double borderRadius = responsive.widthPercent(3);
 
     return Container(
-      key: const ValueKey('front'),
-      padding: const EdgeInsets.all(24.0),
+      width: double.infinity,
+      height: double.infinity,
+      padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(borderRadius),
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -593,34 +1011,53 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
         children: [
           // Kategori etiketi
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            padding: responsive.adaptivePadding(
+              horizontal: 10.0, 
+              vertical: 4.0,
+              densityFactor: 0.5
+            ),
             decoration: BoxDecoration(
               color: categoryColor.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(borderRadius * 0.7),
             ),
-            child: Text(
+            child: AutoSizeText(
               question.category,
               style: TextStyle(
-                fontSize: 12,
+                fontSize: badgeFontSize,
                 color: categoryColor,
                 fontWeight: FontWeight.bold,
               ),
+              minFontSize: 10.0,
+              maxLines: 1,
             ),
           ),
-          const SizedBox(height: 24),
-          Icon(Icons.help_outline, size: 48, color: categoryColor),
-          const SizedBox(height: 24),
-          Text(
-            question.question,
-            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
+          SizedBox(height: spacing),
+          Icon(Icons.help_outline, size: iconSize, color: categoryColor),
+          SizedBox(height: spacing),
+          // Soru metni
+          Expanded(
+            child: Center(
+              child: AutoSizeText(
+                question.question,
+                style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+                minFontSize: 16.0,
+                maxLines: 5,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ),
-          const Spacer(),
+          // Alt bilgi kutusu
           Container(
-            padding: const EdgeInsets.all(8),
+            margin: EdgeInsets.only(top: spacing),
+            padding: responsive.adaptivePadding(
+              horizontal: 8.0, 
+              vertical: 8.0,
+              densityFactor: 0.5
+            ),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(borderRadius * 0.7),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.1),
@@ -632,14 +1069,19 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.touch_app, size: 20, color: Colors.grey),
-                const SizedBox(width: 8),
-                Text(
+                Icon(Icons.touch_app, 
+                  size: responsive.adaptiveIconSize(size: 20.0), 
+                  color: Colors.grey
+                ),
+                SizedBox(width: responsive.value(small: 8.0, medium: 9.0, large: 10.0)),
+                AutoSizeText(
                   context.l10n.tapToFlip,
                   style: TextStyle(
                     color: Colors.grey[700],
-                    fontSize: 14,
+                    fontSize: responsive.scaledFontSize(small: 14.0, medium: 15.0, large: 16.0),
                   ),
+                  minFontSize: 12.0,
+                  maxLines: 1,
                 ),
               ],
             ),
@@ -649,12 +1091,23 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
     );
   }
 
-  Widget _buildCardBack(Question question) {
+  Widget _buildCardBack(Question question, {bool isLargeScreen = false}) { // isLargeScreen parametresi geriye dönük uyumluluk için korundu
+    final responsive = ResponsiveHelper.of(context);
+    final double padding = responsive.widthPercent(4); // Ekran genişliğinin %4'ü
+    final double spacing = responsive.heightPercent(2); // Ekran yüksekliğinin %2'si
+    final double fontSize = responsive.scaledFontSize(small: 16.0, medium: 18.0, large: 20.0);
+    final double titleFontSize = responsive.scaledFontSize(small: 16.0, medium: 18.0, large: 20.0);
+    final double iconSize = responsive.adaptiveIconSize(size: 48.0, densityFactor: 0.6);
+    final double borderRadius = responsive.widthPercent(3);
+    final double answerCardPadding = responsive.widthPercent(2);
+    final double answerIconSize = responsive.adaptiveIconSize(size: 20.0, densityFactor: 0.5);
+    
     return Container(
-      key: const ValueKey('back'),
-      padding: const EdgeInsets.all(24.0),
+      width: double.infinity,
+      height: double.infinity,
+      padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(borderRadius),
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -667,76 +1120,131 @@ class _FlashcardScreenState extends State<FlashcardScreen> with SingleTickerProv
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Icon(Icons.check_circle_outline, size: 48, color: Colors.green),
-          const SizedBox(height: 16),
-          Text(
+          Icon(Icons.check_circle_outline, size: iconSize, color: Colors.green),
+          SizedBox(height: spacing),
+          AutoSizeText(
             context.l10n.answer,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: titleFontSize,
               fontWeight: FontWeight.bold,
               color: Colors.green,
             ),
+            minFontSize: 14.0,
+            maxLines: 1,
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: spacing),
+          // Cevaplar listesi
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: question.allCorrectAnswers.map((answer) {
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 12.0),
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
-                          blurRadius: 4,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.check_circle, color: Colors.green, size: 20),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            answer,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              ),
+            child: _buildAnswerList(
+              question.allCorrectAnswers,
+              spacing: spacing,
+              borderRadius: borderRadius,
+              answerCardPadding: answerCardPadding,
+              answerIconSize: answerIconSize,
+              fontSize: fontSize
             ),
           ),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildBackCardHint(Icons.close, context.l10n.stillLearning, Colors.red[400]),
-              _buildBackCardHint(Icons.check, context.l10n.knewIt, Colors.green[400]),
-            ],
+          // Alt butonlar
+          Container(
+            margin: EdgeInsets.only(top: spacing),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildBackCardHint(
+                  Icons.close, 
+                  context.l10n.stillLearning, 
+                  Colors.red[400],
+                ),
+                _buildBackCardHint(
+                  Icons.check, 
+                  context.l10n.knewIt, 
+                  Colors.green[400],
+                ),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildBackCardHint(IconData icon, String label, Color? color) {
+  // Cevap listesi widget'ı - kaydırma gerekmeyecek şekilde tasarlandı
+  Widget _buildAnswerList(
+    List<String> answers, {
+    required double spacing,
+    required double borderRadius,
+    required double answerCardPadding,
+    required double answerIconSize,
+    required double fontSize,
+  }) {
+    final responsive = ResponsiveHelper.of(context);
+    
+    // Cevapların kaydırılabilir bir listede gösterilmesi
+    return ListView.builder(
+      // Physics'i ClampingScrollPhysics yapmak, ana container'dan taşmayı önler
+      physics: ClampingScrollPhysics(),
+      // Taşma riskini azaltmak için shrinkWrap true yap
+      shrinkWrap: true,
+      itemCount: answers.length,
+      itemBuilder: (context, index) {
+        return Container(
+          margin: EdgeInsets.only(bottom: spacing * 0.5),
+          padding: EdgeInsets.all(answerCardPadding),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(borderRadius * 0.7),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 4,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(Icons.check_circle, 
+                color: Colors.green, 
+                size: answerIconSize
+              ),
+              SizedBox(width: responsive.widthPercent(1.5)),
+              Expanded(
+                child: AutoSizeText(
+                  answers[index],
+                  style: TextStyle(
+                    fontSize: fontSize,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  minFontSize: 12.0,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildBackCardHint(IconData icon, String label, Color? color, {bool isLargeScreen = false}) { // isLargeScreen parametresi artık kullanılmıyor
+    final responsive = ResponsiveHelper.of(context);
+    final iconSize = responsive.adaptiveIconSize(size: 20.0);
+    final spacing = responsive.heightPercent(0.5);
+    final fontSize = responsive.scaledFontSize(small: 12.0, medium: 13.0, large: 14.0);
+    
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, color: color, size: 20),
-        const SizedBox(height: 4),
-        Text(
+        Icon(icon, color: color, size: iconSize),
+        SizedBox(height: spacing),
+        AutoSizeText(
           label,
-          style: TextStyle(fontSize: 12, color: color),
+          style: TextStyle(fontSize: fontSize, color: color),
+          minFontSize: 10.0,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );

@@ -33,130 +33,155 @@ class CategorySelectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: isSelected ? 4 : 1,
-      margin: const EdgeInsets.only(bottom: 12.0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: isSelected 
-            ? BorderSide(color: categoryColor, width: 2) 
-            : BorderSide.none,
-      ),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Daha esnek responsive tasarım mantığı
+        final double cardWidth = constraints.maxWidth;
+        final bool isLargeScreen = cardWidth > 400; // Kart genişliğine göre karar ver
+        final bool isMediumScreen = cardWidth > 300 && cardWidth <= 400;
+        
+        // Dinamik boyutlandırma
+        final double iconSize = isLargeScreen ? 28 : (isMediumScreen ? 26 : 24);
+        final double fontSize = isLargeScreen ? 18 : (isMediumScreen ? 17 : 16); 
+        final double padding = isLargeScreen ? 20.0 : (isMediumScreen ? 18.0 : 16.0);
+        final double borderRadius = isLargeScreen ? 16 : (isMediumScreen ? 14 : 12);
+        final double spacing = isLargeScreen ? 16 : (isMediumScreen ? 14 : 12);
+        
+        return Card(
+          elevation: isSelected ? 4 : 1,
+          margin: EdgeInsets.only(bottom: isLargeScreen ? 16.0 : 12.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+            side: isSelected 
+                ? BorderSide(color: categoryColor, width: isLargeScreen ? 3 : 2) 
+                : BorderSide.none,
+          ),
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(borderRadius),
+            child: Padding(
+              padding: EdgeInsets.all(padding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Selection indicator
-                  Container(
-                    width: 24,
-                    height: 24,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: isSelected 
-                            ? categoryColor 
-                            : Colors.grey[400]!,
-                        width: 2,
-                      ),
-                      color: isSelected 
-                          ? categoryColor.withOpacity(0.2) 
-                          : Colors.transparent,
-                    ),
-                    child: isSelected 
-                        ? Icon(
-                            Icons.check, 
-                            color: categoryColor,
-                            size: 16,
-                          ) 
-                        : null,
-                  ),
-                  const SizedBox(width: 12),
-                  
-                  // Category name
-                  Expanded(
-                    child: Text(
-                      category,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: isSelected ? categoryColor : Colors.black,
-                      ),
-                    ),
-                  ),
-                  
-                  // Question count
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: categoryColor.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      context.l10n.questionsCount(questionCount),
-                      style: TextStyle(
-                        color: categoryColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              
-              if (showProgressIndicator) // Progress info for flashcard categories
-                Padding(
-                  padding: const EdgeInsets.only(top: 12.0, left: 36.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            context.l10n.completed(completedCount, questionCount, questionCount > 0 ? (completedCount * 100 / questionCount).toStringAsFixed(1) : '0'),
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                            ),
+                      // Selection indicator
+                      Container(
+                        width: iconSize,
+                        height: iconSize,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: isSelected 
+                                ? categoryColor 
+                                : Colors.grey[400]!,
+                            width: isLargeScreen ? 2.5 : 2,
                           ),
-                          if (completedCount > 0)
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                              decoration: BoxDecoration(
-                                color: _getSuccessRateColor(successRate).withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                context.l10n.successRate((successRate * 100).toStringAsFixed(0)),
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                  color: _getSuccessRateColor(successRate),
-                                ),
-                              ),
-                            ),
-                        ],
+                          color: isSelected 
+                              ? categoryColor.withOpacity(0.2) 
+                              : Colors.transparent,
+                        ),
+                        child: isSelected 
+                            ? Icon(
+                                Icons.check, 
+                                color: categoryColor,
+                                size: iconSize * 0.6,
+                              ) 
+                            : null,
                       ),
-                      const SizedBox(height: 4),
-                      LinearProgressIndicator(
-                        value: questionCount > 0 ? completedCount / questionCount : 0.0,
-                        minHeight: 4,
-                        backgroundColor: Colors.grey[200],
-                        valueColor: AlwaysStoppedAnimation<Color>(categoryColor),
+                      SizedBox(width: spacing),
+                      
+                      // Category name
+                      Expanded(
+                        child: Text(
+                          category,
+                          style: TextStyle(
+                            fontSize: fontSize,
+                            fontWeight: FontWeight.bold,
+                            color: isSelected ? categoryColor : Colors.black,
+                          ),
+                        ),
+                      ),
+                      
+                      // Question count
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: isLargeScreen ? 10 : 8, 
+                          vertical: isLargeScreen ? 6 : 4
+                        ),
+                        decoration: BoxDecoration(
+                          color: categoryColor.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(isLargeScreen ? 10 : 8),
+                        ),
+                        child: Text(
+                          context.l10n.questionsCount(questionCount),
+                          style: TextStyle(
+                            color: categoryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: isLargeScreen ? 14 : 12,
+                          ),
+                        ),
                       ),
                     ],
                   ),
-                ),
-            ],
+                  
+                  if (showProgressIndicator) // Progress info for flashcard categories
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: isLargeScreen ? 16.0 : 12.0, 
+                        left: isLargeScreen ? 44.0 : 36.0
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                context.l10n.completed(completedCount, questionCount, questionCount > 0 ? (completedCount * 100 / questionCount).toStringAsFixed(1) : '0'),
+                                style: TextStyle(
+                                  fontSize: isLargeScreen ? 14 : 12,
+                                  color: Colors.grey[700],
+                                ),
+                              ),
+                              if (completedCount > 0)
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: isLargeScreen ? 8 : 6, 
+                                    vertical: isLargeScreen ? 3 : 2
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: _getSuccessRateColor(successRate).withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(isLargeScreen ? 6 : 4),
+                                  ),
+                                  child: Text(
+                                    context.l10n.successRate((successRate * 100).toStringAsFixed(0)),
+                                    style: TextStyle(
+                                      fontSize: isLargeScreen ? 12 : 10,
+                                      fontWeight: FontWeight.bold,
+                                      color: _getSuccessRateColor(successRate),
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                          SizedBox(height: isLargeScreen ? 6 : 4),
+                          LinearProgressIndicator(
+                            value: questionCount > 0 ? completedCount / questionCount : 0.0,
+                            minHeight: isLargeScreen ? 6 : 4,
+                            backgroundColor: Colors.grey[200],
+                            valueColor: AlwaysStoppedAnimation<Color>(categoryColor),
+                          ),
+                        ],
+                      ),
+                    ),
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

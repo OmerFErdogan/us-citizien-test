@@ -299,6 +299,324 @@
     ]
   },
   {
+    "id": 21,
+    "category": "System of Government",
+    "question": "The House of Representatives has how many voting members?",
+    "options": [
+      { "text": "four hundred thirty-five (435)", "isCorrect": true },
+      { "text": "one hundred (100)", "isCorrect": false },
+      { "text": "two hundred (200)", "isCorrect": false },
+      { "text": "five hundred (500)", "isCorrect": false },
+      { "text": "four hundred (400)", "isCorrect": false },
+      { "text": "three hundred fifty (350)", "isCorrect": false },
+      { "text": "five hundred thirty-five (535)", "isCorrect": false },
+      { "text": "four hundred fifty (450)", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 22,
+    "category": "System of Government",
+    "question": "We elect a U.S. Representative for how many years?",
+    "options": [
+      { "text": "two (2)", "isCorrect": true },
+      { "text": "four (4)", "isCorrect": false },
+      { "text": "six (6)", "isCorrect": false },
+      { "text": "eight (8)", "isCorrect": false },
+      { "text": "three (3)", "isCorrect": false },
+      { "text": "five (5)", "isCorrect": false },
+      { "text": "for life", "isCorrect": false },
+      { "text": "one (1)", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 23,
+    "category": "System of Government",
+    "question": "Name your U.S. Representative.",
+    "options": [
+      { "text": "Answers will vary. [Residents of territories with nonvoting Delegates or Resident Commissioners may provide the name of that Delegate or Commissioner. Also acceptable is any statement that the territory has no (voting) Representatives in Congress.]", "isCorrect": true },
+      { "text": "The Speaker of the House", "isCorrect": false },
+      { "text": "The President", "isCorrect": false },
+      { "text": "The Vice President", "isCorrect": false },
+      { "text": "All states share the same Representatives", "isCorrect": false },
+      { "text": "Representatives don't represent specific districts", "isCorrect": false },
+      { "text": "The Senate Majority Leader", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 24,
+    "category": "System of Government",
+    "question": "Who does a U.S. Senator represent?",
+    "options": [
+      { "text": "all people of the state", "isCorrect": true },
+      { "text": "the President", "isCorrect": false },
+      { "text": "only their political party", "isCorrect": false },
+      { "text": "only voters from their party", "isCorrect": false },
+      { "text": "the House of Representatives", "isCorrect": false },
+      { "text": "only the wealthy", "isCorrect": false },
+      { "text": "only people in the capital city", "isCorrect": false },
+      { "text": "only citizens who voted for them", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 25,
+    "category": "System of Government",
+    "question": "Why do some states have more Representatives than other states?",
+    "options": [
+      { "text": "because of the state's population", "isCorrect": true },
+      { "text": "because the state has more people", "isCorrect": true },
+      { "text": "because some states have more people", "isCorrect": true },
+      { "text": "based on the size of the state", "isCorrect": false },
+      { "text": "because some states have more land area", "isCorrect": false },
+      { "text": "because of the state's wealth", "isCorrect": false },
+      { "text": "because some states are older", "isCorrect": false },
+      { "text": "because the Constitution gives certain states more power", "isCorrect": false },
+      { "text": "because some states have more natural resources", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 26,
+    "category": "System of Government",
+    "question": "We elect a President for how many years?",
+    "options": [
+      { "text": "four (4)", "isCorrect": true },
+      { "text": "two (2)", "isCorrect": false },
+      { "text": "six (6)", "isCorrect": false },
+      { "text": "eight (8)", "isCorrect": false },
+      { "text": "five (5)", "isCorrect": false },
+      { "text": "three (3)", "isCorrect": false },
+      { "text": "for life", "isCorrect": false },
+      { "text": "one (1)", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 27,
+    "category": "System of Government",
+    "question": "In what month do we vote for President?",
+    "options": [
+      { "text": "November", "isCorrect": true },
+      { "text": "October", "isCorrect": false },
+      { "text": "December", "isCorrect": false },
+      { "text": "January", "isCorrect": false },
+      { "text": "February", "isCorrect": false },
+      { "text": "September", "isCorrect": false },
+      { "text": "March", "isCorrect": false },
+      { "text": "April", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 28,
+    "category": "System of Government",
+    "question": "What is the name of the President of the United States now?",
+    "options": [
+      { "text": "Donald Trump", "isCorrect": true },
+      { "text": "Joe Biden", "isCorrect": false },
+      { "text": "Kamala Harris", "isCorrect": false },
+      { "text": "Mike Pence", "isCorrect": false },
+      { "text": "Barack Obama", "isCorrect": false },
+      { "text": "Mike Johnson", "isCorrect": false },
+      { "text": "J.D. Vance", "isCorrect": false },
+      { "text": "Hillary Clinton", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 29,
+    "category": "System of Government",
+    "question": "What is the name of the Vice President of the United States now?",
+    "options": [
+      { "text": "J.D. Vance", "isCorrect": true },
+      { "text": "Kamala Harris", "isCorrect": false },
+      { "text": "Mike Pence", "isCorrect": false },
+      { "text": "Tim Walz", "isCorrect": false },
+      { "text": "Dick Cheney", "isCorrect": false },
+      { "text": "Tim Scott", "isCorrect": false },
+      { "text": "Mike Johnson", "isCorrect": false },
+      { "text": "Nancy Pelosi", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 30,
+    "category": "System of Government",
+    "question": "If the President can no longer serve, who becomes President?",
+    "options": [
+      { "text": "the Vice President", "isCorrect": true },
+      { "text": "the Speaker of the House", "isCorrect": false },
+      { "text": "the Secretary of State", "isCorrect": false },
+      { "text": "the President Pro Tempore of the Senate", "isCorrect": false },
+      { "text": "the Chief Justice", "isCorrect": false },
+      { "text": "the Senate Majority Leader", "isCorrect": false },
+      { "text": "the First Lady", "isCorrect": false },
+      { "text": "the Secretary of Defense", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 31,
+    "category": "System of Government",
+    "question": "If both the President and the Vice President can no longer serve, who becomes President?",
+    "options": [
+      { "text": "the Speaker of the House", "isCorrect": true },
+      { "text": "the Secretary of State", "isCorrect": false },
+      { "text": "the Secretary of Defense", "isCorrect": false },
+      { "text": "the Chief Justice", "isCorrect": false },
+      { "text": "the Senate Majority Leader", "isCorrect": false },
+      { "text": "the Attorney General", "isCorrect": false },
+      { "text": "the President Pro Tempore of the Senate", "isCorrect": false },
+      { "text": "the Secretary of the Treasury", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 32,
+    "category": "System of Government",
+    "question": "Who is the Commander in Chief of the military?",
+    "options": [
+      { "text": "the President", "isCorrect": true },
+      { "text": "the Vice President", "isCorrect": false },
+      { "text": "the Secretary of Defense", "isCorrect": false },
+      { "text": "the Secretary of the Army", "isCorrect": false },
+      { "text": "the Chairman of the Joint Chiefs of Staff", "isCorrect": false },
+      { "text": "the Chief of Naval Operations", "isCorrect": false },
+      { "text": "the Secretary of State", "isCorrect": false },
+      { "text": "the Speaker of the House", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 33,
+    "category": "System of Government",
+    "question": "Who signs bills to become laws?",
+    "options": [
+      { "text": "the President", "isCorrect": true },
+      { "text": "the Vice President", "isCorrect": false },
+      { "text": "the Speaker of the House", "isCorrect": false },
+      { "text": "the Chief Justice", "isCorrect": false },
+      { "text": "the Senate Majority Leader", "isCorrect": false },
+      { "text": "the Secretary of State", "isCorrect": false },
+      { "text": "the Attorney General", "isCorrect": false },
+      { "text": "the House Majority Leader", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 34,
+    "category": "System of Government",
+    "question": "Who vetoes bills?",
+    "options": [
+      { "text": "the President", "isCorrect": true },
+      { "text": "the Vice President", "isCorrect": false },
+      { "text": "the Speaker of the House", "isCorrect": false },
+      { "text": "the Chief Justice", "isCorrect": false },
+      { "text": "the Senate Majority Leader", "isCorrect": false },
+      { "text": "the Secretary of State", "isCorrect": false },
+      { "text": "the Attorney General", "isCorrect": false },
+      { "text": "the House Majority Leader", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 35,
+    "category": "System of Government",
+    "question": "What does the President's Cabinet do?",
+    "options": [
+      { "text": "advises the President", "isCorrect": true },
+      { "text": "writes laws", "isCorrect": false },
+      { "text": "approves laws", "isCorrect": false },
+      { "text": "approves Supreme Court Justices", "isCorrect": false },
+      { "text": "declares laws unconstitutional", "isCorrect": false },
+      { "text": "elects the President", "isCorrect": false },
+      { "text": "conducts foreign policy independently", "isCorrect": false },
+      { "text": "approves treaties with other countries", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 36,
+    "category": "System of Government",
+    "question": "What are two Cabinet-level positions?",
+    "options": [
+      { "text": "Secretary of Agriculture", "isCorrect": true },
+      { "text": "Secretary of Commerce", "isCorrect": true },
+      { "text": "Secretary of Defense", "isCorrect": true },
+      { "text": "Secretary of Education", "isCorrect": true },
+      { "text": "Secretary of Energy", "isCorrect": true },
+      { "text": "Secretary of Health and Human Services", "isCorrect": true },
+      { "text": "Secretary of Homeland Security", "isCorrect": true },
+      { "text": "Secretary of Housing and Urban Development", "isCorrect": true },
+      { "text": "Secretary of the Interior", "isCorrect": true },
+      { "text": "Secretary of Labor", "isCorrect": true },
+      { "text": "Secretary of State", "isCorrect": true },
+      { "text": "Secretary of Transportation", "isCorrect": true },
+      { "text": "Secretary of the Treasury", "isCorrect": true },
+      { "text": "Secretary of Veterans Affairs", "isCorrect": true },
+      { "text": "Attorney General", "isCorrect": true },
+      { "text": "Vice President", "isCorrect": true },
+      { "text": "Secretary of the Navy", "isCorrect": false },
+      { "text": "Secretary of the Army", "isCorrect": false },
+      { "text": "Postmaster General", "isCorrect": false },
+      { "text": "National Security Advisor", "isCorrect": false },
+      { "text": "White House Chief of Staff", "isCorrect": false },
+      { "text": "Speaker of the House", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 37,
+    "category": "System of Government",
+    "question": "What does the judicial branch do?",
+    "options": [
+      { "text": "reviews laws", "isCorrect": true },
+      { "text": "explains laws", "isCorrect": true },
+      { "text": "resolves disputes (disagreements)", "isCorrect": true },
+      { "text": "decides if a law goes against the Constitution", "isCorrect": true },
+      { "text": "makes laws", "isCorrect": false },
+      { "text": "enforces laws", "isCorrect": false },
+      { "text": "writes bills", "isCorrect": false },
+      { "text": "commands the military", "isCorrect": false },
+      { "text": "nominates judges", "isCorrect": false },
+      { "text": "conducts foreign policy", "isCorrect": false },
+      { "text": "makes treaties", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 38,
+    "category": "System of Government",
+    "question": "What is the highest court in the United States?",
+    "options": [
+      { "text": "the Supreme Court", "isCorrect": true },
+      { "text": "the Circuit Court of Appeals", "isCorrect": false },
+      { "text": "the Federal District Court", "isCorrect": false },
+      { "text": "the International Court of Justice", "isCorrect": false },
+      { "text": "the Constitutional Court", "isCorrect": false },
+      { "text": "the Federal Appellate Court", "isCorrect": false },
+      { "text": "the Court of International Trade", "isCorrect": false },
+      { "text": "the United States Court of Appeals", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 39,
+    "category": "System of Government",
+    "question": "How many justices are on the Supreme Court?",
+    "options": [
+      { "text": "nine (9)", "isCorrect": true },
+      { "text": "seven (7)", "isCorrect": false },
+      { "text": "eleven (11)", "isCorrect": false },
+      { "text": "twelve (12)", "isCorrect": false },
+      { "text": "five (5)", "isCorrect": false },
+      { "text": "three (3)", "isCorrect": false },
+      { "text": "ten (10)", "isCorrect": false },
+      { "text": "fifteen (15)", "isCorrect": false }
+    ]
+  },
+  {
+    "id": 40,
+    "category": "System of Government",
+    "question": "Who is the Chief Justice of the United States now?",
+    "options": [
+      { "text": "John Roberts", "isCorrect": true },
+      { "text": "Clarence Thomas", "isCorrect": false },
+      { "text": "Samuel Alito", "isCorrect": false },
+      { "text": "Sonia Sotomayor", "isCorrect": false },
+      { "text": "Elena Kagan", "isCorrect": false },
+      { "text": "Neil Gorsuch", "isCorrect": false },
+      { "text": "Brett Kavanaugh", "isCorrect": false },
+      { "text": "Amy Coney Barrett", "isCorrect": false },
+      { "text": "Ketanji Brown Jackson", "isCorrect": false }
+    ]
+  },
+  {
     "id": 41,
     "category": "System of Government",
     "question": "Under our Constitution, some powers belong to the federal government. What is one power of the federal government?",

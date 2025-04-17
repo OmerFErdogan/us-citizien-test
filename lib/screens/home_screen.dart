@@ -80,37 +80,54 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        scrolledUnderElevation: 0,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.blue.shade800,
+        elevation: 0,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
               'assets/images/american_flag_icon.png',
               width: 24,
               height: 24,
             ),
-            SizedBox(width: 8),
-            Text(context.l10n.americanDream),
-            SizedBox(width: 8),
-            Image.asset(
-              'assets/images/capitol_building_icon.png',
-              width: 24,
-              height: 24,
-              color: Colors.white,
+            const SizedBox(width: 8),
+            Text(
+              context.l10n.americanDream,
+              style: TextStyle(
+                fontWeight: FontWeight.w600, 
+                fontSize: 18,
+                letterSpacing: -0.3,
+              ),
             ),
           ],
         ),
-        elevation: 2,
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.settings_outlined, color: Colors.blue.shade800),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const LanguageSelectionScreen(),
+              ),
+            );
+          },
+        ),
         actions: [
           PopupMenuButton<String>(
-            icon: const Icon(Icons.more_vert),
+            icon: Icon(Icons.more_horiz, color: Colors.blue.shade800),
+            offset: const Offset(0, 10),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             onSelected: (value) async {
               if (value == 'reset') {
-                // Onay dialoğu göster
                 final confirmed = await showDialog<bool>(
                   context: context,
                   builder: (context) => AlertDialog(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                     title: Text(context.l10n.attention),
                     content: Text(context.l10n.resetProgressWarning),
                     actions: [
@@ -129,37 +146,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 
                 if (confirmed) {
                   await widget.questionService.resetAllAnswers();
-                  _loadQuestions(); // Yenilenen verileri yükle
+                  _loadQuestions();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(context.l10n.progressReset)),
+                    SnackBar(
+                      content: Text(context.l10n.progressReset),
+                      behavior: SnackBarBehavior.floating,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      margin: EdgeInsets.all(16),
+                    ),
                   );
                 }
-              } else if (value == 'settings') {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const LanguageSelectionScreen(),
-                  ),
-                );
               }
             },
             itemBuilder: (context) => [
-              PopupMenuItem<String>(
-                value: 'settings',
-                child: Row(
-                  children: [
-                    const Icon(Icons.settings, color: Colors.grey),
-                    const SizedBox(width: 8),
-                    Text(context.l10n.settings),
-                  ],
-                ),
-              ),
               PopupMenuItem<String>(
                 value: 'reset',
                 child: Row(
                   children: [
                     const Icon(Icons.restore, color: Colors.red),
-                    const SizedBox(width: 8),
+                    const SizedBox(width: 12),
                     Text(
                       context.l10n.resetProgress,
                       style: const TextStyle(color: Colors.red),
@@ -172,24 +177,28 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(
+              child: CircularProgressIndicator(
+                color: Colors.blue.shade700,
+                strokeWidth: 3,
+              ),
+            )
           : _errorMessage.isNotEmpty
-              ? Center(child: Text(_errorMessage, style: const TextStyle(color: Colors.red)))
-              : Stack(
-                  children: [
-                    // Amerikan vatandaşlık temalı arka plan
-                    Positioned.fill(
-                      child: Opacity(
-                        opacity: 0.05,
-                        child: Image.asset(
-                          'assets/images/usa_map_background.png',
-                          fit: BoxFit.cover,
-                        ),
+              ? Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.error_outline, color: Colors.red, size: 48),
+                      const SizedBox(height: 16),
+                      Text(
+                        _errorMessage, 
+                        style: const TextStyle(color: Colors.red),
+                        textAlign: TextAlign.center,
                       ),
-                    ),
-                    _buildHomeContent(),
-                  ],
-                ),
+                    ],
+                  ),
+                )
+              : _buildHomeContent(),
     );
   }
 

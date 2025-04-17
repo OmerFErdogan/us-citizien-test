@@ -193,11 +193,27 @@ class _QuizScreenState extends State<QuizScreen> {
           ),
         ],
       ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : _questions.isEmpty
-              ? _buildEmptyState()
-              : _buildQuizContent(),
+      body: SafeArea(
+        child: _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : _questions.isEmpty
+                ? _buildEmptyState()
+                : LayoutBuilder(
+                    builder: (context, constraints) {
+                      // Daha esnek responsive tasarım mantığı
+                      final isPortrait = constraints.maxHeight > constraints.maxWidth;
+                      final availableWidth = constraints.maxWidth;
+                      final availableHeight = constraints.maxHeight;
+                      
+                      // Hem ekran boyutu hem de orientasyon dikkate alınıyor
+                      final useTabletLayout = !isPortrait && availableWidth >= 700 || availableWidth >= 900;
+                      
+                      return _buildQuizContent(isTabletMode: useTabletLayout,
+                                               screenWidth: availableWidth, 
+                                               screenHeight: availableHeight);
+                    },
+                  ),
+      ),
     );
   }
 
@@ -227,192 +243,303 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
-  Widget _buildQuizContent() {
+  // Standard mobile/portrait layout ve tablet/landscape layout yerine tek bir metoda geçiş yapalım
+  Widget _buildQuizContent({required bool isTabletMode, required double screenWidth, required double screenHeight}) {
     final currentQuestion = _questions[_currentQuestionIndex];
     final isCorrect = _answerChecked && 
                      currentQuestion.isCorrectAnswer(_selectedAnswer ?? '');
     
-    return Column(
-      children: [
-        // İlerleme göstergesi
-        LinearProgressIndicator(
-          value: (_currentQuestionIndex + 1) / _questions.length,
-          minHeight: 8,
-          backgroundColor: Colors.grey[300],
-        ),
-        
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // Use direct parameter passing instead of replaceAll
-              Text(
-                context.l10n.question((_currentQuestionIndex + 1), _questions.length),
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                context.l10n.category(currentQuestion.category),
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[700],
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            ],
+    // Ekran boyutlarına bağlı dinamik ölçülendirme
+    final bool isLargeScreen = screenWidth >= 900;
+    final bool isMediumScreen = screenWidth >= 600 && screenWidth < 900;
+    final double fontSize = isLargeScreen ? 22 : (isMediumScreen ? 20 : 18);
+    final double padding = isLargeScreen ? 24.0 : (isMediumScreen ? 20.0 : 16.0);
+    final double spacing = isLargeScreen ? 32.0 : (isMediumScreen ? 24.0 : 16.0);
+    
+    // Layout modification based on screen size/orientation
+    if (isTabletMode) {
+      // Side-by-side layout for tablets/landscape mode
+      return Column(
+        children: [
+          // İlerleme göstergesi
+          LinearProgressIndicator(
+            value: (_currentQuestionIndex + 1) / _questions.length,
+            minHeight: 8,
+            backgroundColor: Colors.grey[300],
           ),
-        ),
-        
-        // Soru ve cevaplar
-        Expanded(
-          child: SingleChildScrollView(
+          
+          Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  context.l10n.question((_currentQuestionIndex + 1), _questions.length),
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  context.l10n.category(currentQuestion.category),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[700],
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          
+          // Split view for tablet mode
+          Expanded(
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Soru kartı
-                Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                // Question section
+                Expanded(
+                  flex: 4,
+                  child: Card(
+                    margin: const EdgeInsets.all(16.0),
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(24.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            currentQuestion.question,
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 32),
+                          // Answer feedbacks for tablet mode
+                          if (_answerChecked)
+                            _buildAnswerFeedback(isCorrect, currentQuestion),
+                        ],
+                      ),
+                    ),
                   ),
-                  child: Padding(
+                ),
+                
+                // Answer options section
+                Expanded(
+                  flex: 5,
+                  child: SingleChildScrollView(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          currentQuestion.question,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        ..._buildAnswerOptions(currentQuestion),
                       ],
                     ),
                   ),
                 ),
-                
-                const SizedBox(height: 24),
-                
-                // Cevap seçenekleri
-                ...currentQuestion.options.map((option) {
-                  final isSelected = _selectedAnswer == option.text;
-                  final isCorrectOption = _answerChecked && option.isCorrect;
-                  final isWrongSelection = _answerChecked && isSelected && !option.isCorrect;
-                  
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: AnswerOption(
-                      text: option.text,
-                      isSelected: isSelected,
-                      isCorrect: isCorrectOption,
-                      isIncorrect: isWrongSelection,
-                      onTap: () => _selectAnswer(option.text),
-                    ),
-                  );
-                }).toList(),
-                
-                // Cevap kontrolü sonrası açıklama
-                if (_answerChecked)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: Card(
-                      color: isCorrect ? Colors.green[50] : Colors.red[50],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  isCorrect ? Icons.check_circle : Icons.info,
-                                  color: isCorrect ? Colors.green : Colors.red,
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  isCorrect ? context.l10n.correct : context.l10n.incorrect,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: isCorrect ? Colors.green : Colors.red,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            if (!isCorrect) ...[
-                              const SizedBox(height: 8),
-                               Text(
-                                context.l10n.correctAnswer,
-                                style: const TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 4),
-                              // Birden fazla doğru cevap olabilir
-                              ...currentQuestion.allCorrectAnswers.map((correctAnswer) => 
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 4.0),
-                                  child: Text(
-                                    '• $correctAnswer',
-                                    style: const TextStyle(fontSize: 16),
-                                  ),
-                                )
-                              ),
-                            ],
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
               ],
             ),
           ),
-        ),
-        
-        // Alt butonlar
-        Container(
-          padding: const EdgeInsets.all(16.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 4,
-                offset: const Offset(0, -2),
-              ),
-            ],
+          
+          // Button section
+          _buildBottomActionButton(),
+        ],
+      );
+    } else {
+      // Standard mobile/portrait layout
+      return Column(
+        children: [
+          // İlerleme göstergesi
+          LinearProgressIndicator(
+            value: (_currentQuestionIndex + 1) / _questions.length,
+            minHeight: 8,
+            backgroundColor: Colors.grey[300],
           ),
-          child: Row(
-            children: [
-              Expanded(
-                child: _answerChecked
-                    ? ElevatedButton(
-                        onPressed: _nextQuestion,
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                        ),
-                        child: Text(
-                          _currentQuestionIndex < _questions.length - 1
-                              ? context.l10n.next
-                              : context.l10n.reviewAnswers,
-                        ),
-                      )
-                    : ElevatedButton(
-                        onPressed: _selectedAnswer != null
-                            ? _checkAnswer
-                            : null,
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                        ),
-                        child: Text(context.l10n.checkAnswer),
+          
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  context.l10n.question((_currentQuestionIndex + 1), _questions.length),
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  context.l10n.category(currentQuestion.category),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[700],
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          
+          // Soru ve cevaplar
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Soru kartı
+                  Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            currentQuestion.question,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
+                    ),
+                  ),
+                  
+                  const SizedBox(height: 24),
+                  
+                  // Cevap seçenekleri
+                  ..._buildAnswerOptions(currentQuestion),
+                  
+                  // Cevap kontrolü sonrası açıklama
+                  if (_answerChecked)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: _buildAnswerFeedback(isCorrect, currentQuestion),
+                    ),
+                ],
+              ),
+            ),
+          ),
+          
+          // Alt butonlar
+          _buildBottomActionButton(),
+        ],
+      );
+    }
+  }
+  
+  // Extract answer options to a reusable method
+  List<Widget> _buildAnswerOptions(Question currentQuestion) {
+    return currentQuestion.options.map((option) {
+      final isSelected = _selectedAnswer == option.text;
+      final isCorrectOption = _answerChecked && option.isCorrect;
+      final isWrongSelection = _answerChecked && isSelected && !option.isCorrect;
+      
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 12.0),
+        child: AnswerOption(
+          text: option.text,
+          isSelected: isSelected,
+          isCorrect: isCorrectOption,
+          isIncorrect: isWrongSelection,
+          onTap: () => _selectAnswer(option.text),
+        ),
+      );
+    }).toList();
+  }
+  
+  // Extract answer feedback to a reusable method
+ Widget _buildAnswerFeedback(bool isCorrect, Question currentQuestion) {
+  return Card(
+    color: isCorrect ? Colors.green[50] : Colors.red[50],
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                isCorrect ? Icons.check_circle : Icons.info,
+                color: isCorrect ? Colors.green : Colors.red,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                isCorrect ? context.l10n.correct : context.l10n.incorrect,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: isCorrect ? Colors.green : Colors.red,
+                ),
               ),
             ],
           ),
-        ),
-      ],
+          if (!isCorrect) ...[                      // 👈 yaymadan sonra köşeli parantez aç
+            const SizedBox(height: 8),
+            Text(
+              context.l10n.correctAnswer,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 4),
+            // Birden fazla doğru cevap olabilir
+            ...currentQuestion.allCorrectAnswers.map(
+              (correct) => Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Text('• $correct', style: const TextStyle(fontSize: 16)),
+              ),
+            ),
+          ],                                        // 👈 listeyi kapat
+        ],
+      ),
+    ),
+  );
+}
+
+  
+  // Extract bottom action button to a reusable method
+  Widget _buildBottomActionButton() {
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 4,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: _answerChecked
+                ? ElevatedButton(
+                    onPressed: _nextQuestion,
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                    ),
+                    child: Text(
+                      _currentQuestionIndex < _questions.length - 1
+                          ? context.l10n.next
+                          : context.l10n.reviewAnswers,
+                    ),
+                  )
+                : ElevatedButton(
+                    onPressed: _selectedAnswer != null
+                        ? _checkAnswer
+                        : null,
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                    ),
+                    child: Text(context.l10n.checkAnswer),
+                  ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -51,191 +51,423 @@ class ResultScreen extends StatelessWidget {
         title: Text(isTestMode ? context.l10n.examResults : context.l10n.quizResults),
         automaticallyImplyLeading: false,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Test modu için geçti/kaldı bilgisi
-            if (isTestMode)
-              _buildTestResultBanner(context, passedTest),
-            
-            // Sonuç özeti kartı
-            Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    Text(
-                      isTestMode ? context.l10n.examCompleted : context.l10n.quizCompleted,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 32),
-                    
-                    // Skor yüzdesi
-                    Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: scoreColor.withOpacity(0.1),
-                        border: Border.all(
-                          color: scoreColor,
-                          width: 6,
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          '${score.toInt()}%',
-                          style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                            color: scoreColor,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          // Responsive design için gerekli ölçüleri belirleyelim
+          final screenWidth = constraints.maxWidth;
+          final screenHeight = constraints.maxHeight;
+          final isLargeScreen = screenWidth > 900;
+          final isMediumScreen = screenWidth > 600 && screenWidth <= 900;
+          final isPortrait = screenHeight > screenWidth;
+          
+          // Örneğin tablet ve laptop gibi cihazlarda yan yana görünüm kullanılabilir
+          final useWideLayout = !isPortrait && screenWidth >= 700 || screenWidth >= 900;
+          
+          // Dinamik boyutlandırma değerleri
+          final double contentPadding = isLargeScreen ? 32.0 : (isMediumScreen ? 24.0 : 16.0);
+          final double itemSpacing = isLargeScreen ? 32.0 : (isMediumScreen ? 24.0 : 16.0);
+          final double cardPadding = isLargeScreen ? 32.0 : (isMediumScreen ? 24.0 : 20.0);
+          final double titleFontSize = isLargeScreen ? 30.0 : (isMediumScreen ? 26.0 : 24.0);
+          final double scoreFontSize = isLargeScreen ? 36.0 : (isMediumScreen ? 32.0 : 28.0);
+          final double scoreCircleSize = isLargeScreen ? 150.0 : (isMediumScreen ? 130.0 : 120.0);
+          final double scoreCircleBorderWidth = isLargeScreen ? 8.0 : 6.0;
+          
+          if (useWideLayout) {
+            // Geniş ekranlarda 2 sütunlu yerleşim
+            return SingleChildScrollView(
+              padding: EdgeInsets.all(contentPadding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // Test modu için geçti/kaldı bilgisi
+                  if (isTestMode)
+                    _buildTestResultBanner(context, passedTest, isLargeScreen: isLargeScreen),
+                  
+                  // Ana içerik: Yanyana sonuç kartı ve sorular
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Sol taraf: Sonuç özeti kartı
+                      Expanded(
+                        flex: 2,
+                        child: Card(
+                          elevation: 4,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(isLargeScreen ? 20 : 16),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(cardPadding),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                // Quiz/Exam tamamlandı başlığı
+                                Text(
+                                  isTestMode ? context.l10n.examCompleted : context.l10n.quizCompleted,
+                                  style: TextStyle(
+                                    fontSize: titleFontSize,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(height: itemSpacing),
+                                
+                                // Skor yüzdesi
+                                Container(
+                                  width: scoreCircleSize,
+                                  height: scoreCircleSize,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: scoreColor.withOpacity(0.1),
+                                    border: Border.all(
+                                      color: scoreColor,
+                                      width: scoreCircleBorderWidth,
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      '${score.toInt()}%',
+                                      style: TextStyle(
+                                        fontSize: scoreFontSize,
+                                        fontWeight: FontWeight.bold,
+                                        color: scoreColor,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: itemSpacing * 0.75),
+                                
+                                // Derece
+                                Text(
+                                  isTestMode 
+                                    ? (passedTest ? context.l10n.pass : context.l10n.fail)
+                                    : _getScoreGrade(context, score),
+                                  style: TextStyle(
+                                    fontSize: isLargeScreen ? 26 : 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: isTestMode 
+                                      ? (passedTest ? Colors.green[700] : Colors.red[700])
+                                      : scoreColor,
+                                  ),
+                                ),
+                                SizedBox(height: isLargeScreen ? 12 : 8),
+                                
+                                // Skor detayı
+                                Text(
+                                  context.l10n.correctIncorrect(correctCount, totalQuestions - correctCount),
+                                  style: TextStyle(
+                                    fontSize: isLargeScreen ? 18 : 16,
+                                    color: Colors.grey[700],
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                
+                                // Test modunda geçme kriteri bilgisi
+                                if (isTestMode) ...[  
+                                  SizedBox(height: isLargeScreen ? 12 : 8),
+                                  Text(
+                                    context.l10n.passCriteria,
+                                    style: TextStyle(
+                                      fontSize: isLargeScreen ? 16 : 14,
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.grey[700],
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                                
+                                // Test modunda süre bilgisi
+                                if (isTestMode && timeSpent != null) ...[  
+                                  SizedBox(height: isLargeScreen ? 20 : 16),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.timer, color: Colors.grey[600], size: isLargeScreen ? 20 : 16),
+                                      SizedBox(width: isLargeScreen ? 6 : 4),
+                                      Text(
+                                        context.l10n.totalTime(_formatDuration(timeSpent!)),
+                                        style: TextStyle(
+                                          fontSize: isLargeScreen ? 16 : 14,
+                                          color: Colors.grey[700],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                                
+                                SizedBox(height: itemSpacing),
+                                
+                                // Başarı rozeti
+                                if ((isTestMode && passedTest) || (!isTestMode && score >= 80))
+                                  _buildAchievementBadge(context, isTestMode, isLargeScreen: isLargeScreen),
+                                
+                                SizedBox(height: itemSpacing),
+                                
+                                // Eylem butonları
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: OutlinedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).popUntil((route) => route.isFirst);
+                                        },
+                                        style: OutlinedButton.styleFrom(
+                                          padding: EdgeInsets.symmetric(vertical: isLargeScreen ? 16 : 12),
+                                        ),
+                                        child: Text(
+                                          context.l10n.homePage,
+                                          style: TextStyle(fontSize: isLargeScreen ? 16 : 14),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: isLargeScreen ? 20 : 16),
+                                    Expanded(
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          padding: EdgeInsets.symmetric(vertical: isLargeScreen ? 16 : 12),
+                                        ),
+                                        child: Text(
+                                          isTestMode ? context.l10n.newExam : context.l10n.newQuiz,
+                                          style: TextStyle(fontSize: isLargeScreen ? 16 : 14),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 24),
-                    
-                    // Derece
-                    Text(
-                      isTestMode 
-                        ? (passedTest ? context.l10n.pass : context.l10n.fail)
-                        : _getScoreGrade(context, score),
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: isTestMode 
-                          ? (passedTest ? Colors.green[700] : Colors.red[700])
-                          : scoreColor,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    
-                    // Skor detayı
-                    Text(
-                      context.l10n.correctIncorrect(correctCount, totalQuestions - correctCount),
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey[700],
-                      ),
-                    ),
-                    
-                    // Test modunda geçme kriteri bilgisi
-                    if (isTestMode) ...[  
-                      const SizedBox(height: 8),
-                      Text(
-                        context.l10n.passCriteria,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.grey[700],
+                      
+                      SizedBox(width: itemSpacing),
+                      
+                      // Sağ taraf: Soru listesi
+                      Expanded(
+                        flex: 3,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Soru detayları başlığı
+                            Padding(
+                              padding: EdgeInsets.only(left: 8.0, bottom: isLargeScreen ? 16.0 : 8.0),
+                              child: Text(
+                                context.l10n.yourAnswers,
+                                style: TextStyle(
+                                  fontSize: isLargeScreen ? 22 : 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            
+                            // Soru listesi
+                            _buildQuestionsList(context, isLargeScreen: isLargeScreen),
+                          ],
                         ),
                       ),
                     ],
-                    
-                    // Test modunda süre bilgisi
-                    if (isTestMode && timeSpent != null) ...[  
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                  ),
+                ],
+              ),
+            );
+          } else {
+            // Normal tek sütunlu mobil yerleşimi
+            return SingleChildScrollView(
+              padding: EdgeInsets.all(contentPadding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Test modu için geçti/kaldı bilgisi
+                  if (isTestMode)
+                    _buildTestResultBanner(context, passedTest, isLargeScreen: isLargeScreen),
+                  
+                  // Sonuç özeti kartı
+                  Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(isLargeScreen ? 20 : 16),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(cardPadding),
+                      child: Column(
                         children: [
-                          Icon(Icons.timer, color: Colors.grey[600], size: 16),
-                          const SizedBox(width: 4),
                           Text(
-                            context.l10n.totalTime(_formatDuration(timeSpent!)),
+                            isTestMode ? context.l10n.examCompleted : context.l10n.quizCompleted,
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: titleFontSize,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: itemSpacing),
+                          
+                          // Skor yüzdesi
+                          Container(
+                            width: scoreCircleSize,
+                            height: scoreCircleSize,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: scoreColor.withOpacity(0.1),
+                              border: Border.all(
+                                color: scoreColor,
+                                width: scoreCircleBorderWidth,
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                '${score.toInt()}%',
+                                style: TextStyle(
+                                  fontSize: scoreFontSize,
+                                  fontWeight: FontWeight.bold,
+                                  color: scoreColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: itemSpacing * 0.75),
+                          
+                          // Derece
+                          Text(
+                            isTestMode 
+                              ? (passedTest ? context.l10n.pass : context.l10n.fail)
+                              : _getScoreGrade(context, score),
+                            style: TextStyle(
+                              fontSize: isLargeScreen ? 26 : 24,
+                              fontWeight: FontWeight.bold,
+                              color: isTestMode 
+                                ? (passedTest ? Colors.green[700] : Colors.red[700])
+                                : scoreColor,
+                            ),
+                          ),
+                          SizedBox(height: isLargeScreen ? 12 : 8),
+                          
+                          // Skor detayı
+                          Text(
+                            context.l10n.correctIncorrect(correctCount, totalQuestions - correctCount),
+                            style: TextStyle(
+                              fontSize: isLargeScreen ? 18 : 16,
                               color: Colors.grey[700],
                             ),
                           ),
+                          
+                          // Test modunda geçme kriteri bilgisi
+                          if (isTestMode) ...[  
+                            SizedBox(height: isLargeScreen ? 12 : 8),
+                            Text(
+                              context.l10n.passCriteria,
+                              style: TextStyle(
+                                fontSize: isLargeScreen ? 16 : 14,
+                                fontStyle: FontStyle.italic,
+                                color: Colors.grey[700],
+                              ),
+                            ),
+                          ],
+                          
+                          // Test modunda süre bilgisi
+                          if (isTestMode && timeSpent != null) ...[  
+                            SizedBox(height: isLargeScreen ? 20 : 16),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.timer, color: Colors.grey[600], size: isLargeScreen ? 20 : 16),
+                                SizedBox(width: isLargeScreen ? 6 : 4),
+                                Text(
+                                  context.l10n.totalTime(_formatDuration(timeSpent!)),
+                                  style: TextStyle(
+                                    fontSize: isLargeScreen ? 16 : 14,
+                                    color: Colors.grey[700],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                          
+                          SizedBox(height: itemSpacing),
+                          
+                          // Başarı rozeti
+                          if ((isTestMode && passedTest) || (!isTestMode && score >= 80))
+                            _buildAchievementBadge(context, isTestMode, isLargeScreen: isLargeScreen),
                         ],
                       ),
+                    ),
+                  ),
+                  
+                  SizedBox(height: itemSpacing),
+                  
+                  // Soru detayları başlığı
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      context.l10n.yourAnswers,
+                      style: TextStyle(
+                        fontSize: isLargeScreen ? 22 : 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: isLargeScreen ? 16 : 8),
+                  
+                  // Soru listesi
+                  _buildQuestionsList(context, isLargeScreen: isLargeScreen),
+                  
+                  SizedBox(height: itemSpacing),
+                  
+                  // Eylem butonları
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed: () {
+                            Navigator.of(context).popUntil((route) => route.isFirst);
+                          },
+                          style: OutlinedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(vertical: isLargeScreen ? 16 : 12),
+                          ),
+                          child: Text(
+                            context.l10n.homePage,
+                            style: TextStyle(fontSize: isLargeScreen ? 16 : 14),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: isLargeScreen ? 20 : 16),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(vertical: isLargeScreen ? 16 : 12),
+                          ),
+                          child: Text(
+                            isTestMode ? context.l10n.newExam : context.l10n.newQuiz,
+                            style: TextStyle(fontSize: isLargeScreen ? 16 : 14),
+                          ),
+                        ),
+                      ),
                     ],
-                    
-                    const SizedBox(height: 24),
-                    
-                    // Başarı rozeti
-                    if ((isTestMode && passedTest) || (!isTestMode && score >= 80))
-                      _buildAchievementBadge(context, isTestMode),
-                  ],
-                ),
-              ),
-            ),
-            
-            const SizedBox(height: 24),
-            
-            // Soru detayları başlığı
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                context.l10n.yourAnswers,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(height: 8),
-            
-            // Soru listesi
-            _buildQuestionsList(context),
-            
-            const SizedBox(height: 24),
-            
-            // Eylem butonları
-            // Action butonları
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () {
-                      // Çok basitçe, biz de sadece NavigatorKeysini kullanarak anasayfaya gidelim
-                      Navigator.of(context).popUntil((route) => route.isFirst);
-                    },
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                    ),
-                    child: Text(context.l10n.homePage),
                   ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Yeni bir quiz/test başlat
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                    ),
-                    child: Text(isTestMode ? context.l10n.newExam : context.l10n.newQuiz),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+                ],
+              ),
+            );
+          }
+        },
       ),
     );
   }
 
-  Widget _buildAchievementBadge(BuildContext context, bool isTestMode) {
+  Widget _buildAchievementBadge(BuildContext context, bool isTestMode, {bool isLargeScreen = false}) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: EdgeInsets.symmetric(
+        horizontal: isLargeScreen ? 20 : 16, 
+        vertical: isLargeScreen ? 10 : 8
+      ),
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(isLargeScreen ? 24 : 20),
         border: Border.all(
           color: Theme.of(context).primaryColor,
-          width: 1,
+          width: isLargeScreen ? 1.5 : 1,
         ),
       ),
       child: Row(
@@ -244,14 +476,15 @@ class ResultScreen extends StatelessWidget {
           Icon(
             isTestMode ? Icons.military_tech : Icons.emoji_events,
             color: Colors.amber[700],
-            size: 24,
+            size: isLargeScreen ? 28 : 24,
           ),
-          const SizedBox(width: 8),
+          SizedBox(width: isLargeScreen ? 10 : 8),
           Text(
             isTestMode ? context.l10n.passedUSCISExam : context.l10n.greatAchievement,
             style: TextStyle(
               color: Theme.of(context).primaryColor,
               fontWeight: FontWeight.bold,
+              fontSize: isLargeScreen ? 16 : 14,
             ),
           ),
         ],
@@ -259,12 +492,20 @@ class ResultScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildQuestionsList(BuildContext parentContext) {
+  Widget _buildQuestionsList(BuildContext parentContext, {bool isLargeScreen = false}) {
+    final double spacing = isLargeScreen ? 12.0 : 8.0;
+    final double borderRadius = isLargeScreen ? 16.0 : 12.0;
+    final double titleFontSize = isLargeScreen ? 18.0 : 16.0;
+    final double contentFontSize = isLargeScreen ? 16.0 : 14.0;
+    final double subtitleFontSize = isLargeScreen ? 14.0 : 12.0;
+    final double iconSize = isLargeScreen ? 28.0 : 24.0;
+    final double padding = isLargeScreen ? 20.0 : 16.0;
+    
     return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: questions.length,
-      separatorBuilder: (_, index) => const SizedBox(height: 8),
+      separatorBuilder: (_, index) => SizedBox(height: spacing),
       itemBuilder: (_, index) {
         final question = questions[index];
         late bool isCorrect;
@@ -279,10 +520,10 @@ class ResultScreen extends StatelessWidget {
         return Container(
           decoration: BoxDecoration(
             color: isCorrect ? Colors.green[50] : Colors.red[50],
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(borderRadius),
             border: Border.all(
               color: isCorrect ? Colors.green[300]! : Colors.red[300]!,
-              width: 1,
+              width: isLargeScreen ? 1.5 : 1.0,
             ),
           ),
           child: Theme(
@@ -293,54 +534,62 @@ class ResultScreen extends StatelessWidget {
               leading: Icon(
                 isCorrect ? Icons.check_circle : Icons.cancel,
                 color: isCorrect ? Colors.green : Colors.red,
+                size: iconSize,
               ),
               title: Text(
                 question.question,
                 style: TextStyle(
                   color: isCorrect ? Colors.green[800] : Colors.red[800],
                   fontWeight: FontWeight.bold,
+                  fontSize: titleFontSize,
                 ),
               ),
               subtitle: Text(
                 parentContext.l10n.category(question.category),
                 style: TextStyle(
                   color: isCorrect ? Colors.green[600] : Colors.red[600],
-                  fontSize: 12,
+                  fontSize: subtitleFontSize,
                 ),
               ),
-              childrenPadding: const EdgeInsets.all(16),
+              childrenPadding: EdgeInsets.all(padding),
               expandedCrossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   parentContext.l10n.correctAnswer,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
+                    fontSize: contentFontSize,
                   ),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: spacing / 2),
                 
                 // Birden fazla doğru cevap olabilir
                 ...question.allCorrectAnswers.map((correctAnswer) => 
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 4.0),
-                    child: Text('• $correctAnswer'),
+                    padding: EdgeInsets.only(bottom: spacing / 2),
+                    child: Text(
+                      '• $correctAnswer',
+                      style: TextStyle(fontSize: contentFontSize),
+                    ),
                   )
                 ),
                 
                 if (question.selectedAnswer != null) ...[  
-                  const SizedBox(height: 12),
+                  SizedBox(height: spacing * 1.5),
                   Text(
                     parentContext.l10n.yourAnswer,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
+                      fontSize: contentFontSize,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: spacing / 2),
                   Text(
                     question.selectedAnswer!,
                     style: TextStyle(
                       color: isCorrect ? Colors.green[700] : Colors.red[700],
                       fontWeight: FontWeight.bold,
+                      fontSize: contentFontSize,
                     ),
                   ),
                 ],
@@ -352,38 +601,38 @@ class ResultScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTestResultBanner(BuildContext context, bool passed) {
+  Widget _buildTestResultBanner(BuildContext context, bool passed, {bool isLargeScreen = false}) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: EdgeInsets.only(bottom: isLargeScreen ? 24.0 : 16.0),
       width: double.infinity,
       decoration: BoxDecoration(
         color: passed ? Colors.green[50] : Colors.red[50],
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(isLargeScreen ? 16.0 : 12.0),
         border: Border.all(
           color: passed ? Colors.green[300]! : Colors.red[300]!,
-          width: 2,
+          width: isLargeScreen ? 2.5 : 2.0,
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(isLargeScreen ? 24.0 : 16.0),
         child: Column(
           children: [
             Icon(
               passed ? Icons.verified : Icons.error_outline,
               color: passed ? Colors.green[700] : Colors.red[700],
-              size: 48,
+              size: isLargeScreen ? 64.0 : 48.0,
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: isLargeScreen ? 16.0 : 12.0),
             Text(
               passed ? context.l10n.passedUSCISExamBanner : context.l10n.failedUSCISExamBanner,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 18,
+                fontSize: isLargeScreen ? 22.0 : 18.0,
                 fontWeight: FontWeight.bold,
                 color: passed ? Colors.green[700] : Colors.red[700],
               ),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: isLargeScreen ? 12.0 : 8.0),
             Text(
               passed 
                 ? context.l10n.congratsPassedCivics
@@ -391,6 +640,7 @@ class ResultScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: passed ? Colors.green[700] : Colors.red[700],
+                fontSize: isLargeScreen ? 16.0 : 14.0,
               ),
             ),
           ],
