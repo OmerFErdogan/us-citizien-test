@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../utils/extensions.dart';
 
 class CategorySelectionCard extends StatelessWidget {
   final String category;
@@ -23,165 +22,170 @@ class CategorySelectionCard extends StatelessWidget {
     required this.onTap,
   }) : super(key: key);
 
-  Color _getSuccessRateColor(double rate) {
-    if (rate >= 0.9) return Colors.green[700]!;
-    if (rate >= 0.7) return Colors.green;
-    if (rate >= 0.5) return Colors.orange;
-    if (rate >= 0.3) return Colors.orange[700]!;
-    return Colors.red;
+  // Category icons mapping
+  IconData _getCategoryIcon(String category) {
+    switch (category.toLowerCase()) {
+      case 'principles of american democracy':
+        return Icons.account_balance;
+      case 'system of government':
+        return Icons.gavel;
+      case 'rights and responsibilities':
+        return Icons.how_to_vote;
+      case 'american history':
+        return Icons.flag;
+      case 'geography':
+        return Icons.public;
+      case 'symbols':
+        return Icons.emoji_symbols;
+      case 'holidays':
+        return Icons.celebration;
+      default:
+        return Icons.quiz;
+    }
+  }
+
+  // Category background colors
+  Color _getCategoryBackgroundColor(String category) {
+    switch (category.toLowerCase()) {
+      case 'principles of american democracy':
+        return const Color(0xFFE8F4FD);
+      case 'system of government':
+        return const Color(0xFFF3E8FF);
+      case 'rights and responsibilities':
+        return const Color(0xFFE8F8F5);
+      case 'american history':
+        return const Color(0xFFFFF2E8);
+      case 'geography':
+        return const Color(0xFFE8F9F5);
+      case 'symbols':
+        return const Color(0xFFF8E8FF);
+      case 'holidays':
+        return const Color(0xFFFFF0E8);
+      default:
+        return const Color(0xFFF5F7FA);
+    }
+  }
+
+  // Category icon colors
+  Color _getCategoryIconColor(String category) {
+    switch (category.toLowerCase()) {
+      case 'principles of american democracy':
+        return const Color(0xFF3B82F6);
+      case 'system of government':
+        return const Color(0xFF8B5CF6);
+      case 'rights and responsibilities':
+        return const Color(0xFF10B981);
+      case 'american history':
+        return const Color(0xFFF59E0B);
+      case 'geography':
+        return const Color(0xFF06B6D4);
+      case 'symbols':
+        return const Color(0xFFEC4899);
+      case 'holidays':
+        return const Color(0xFFEF4444);
+      default:
+        return const Color(0xFF6B7280);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        // Daha esnek responsive tasarım mantığı
-        final double cardWidth = constraints.maxWidth;
-        final bool isLargeScreen = cardWidth > 400; // Kart genişliğine göre karar ver
-        final bool isMediumScreen = cardWidth > 300 && cardWidth <= 400;
-        
-        // Dinamik boyutlandırma
-        final double iconSize = isLargeScreen ? 28 : (isMediumScreen ? 26 : 24);
-        final double fontSize = isLargeScreen ? 18 : (isMediumScreen ? 17 : 16); 
-        final double padding = isLargeScreen ? 20.0 : (isMediumScreen ? 18.0 : 16.0);
-        final double borderRadius = isLargeScreen ? 16 : (isMediumScreen ? 14 : 12);
-        final double spacing = isLargeScreen ? 16 : (isMediumScreen ? 14 : 12);
-        
-        return Card(
-          elevation: isSelected ? 4 : 1,
-          margin: EdgeInsets.only(bottom: isLargeScreen ? 16.0 : 12.0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
-            side: isSelected 
-                ? BorderSide(color: categoryColor, width: isLargeScreen ? 3 : 2) 
-                : BorderSide.none,
-          ),
-          child: InkWell(
-            onTap: onTap,
-            borderRadius: BorderRadius.circular(borderRadius),
-            child: Padding(
-              padding: EdgeInsets.all(padding),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+    final progressPercentage = questionCount > 0 
+        ? (completedCount / questionCount * 100).round() 
+        : 0;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: isSelected 
+                  ? _getCategoryBackgroundColor(category).withOpacity(0.8)
+                  : _getCategoryBackgroundColor(category),
+              borderRadius: BorderRadius.circular(16),
+              border: isSelected 
+                  ? Border.all(color: _getCategoryIconColor(category), width: 2)
+                  : null,
+            ),
+            child: Row(
+              children: [
+                // Category Icon
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    _getCategoryIcon(category),
+                    color: _getCategoryIconColor(category),
+                    size: 28,
+                  ),
+                ),
+                
+                const SizedBox(width: 16),
+                
+                // Category Info
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Selection indicator
-                      Container(
-                        width: iconSize,
-                        height: iconSize,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: isSelected 
-                                ? categoryColor 
-                                : Colors.grey[400]!,
-                            width: isLargeScreen ? 2.5 : 2,
-                          ),
-                          color: isSelected 
-                              ? categoryColor.withOpacity(0.2) 
-                              : Colors.transparent,
-                        ),
-                        child: isSelected 
-                            ? Icon(
-                                Icons.check, 
-                                color: categoryColor,
-                                size: iconSize * 0.6,
-                              ) 
-                            : null,
-                      ),
-                      SizedBox(width: spacing),
-                      
-                      // Category name
-                      Expanded(
-                        child: Text(
-                          category,
-                          style: TextStyle(
-                            fontSize: fontSize,
-                            fontWeight: FontWeight.bold,
-                            color: isSelected ? categoryColor : Colors.black,
-                          ),
+                      Text(
+                        category,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
                       ),
-                      
-                      // Question count
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: isLargeScreen ? 10 : 8, 
-                          vertical: isLargeScreen ? 6 : 4
-                        ),
-                        decoration: BoxDecoration(
-                          color: categoryColor.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(isLargeScreen ? 10 : 8),
-                        ),
-                        child: Text(
-                          context.l10n.questionsCount(questionCount),
-                          style: TextStyle(
-                            color: categoryColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: isLargeScreen ? 14 : 12,
-                          ),
+                      const SizedBox(height: 4),
+                      Text(
+                        '$completedCount of $questionCount cards',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[600],
                         ),
                       ),
                     ],
                   ),
-                  
-                  if (showProgressIndicator) // Progress info for flashcard categories
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: isLargeScreen ? 16.0 : 12.0, 
-                        left: isLargeScreen ? 44.0 : 36.0
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                context.l10n.completed(completedCount, questionCount, questionCount > 0 ? (completedCount * 100 / questionCount).toStringAsFixed(1) : '0'),
-                                style: TextStyle(
-                                  fontSize: isLargeScreen ? 14 : 12,
-                                  color: Colors.grey[700],
-                                ),
-                              ),
-                              if (completedCount > 0)
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: isLargeScreen ? 8 : 6, 
-                                    vertical: isLargeScreen ? 3 : 2
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: _getSuccessRateColor(successRate).withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(isLargeScreen ? 6 : 4),
-                                  ),
-                                  child: Text(
-                                    context.l10n.successRate((successRate * 100).toStringAsFixed(0)),
-                                    style: TextStyle(
-                                      fontSize: isLargeScreen ? 12 : 10,
-                                      fontWeight: FontWeight.bold,
-                                      color: _getSuccessRateColor(successRate),
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                          SizedBox(height: isLargeScreen ? 6 : 4),
-                          LinearProgressIndicator(
-                            value: questionCount > 0 ? completedCount / questionCount : 0.0,
-                            minHeight: isLargeScreen ? 6 : 4,
-                            backgroundColor: Colors.grey[200],
-                            valueColor: AlwaysStoppedAnimation<Color>(categoryColor),
-                          ),
-                        ],
-                      ),
+                ),
+                
+                // Status Badge
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: completedCount > 0 
+                        ? const Color(0xFF10B981).withOpacity(0.1)
+                        : const Color(0xFF10B981).withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    completedCount > 0 
+                        ? '$progressPercentage%'
+                        : 'Activity available',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: completedCount > 0 
+                          ? const Color(0xFF065F46)
+                          : const Color(0xFF10B981),
                     ),
-                ],
-              ),
+                  ),
+                ),
+              ],
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

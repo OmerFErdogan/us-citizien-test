@@ -180,7 +180,7 @@ class _TestModeScreenState extends State<TestModeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  context.l10n.question(_currentQuestionIndex + 1, widget.questions.length),
+                  context.l10n.questionProgress(_currentQuestionIndex + 1, widget.questions.length),
                   style: TextStyle(
                     fontSize: responsive.scaledFontSize(
                       small: 16.0,
@@ -191,27 +191,34 @@ class _TestModeScreenState extends State<TestModeScreen> {
                     color: Colors.grey[700],
                   ),
                 ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.info_outline,
-                      size: responsive.adaptiveIconSize(size: 16.0),
-                      color: Colors.blue[700],
-                    ),
-                    SizedBox(width: responsive.adaptiveIconSize(size: 4.0)),
-                    Text(
-                      context.l10n.needSixCorrect,
-                      style: TextStyle(
-                        fontSize: responsive.scaledFontSize(
-                          small: 12.0,
-                          medium: 14.0,
-                          large: 16.0,
-                        ),
+                Container(
+                  width: responsive.isSmall ? 200 : 250,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.info_outline,
+                        size: responsive.adaptiveIconSize(size: 16.0),
                         color: Colors.blue[700],
-                        fontStyle: FontStyle.italic,
                       ),
-                    ),
-                  ],
+                      SizedBox(width: responsive.adaptiveIconSize(size: 4.0)),
+                      Flexible(
+                        child: Text(
+                          context.l10n.needSixCorrect,
+                          style: TextStyle(
+                            fontSize: responsive.scaledFontSize(
+                              small: 12.0,
+                              medium: 14.0,
+                              large: 16.0,
+                            ),
+                            color: Colors.blue[700],
+                            fontStyle: FontStyle.italic,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -227,27 +234,165 @@ class _TestModeScreenState extends State<TestModeScreen> {
           // Alt bilgi
           Padding(
             padding: responsive.adaptivePadding(
-              horizontal: 16.0, 
+              horizontal: 8.0, 
               vertical: 16.0, 
               densityFactor: 0.5,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Geri tuşu (ilk soruda gizli)
-                if (_currentQuestionIndex > 0)
+            child: responsive.isSmall ? 
+              // Küçük ekranlar için dikey düzenleme
+              Column(
+                children: [
+                  // İlk satır: Geri ve Zamanlayıcı kontrol
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      // Geri tuşu (ilk soruda gizli)
+                      if (_currentQuestionIndex > 0)
+                        Expanded(
+                          child: OutlinedButton.icon(
+                            onPressed: () {
+                              setState(() {
+                                _currentQuestionIndex--;
+                              });
+                            },
+                            icon: Icon(
+                              Icons.arrow_back,
+                              size: responsive.adaptiveIconSize(size: 20.0),
+                            ),
+                            label: Text(
+                              context.l10n.previous,
+                              style: TextStyle(
+                                fontSize: responsive.scaledFontSize(
+                                  small: 12.0,
+                                  medium: 14.0,
+                                  large: 16.0,
+                                ),
+                              ),
+                            ),
+                            style: OutlinedButton.styleFrom(
+                              padding: responsive.adaptivePadding(
+                                horizontal: 8.0, 
+                                vertical: 8.0, 
+                                densityFactor: 0.5,
+                              ),
+                            ),
+                          ),
+                        ),
+                      
+                      if (_currentQuestionIndex > 0)
+                        SizedBox(width: responsive.adaptiveIconSize(size: 8.0)),
+                      
+                      // Zamanlayıcı kontrol tuşu
+                      Expanded(
+                        child: OutlinedButton.icon(
+                          onPressed: _pauseTimer,
+                          icon: Icon(
+                            _isTimerRunning ? Icons.pause : Icons.play_arrow,
+                            size: responsive.adaptiveIconSize(size: 20.0),
+                          ),
+                          label: Text(
+                            _isTimerRunning ? context.l10n.pause : context.l10n.resume,
+                            style: TextStyle(
+                              fontSize: responsive.scaledFontSize(
+                                small: 12.0,
+                                medium: 14.0,
+                                large: 16.0,
+                              ),
+                            ),
+                          ),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: Colors.orange,
+                            padding: responsive.adaptivePadding(
+                              horizontal: 8.0, 
+                              vertical: 8.0, 
+                              densityFactor: 0.5,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  
+                  SizedBox(height: responsive.adaptiveIconSize(size: 8.0)),
+                  
+                  // İkinci satır: Bitir tuşu
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: _finishTest,
+                      icon: Icon(
+                        Icons.done_all,
+                        size: responsive.adaptiveIconSize(size: 20.0),
+                      ),
+                      label: Text(
+                        context.l10n.finishExam,
+                        style: TextStyle(
+                          fontSize: responsive.scaledFontSize(
+                            small: 12.0,
+                            medium: 14.0,
+                            large: 16.0,
+                          ),
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                        padding: responsive.adaptivePadding(
+                          horizontal: 8.0, 
+                          vertical: 12.0, 
+                          densityFactor: 0.5,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ) :
+              // Büyük ekranlar için yatay düzenleme
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Geri tuşu (ilk soruda gizli)
+                  if (_currentQuestionIndex > 0)
+                    OutlinedButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          _currentQuestionIndex--;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.arrow_back,
+                        size: responsive.adaptiveIconSize(size: 20.0),
+                      ),
+                      label: Text(
+                        context.l10n.previous,
+                        style: TextStyle(
+                          fontSize: responsive.scaledFontSize(
+                            small: 14.0,
+                            medium: 16.0,
+                            large: 18.0,
+                          ),
+                        ),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        padding: responsive.adaptivePadding(
+                          horizontal: 16.0, 
+                          vertical: 8.0, 
+                          densityFactor: 0.5,
+                        ),
+                      ),
+                    ),
+                  
+                  SizedBox(width: responsive.adaptiveIconSize(size: 16.0)),
+                  
+                  // Zamanlayıcı kontrol tuşu
                   OutlinedButton.icon(
-                    onPressed: () {
-                      setState(() {
-                        _currentQuestionIndex--;
-                      });
-                    },
+                    onPressed: _pauseTimer,
                     icon: Icon(
-                      Icons.arrow_back,
+                      _isTimerRunning ? Icons.pause : Icons.play_arrow,
                       size: responsive.adaptiveIconSize(size: 20.0),
                     ),
                     label: Text(
-                      context.l10n.previous,
+                      _isTimerRunning ? context.l10n.pause : context.l10n.resume,
                       style: TextStyle(
                         fontSize: responsive.scaledFontSize(
                           small: 14.0,
@@ -257,6 +402,7 @@ class _TestModeScreenState extends State<TestModeScreen> {
                       ),
                     ),
                     style: OutlinedButton.styleFrom(
+                      foregroundColor: Colors.orange,
                       padding: responsive.adaptivePadding(
                         horizontal: 16.0, 
                         vertical: 8.0, 
@@ -264,67 +410,38 @@ class _TestModeScreenState extends State<TestModeScreen> {
                       ),
                     ),
                   ),
-                
-                SizedBox(width: responsive.adaptiveIconSize(size: 16.0)),
-                
-                // Zamanlayıcı kontrol tuşu
-                OutlinedButton.icon(
-                  onPressed: _pauseTimer,
-                  icon: Icon(
-                    _isTimerRunning ? Icons.pause : Icons.play_arrow,
-                    size: responsive.adaptiveIconSize(size: 20.0),
-                  ),
-                  label: Text(
-                    _isTimerRunning ? context.l10n.pause : context.l10n.resume,
-                    style: TextStyle(
-                      fontSize: responsive.scaledFontSize(
-                        small: 14.0,
-                        medium: 16.0,
-                        large: 18.0,
+                  
+                  SizedBox(width: responsive.adaptiveIconSize(size: 16.0)),
+                  
+                  // Bitir tuşu
+                  ElevatedButton.icon(
+                    onPressed: _finishTest,
+                    icon: Icon(
+                      Icons.done_all,
+                      size: responsive.adaptiveIconSize(size: 20.0),
+                    ),
+                    label: Text(
+                      context.l10n.finishExam,
+                      style: TextStyle(
+                        fontSize: responsive.scaledFontSize(
+                          small: 14.0,
+                          medium: 16.0,
+                          large: 18.0,
+                        ),
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
+                      padding: responsive.adaptivePadding(
+                        horizontal: 16.0, 
+                        vertical: 8.0, 
+                        densityFactor: 0.5,
                       ),
                     ),
                   ),
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.orange,
-                    padding: responsive.adaptivePadding(
-                      horizontal: 16.0, 
-                      vertical: 8.0, 
-                      densityFactor: 0.5,
-                    ),
-                  ),
-                ),
-                
-                SizedBox(width: responsive.adaptiveIconSize(size: 16.0)),
-                
-                // Bitir tuşu
-                ElevatedButton.icon(
-                  onPressed: _finishTest,
-                  icon: Icon(
-                    Icons.done_all,
-                    size: responsive.adaptiveIconSize(size: 20.0),
-                  ),
-                  label: Text(
-                    context.l10n.finishExam,
-                    style: TextStyle(
-                      fontSize: responsive.scaledFontSize(
-                        small: 14.0,
-                        medium: 16.0,
-                        large: 18.0,
-                      ),
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    foregroundColor: Colors.white,
-                    padding: responsive.adaptivePadding(
-                      horizontal: 16.0, 
-                      vertical: 8.0, 
-                      densityFactor: 0.5,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                ],
+              ),
           ),
         ],
       ),

@@ -440,7 +440,7 @@ class _TestIntroScreenState extends State<TestIntroScreen> {
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.error(e.toString()))),
+        SnackBar(content: Text(context.l10n.errorMessage(e.toString()))),
       );
       setState(() {
         _isLoading = false;

@@ -1,11 +1,44 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:us_civics_test_app/models/question.dart';
+import 'package:us_citizenship_test/models/question.dart';
 import '../models/camp_day.dart';
 import '../models/camp_progress.dart';
 import '../models/camp_plan.dart';
 import '../../../services/question_service.dart';
+import '../../../services/revenue_cat_service.dart';
+import '../../../utils/app_localizations_provider.dart';
+
+// Localization yardımcı fonksiyonlar
+class CampServiceTexts {
+  // L10n'e erişim
+  static get l10n => appLocalizationsProvider.localizations;
+  
+  // Sabit metinler
+  static String get kServiceNotInitialized => l10n?.kServiceNotInitialized ?? "Camp service not initialized. Call the initialize() method first.";
+  static String get kServiceInitError => l10n?.kServiceInitError ?? "Error while initializing camp service:";
+  static String get kCampNotStarted => l10n?.kCampNotStarted ?? "Camp not started or service not initialized.";
+  static String get kHalfwayTitle => l10n?.kHalfwayTitle ?? "Halfway There";
+  static String get kHalfwayDesc => l10n?.kHalfwayDesc ?? "You have successfully completed half of the camp!";
+  static String get kCampCompletedTitle => l10n?.kCampCompletedTitle ?? "Camp Completed";
+  static String get kCampCompletedDesc => l10n?.kCampCompletedDesc ?? "Congratulations! You have successfully completed the 10-Day Citizenship Camp.";
+  static String get kPerfectCampTitle => l10n?.kPerfectCampTitle ?? "Perfect Camp";
+  static String get kPerfectCampDesc => l10n?.kPerfectCampDesc ?? "Amazing! You have successfully completed all 10 days of the camp.";
+  static String get kSyncProgressError => l10n?.kSyncProgressError ?? "Error synchronizing progress and activity status:";
+  static String get kUpdateActivityError => l10n?.kUpdateActivityError ?? "Error updating activity completion status:";
+
+  // Parametre alan metinler
+  static String kDayUnlocked(int dayNumber) => l10n?.kDayUnlocked(dayNumber) ?? "Day $dayNumber unlocked";
+  static String kDayCompletedTitle(int dayNumber) => l10n?.kDayCompletedTitle(dayNumber) ?? "Day $dayNumber Completed";
+  static String kDayCompletedDesc(int dayNumber) => l10n?.kDayCompletedDesc(dayNumber) ?? "You have successfully completed the study for day $dayNumber!";
+  static String kPerfectDayTitle(int dayNumber) => l10n?.kPerfectDayTitle(dayNumber) ?? "Perfect Day $dayNumber";
+  static String kPerfectDayDesc(int dayNumber) => l10n?.kPerfectDayDesc(dayNumber) ?? "You answered all questions correctly for day $dayNumber!";
+  static String kDayNotFound(int dayNumber) => l10n?.kDayNotFound(dayNumber) ?? "Day $dayNumber not found";
+  static String kActivityNotFound(String activityTitle) => l10n?.kActivityNotFound(activityTitle) ?? "Activity with title \"$activityTitle\" not found.";
+  static String kAllActivitiesCompleted(int dayNumber) => l10n?.kAllActivitiesCompleted(dayNumber) ?? "All activities for Day $dayNumber completed!";
+  static String kCompletingDayFromActivities(int dayNumber, int totalCorrect) => l10n?.kCompletingDayFromActivities(dayNumber, totalCorrect) ?? "All activities completed, starting day completion: Day=$dayNumber, Calculated Score=$totalCorrect";
+}
+
 
 class CampService {
   // Singleton pattern
@@ -35,31 +68,71 @@ class CampService {
     // Dil bilgisini güncelle
     if (locale != null) {
       _currentLocale = locale;
+      // Global localizations provider'ı güncelliyoruz
+      await appLocalizationsProvider.updateLocale(locale);
+    } else {
+      // Eğer locale belirtilmemişse, global provider'dan al
+      _currentLocale = appLocalizationsProvider.currentLocale;
     }
+    
+    print('Initializing CampService with locale: ${_currentLocale.languageCode}');
     
     try {
       await _questionService.loadQuestions();
-      await _loadCampPlan();
+      // Önce SharedPreferences'tan kamp planını yüklemeyi dene
+      final savedCampPlan = await _loadCampPlan();
+      
+      // Kamp planı yoksa veya dil farklı ise yeni bir tane oluştur
+      if (savedCampPlan == null) {
+        // Yeni bir kamp planı oluştur
+        _campPlan = await CampPlan.createDefaultWithLocale(_currentLocale);
+        await _saveCampPlan(); // Hemen kaydet
+        print('Created new camp plan with locale: ${_currentLocale.languageCode}');
+      }
+      
       await _loadUserProgress();
+      
+      // Premium duruma göre gün kilit durumlarını güncelle
+      await updateDayLocksBasedOnPremium();
+      
       _isInitialized = true;
     } catch (e) {
-      print('Kamp servisi başlatılırken hata: $e');
+      print('${CampServiceTexts.kServiceInitError} $e');
       _isInitialized = false;
       rethrow;
     }
   }
   
-  // Kamp planını yükle
-  Future<void> _loadCampPlan() async {
+  // Kamp planını yükle ve döndür
+  Future<CampPlan?> _loadCampPlan() async {
     final prefs = await SharedPreferences.getInstance();
     final campPlanJson = prefs.getString(_campPlanKey);
     
     if (campPlanJson != null) {
-      _campPlan = CampPlan.fromJson(jsonDecode(campPlanJson));
+      try {
+        final loadedPlan = CampPlan.fromJson(jsonDecode(campPlanJson));
+        
+        // Önceden kaydedilmiş planın dili ile mevcut dil aynı mı kontrol et
+        // Eğer farklıysa yeni bir plan oluştur ve null döndür
+        final planLocale = loadedPlan.locale?.languageCode;
+        final currentLocale = _currentLocale.languageCode;
+        
+        if (planLocale != null && planLocale != currentLocale) {
+          print('Stored plan has different locale: $planLocale, current: $currentLocale, creating new plan');
+          // Farklı dilde olduğu için null döndür (yeni plan oluşturulacak)
+          return null;
+        }
+        
+        // Plan yüklendi ve dil uyumlu
+        _campPlan = loadedPlan;
+        return loadedPlan;
+      } catch (e) {
+        print('Error loading camp plan: $e');
+        return null; // Parse hatası durumunda null döndür
+      }
     } else {
-      // Varsayılan kamp planını oluştur
-      _campPlan = CampPlan.createDefault(locale: _currentLocale);
-      await _saveCampPlan();
+      // Kaydedilmiş plan yok
+      return null;
     }
   }
   
@@ -85,10 +158,15 @@ class CampService {
     }
   }
   
-  // Kamp planını kaydet
+  // Kamp planını kaydet (private)
   Future<void> _saveCampPlan() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_campPlanKey, jsonEncode(_campPlan.toJson()));
+  }
+  
+  // Kamp planını kaydet (public)
+  Future<void> saveCampPlan() async {
+    await _saveCampPlan();
   }
   
   // Kullanıcı ilerlemesini kaydet
@@ -102,7 +180,7 @@ class CampService {
   // Kamp planını getir
   CampPlan getCampPlan() {
     if (!_isInitialized) {
-      throw Exception('Kamp servisi başlatılmadı. Önce initialize() metodunu çağırın.');
+      throw Exception(CampServiceTexts.kServiceNotInitialized);
     }
     return _campPlan;
   }
@@ -115,7 +193,7 @@ class CampService {
   // Yeni kamp başlat
   Future<CampProgress> startNewCamp({int userId = 1}) async {
     if (!_isInitialized) {
-      throw Exception('Kamp servisi başlatılmadı. Önce initialize() metodunu çağırın.');
+      throw Exception(CampServiceTexts.kServiceNotInitialized);
     }
     
     // Yeni ilerleme oluştur
@@ -176,7 +254,7 @@ class CampService {
   // Günü tamamla
   Future<bool> completeDay(int dayNumber, int correctAnswers, List<String> strugglingTopics) async {
     if (!_isInitialized || _userProgress == null) {
-      throw Exception('Kamp başlatılmadı veya servis başlatılmadı.');
+      throw Exception(CampServiceTexts.kCampNotStarted);
     }
     
     if (!_userProgress!.dayProgress.containsKey(dayNumber)) {
@@ -217,7 +295,7 @@ class CampService {
         if (nextDay != null) {
           final index = _campPlan.days.indexOf(nextDay);
           _campPlan.days[index] = nextDay.copyWith(isLocked: false);
-          print('Gün $nextDayNumber kilidini açtı');
+          print(CampServiceTexts.kDayUnlocked(nextDayNumber));
           
           // Kullanıcı ilerlemesindeki günün durumunu da güncelle
           // Bu, uygulama yeniden başlatıldığında kilit durumunu korumak için önemli
@@ -252,7 +330,7 @@ class CampService {
   // Belirli bir gün için soruları getir
   List<Question> getQuestionsForDay(int dayNumber, {List<String>? categories, int? limit}) {
     if (!_isInitialized) {
-      throw Exception('Kamp servisi başlatılmadı. Önce initialize() metodunu çağırın.');
+      throw Exception(CampServiceTexts.kServiceNotInitialized);
     }
     
     final day = _campPlan.getDayByNumber(dayNumber);
@@ -297,8 +375,8 @@ class CampService {
     // Gün tamamlama rozeti
     final dayBadge = CampBadge(
       id: 'day_complete_$completedDayNumber',
-      title: '$completedDayNumber. Gün Tamamlandı',
-      description: '$completedDayNumber. günün çalışmasını başarıyla tamamladınız!',
+      title: CampServiceTexts.kDayCompletedTitle(completedDayNumber),
+      description: CampServiceTexts.kDayCompletedDesc(completedDayNumber),
       iconPath: 'assets/images/badges/day_complete_$completedDayNumber.png',
       earnedDate: DateTime.now(),
     );
@@ -310,8 +388,8 @@ class CampService {
     if (dayProgress.correctAnswers == dayProgress.totalQuestions) {
       final perfectDayBadge = CampBadge(
         id: 'perfect_day_$completedDayNumber',
-        title: 'Mükemmel $completedDayNumber. Gün',
-        description: '$completedDayNumber. günün tüm sorularını doğru cevapladınız!',
+        title: CampServiceTexts.kPerfectDayTitle(completedDayNumber),
+        description: CampServiceTexts.kPerfectDayDesc(completedDayNumber),
         iconPath: 'assets/images/badges/perfect_day.png',
         earnedDate: DateTime.now(),
       );
@@ -323,8 +401,8 @@ class CampService {
     if (completedDayNumber == 5) {
       final halfwayBadge = CampBadge(
         id: 'halfway',
-        title: 'Yarı Yolu Tamamladınız',
-        description: 'Kampın yarısını başarıyla tamamladınız!',
+        title: CampServiceTexts.kHalfwayTitle,
+        description: CampServiceTexts.kHalfwayDesc,
         iconPath: 'assets/images/badges/halfway.png',
         earnedDate: DateTime.now(),
       );
@@ -340,8 +418,8 @@ class CampService {
     // Kamp tamamlama rozeti
     final completionBadge = CampBadge(
       id: 'camp_complete',
-      title: 'Kamp Tamamlandı',
-      description: 'Tebrikler! 10 Günlük Vatandaşlık Kampını başarıyla tamamladınız.',
+      title: CampServiceTexts.kCampCompletedTitle,
+      description: CampServiceTexts.kCampCompletedDesc,
       iconPath: 'assets/images/badges/camp_complete.png',
       earnedDate: DateTime.now(),
     );
@@ -352,8 +430,8 @@ class CampService {
     if (_userProgress!.isPerfectCompletion) {
       final perfectBadge = CampBadge(
         id: 'perfect_camp',
-        title: 'Mükemmel Kamp',
-        description: 'İnanılmaz! Kampın tüm 10 gününü başarıyla tamamladınız.',
+        title: CampServiceTexts.kPerfectCampTitle,
+        description: CampServiceTexts.kPerfectCampDesc,
         iconPath: 'assets/images/badges/perfect_camp.png',
         earnedDate: DateTime.now(),
       );
@@ -365,11 +443,11 @@ class CampService {
   // Kampı sıfırla
   Future<void> resetCamp() async {
     if (!_isInitialized) {
-      throw Exception('Kamp servisi başlatılmadı. Önce initialize() metodunu çağırın.');
+      throw Exception(CampServiceTexts.kServiceNotInitialized);
     }
     
     // Kamp planını varsayılana döndür
-    _campPlan = CampPlan.createDefault();
+    _campPlan = await CampPlan.createDefaultWithLocale(_currentLocale);
     
     // Kullanıcı ilerlemesini temizle
     _userProgress = null;
@@ -384,7 +462,7 @@ class CampService {
   // Belirli bir günü getir
   CampDay? getDayByNumber(int dayNumber) {
     if (!_isInitialized) {
-      throw Exception('Kamp servisi başlatılmadı. Önce initialize() metodunu çağırın.');
+      throw Exception(CampServiceTexts.kServiceNotInitialized);
     }
     
     return _campPlan.getDayByNumber(dayNumber);
@@ -393,7 +471,7 @@ class CampService {
   // Aktif günü getir (tamamlanmamış ve kilit açık en düşük gün numarası)
   CampDay? getActiveDay() {
     if (!_isInitialized || _userProgress == null) {
-      throw Exception('Kamp başlatılmadı veya servis başlatılmadı.');
+      throw Exception(CampServiceTexts.kCampNotStarted);
     }
     
     // Önce kilidi açık ve tamamlanmamış ilk günü bul
@@ -424,19 +502,19 @@ class CampService {
   Future<bool> updateActivityCompletion(int dayNumber, String activityTitle, bool isCompleted) async {
     try {
     if (!_isInitialized) {
-      throw Exception('Kamp servisi başlatılmadı. Önce initialize() metodunu çağırın.');
+      throw Exception(CampServiceTexts.kServiceNotInitialized);
     }
     
     final day = _campPlan.getDayByNumber(dayNumber);
     if (day == null) {
-      print('Gün $dayNumber bulunamadı');
+      print(CampServiceTexts.kDayNotFound(dayNumber));
       return false;
     }
     
     // Günün aktivitelerinde istenen başlığa sahip aktiviteyi bul
     final activityIndex = day.activities.indexWhere((a) => a.title == activityTitle);
     if (activityIndex == -1) {
-      print('"$activityTitle" başlıklı aktivite bulunamadı.');
+      print(CampServiceTexts.kActivityNotFound(activityTitle));
       return false;
     }
     
@@ -461,7 +539,7 @@ class CampService {
     final allActivitiesCompleted = _campPlan.days[dayIndex].activities.every((a) => a.isCompleted);
     if (allActivitiesCompleted && _userProgress != null && _userProgress!.dayProgress.containsKey(dayNumber)) {
       // Tüm aktivitelerin tamamlandığını göster
-      print('Gün $dayNumber için tüm aktiviteler tamamlandı!');
+      print(CampServiceTexts.kAllActivitiesCompleted(dayNumber));
       
       // Günlük ilerlemeyi al ve güncelle
       if (_userProgress!.dayProgress[dayNumber]!.completedDate == null) {
@@ -475,7 +553,7 @@ class CampService {
     
     return true;
     } catch (e) {
-      print('Aktivite tamamlama durumu güncellenirken hata: $e');
+      print('${CampServiceTexts.kUpdateActivityError} $e');
       return false;
     }
   }
@@ -536,7 +614,7 @@ class CampService {
               // Günü tamamla
               final totalCorrect = _calculateTotalCorrectForCompletedActivities(day);
               if (totalCorrect > 0) {
-                print('Tüm aktiviteler tamamlandı, günü tamamlama işlemi başlatılıyor: Gün=${day.dayNumber}, Hesaplanan Puan=$totalCorrect');
+                print(CampServiceTexts.kCompletingDayFromActivities(day.dayNumber, totalCorrect));
                 await completeDay(day.dayNumber, totalCorrect, []);
               }
             }
@@ -544,32 +622,136 @@ class CampService {
         }
       }
     } catch (e) {
-      print('İlerleme ve aktivite durumu senkronize edilirken hata: $e');
+      print('${CampServiceTexts.kSyncProgressError} $e');
     }
+  }
+  
+  /// Premium kamp moduna erişim kontrolü
+  Future<bool> canAccessCampMode() async {
+    return await RevenueCatService.isPremiumUser();
+  }
+  
+  /// Belirli bir güne erişim kontrolü
+  Future<bool> canAccessDay(int dayNumber) async {
+    // İlk 2 gün ücretsiz (free trial)
+    if (dayNumber <= 2) return true;
+    
+    // Geri kalan günler premium gerektirir
+    return await RevenueCatService.isPremiumUser();
+  }
+  
+  /// Premium durumunu kontrol et ve bildirim gönder
+  Future<void> checkPremiumStatus() async {
+    // Bu metod UI'dan çağrılabilir, premium durum değişikliklerini dinlemek için
+    final isPremium = await RevenueCatService.isPremiumUser();
+    print('Current premium status: $isPremium');
+  }
+  
+  /// Günlerin kilit durumunu premium duruma göre güncelle
+  Future<void> updateDayLocksBasedOnPremium() async {
+    final isPremium = await RevenueCatService.isPremiumUser();
+    
+    // Premium değilse 3. günden sonraki günleri kilitle
+    for (var day in _campPlan.days) {
+      if (day.dayNumber > 2 && !isPremium) {
+        // Premium olmayan kullanıcılar için kilitle
+        final index = _campPlan.days.indexOf(day);
+        _campPlan.days[index] = day.copyWith(isLocked: true);
+      } else if (day.dayNumber <= 2) {
+        // İlk 2 gün her zaman açık
+        final index = _campPlan.days.indexOf(day);
+        _campPlan.days[index] = day.copyWith(isLocked: false);
+      } else if (isPremium) {
+        // Premium kullanıcılar için normal kilit mantığını kullan
+        final index = _campPlan.days.indexOf(day);
+        _campPlan.days[index] = day.copyWith(isLocked: !_isUnlocked(day.dayNumber));
+      }
+    }
+    
+    await _saveCampPlan();
   }
   
   // Dili güncelle
   Future<void> updateLocale(Locale locale) async {
     _currentLocale = locale;
     
+    // Global localizations provider'ı güncelle
+    await appLocalizationsProvider.updateLocale(locale);
+    
+    // Kullanıcı ilerleme verilerini sakla
+    Map<int, CampDayProgress>? existingProgress;
+    if (_userProgress != null) {
+      existingProgress = Map.from(_userProgress!.dayProgress);
+    }
+    
     // Kamp planını yeniden oluşturma (verileri kaybetmeden)
     if (_isInitialized) {
-      // Verileri korumak için günlerin kilit durumlarını önce kaydediyoruz
+      print('Updating camp plan for locale: ${locale.languageCode}');
+      
+      // Verileri korumak için günlerin ve aktivitelerin durumlarını kaydediyoruz
       final dayLockStatuses = <int, bool>{};
+      final dayCompletedDates = <int, DateTime?>{};
+      final dayCorrectAnswers = <int, int>{};
+      final activityCompletionStatus = <int, Map<String, bool>>{};
+      
+      // Önemli verileri yedekle
       for (var day in _campPlan.days) {
         dayLockStatuses[day.dayNumber] = day.isLocked;
+        dayCompletedDates[day.dayNumber] = day.completedDate;
+        dayCorrectAnswers[day.dayNumber] = day.correctAnswers;
+        
+        // Aktivite tamamlanma durumlarını da kayıt altına al
+        // Gün numarasına göre aktivite durumlarını saklayan bir harita oluştur
+        final activityStatus = <String, bool>{};
+        for (var activity in day.activities) {
+          // Aktivitenin index'ini veya benzersiz bir tanımlayıcısını kullanarak eşleştireceğiz
+          // Böylece aynı konumdaki aktiviteleri eşleştireceğiz
+          activityStatus['${activity.period}_${day.activities.indexOf(activity)}'] = activity.isCompleted;
+        }
+        activityCompletionStatus[day.dayNumber] = activityStatus;
       }
       
-      // Yeni bir kamp planı oluştur
-      final newCampPlan = CampPlan.createDefault(locale: locale);
+      // Tamamen yeni bir kamp planı oluştur (tüm metinler lokalize olacak)
+      final newCampPlan = await CampPlan.createDefaultWithLocale(locale);
       
-      // Önceki kilit durumlarını geri yükle
+      // Önceki verileri yeni plan ile birleştir
       final updatedDays = <CampDay>[];
-      for (var day in newCampPlan.days) {
-        if (dayLockStatuses.containsKey(day.dayNumber)) {
-          updatedDays.add(day.copyWith(isLocked: dayLockStatuses[day.dayNumber]!));
+      for (var newDay in newCampPlan.days) {
+        if (dayLockStatuses.containsKey(newDay.dayNumber)) {
+          // Aktivitelerin tamamlanma durumlarını eşleştirerek koru
+          final newActivities = <CampActivity>[];
+          for (var i = 0; i < newDay.activities.length; i++) {
+            var newActivity = newDay.activities[i];
+            final periodKey = '${newActivity.period}_$i';
+            final wasCompleted = activityCompletionStatus[newDay.dayNumber]?[periodKey] ?? false;
+            
+            // Yeni aktiviteyi kopyala ve tamamlanma durumunu güncelle
+            newActivities.add(CampActivity(
+              period: newActivity.period,
+              title: newActivity.title,
+              description: newActivity.description,
+              questionCount: newActivity.questionCount,
+              categories: newActivity.categories,
+              isCompleted: wasCompleted
+            ));
+          }
+          
+          // Günü, aktiviteler dahil tamamen yeniden oluştur
+          updatedDays.add(CampDay(
+            dayNumber: newDay.dayNumber,
+            title: newDay.title,  // Yeni lokalize başlık
+            description: newDay.description,  // Yeni lokalize açıklama
+            activities: newActivities,  // Tamamlanma durumları korunmuş aktiviteler 
+            totalQuestions: newDay.totalQuestions,
+            targetCorrect: newDay.targetCorrect,
+            difficulty: newDay.difficulty,  // Yeni lokalize zorluk seviyesi
+            materialUrl: newDay.materialUrl,
+            completedDate: dayCompletedDates[newDay.dayNumber],
+            correctAnswers: dayCorrectAnswers[newDay.dayNumber] ?? 0,
+            isLocked: dayLockStatuses[newDay.dayNumber]!
+          ));
         } else {
-          updatedDays.add(day);
+          updatedDays.add(newDay);
         }
       }
       
@@ -584,7 +766,27 @@ class CampService {
         days: updatedDays
       );
       
+      // Kullanıcı ilerleme verilerini geri yükle
+      if (existingProgress != null && _userProgress != null) {
+        // dayProgress final olduğu için doğrudan atama yapamayız
+        // Bunun yerine önce mevcut içeriği temizliyoruz
+        _userProgress!.dayProgress.clear();
+        // Sonra tüm günleri tek tek ekliyoruz
+        existingProgress.forEach((key, value) {
+          _userProgress!.dayProgress[key] = value;
+        });
+      }
+      
+      // Değişiklikleri kaydet
       await _saveCampPlan();
+      if (_userProgress != null) {
+        await _saveUserProgress();
+      }
+      
+      // Aktivite ve ilerleme durumlarını senkronize et
+      await syncProgressWithActivities();
+      
+      print('Camp plan updated successfully for locale: ${locale.languageCode}');
     }
   }
 }

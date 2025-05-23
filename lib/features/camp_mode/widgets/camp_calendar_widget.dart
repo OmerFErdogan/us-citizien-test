@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:us_civics_test_app/utils/extensions.dart';
+import 'package:us_citizenship_test/utils/extensions.dart';
 import '../models/camp_day.dart';
 import '../models/camp_plan.dart';
 import '../models/camp_progress.dart';
@@ -45,32 +45,38 @@ class CampCalendarWidget extends StatelessWidget {
                 width: isActive ? 2 : 1,
               ),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  day.dayNumber.toString(),
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: _getTextColor(day, isCompleted, isActive),
-                  ),
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      day.dayNumber.toString(),
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: _getTextColor(day, isCompleted, isActive),
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    Icon(
+                      _getStatusIcon(day, isCompleted, isActive),
+                      size: 16,
+                      color: _getIconColor(day, isCompleted, isActive),
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      _getLocalizedStatus(_getDayStatus(day, isCompleted, isActive), context),
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: _getTextColor(day, isCompleted, isActive),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 4),
-                Icon(
-                  _getStatusIcon(day, isCompleted, isActive),
-                  size: 16,
-                  color: _getIconColor(day, isCompleted, isActive),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  _getLocalizedStatus(_getDayStatus(day, isCompleted, isActive), context),
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: _getTextColor(day, isCompleted, isActive),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         );

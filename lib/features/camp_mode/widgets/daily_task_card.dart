@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:us_civics_test_app/utils/extensions.dart';
+import 'package:us_citizenship_test/utils/extensions.dart';
 import '../models/camp_day.dart';
 
 class DailyTaskCard extends StatelessWidget {
@@ -111,22 +111,20 @@ class DailyTaskCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              Row(
+              Wrap(
+                spacing: 8, // yatay boşluk
+                runSpacing: 8, // dikey boşluk (satırlar arası)
                 children: [
                   _buildInfoChip(
                     Icons.question_answer,
-                    context.l10n.questionsCount(activity.questionCount),
+                    context.l10n.questionsCount,
                     Colors.blue.shade700,
                   ),
-                  const SizedBox(width: 8),
                   ...activity.categories.take(2).map((category) => 
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: _buildInfoChip(
-                        Icons.category,
-                        category,
-                        Colors.purple.shade700,
-                      ),
+                    _buildInfoChip(
+                      Icons.category,
+                      category,
+                      Colors.purple.shade700,
                     ),
                   ),
                   if (activity.categories.length > 2)
@@ -189,11 +187,11 @@ class DailyTaskCard extends StatelessWidget {
 
   (Color, IconData) _getPeriodInfo(String period) {
     switch (period.toLowerCase()) {
-      case 'sabah':
+      case 'morning':
         return (Colors.orange, Icons.wb_sunny);
-      case 'öğle':
+      case 'afternoon':
         return (Colors.blue, Icons.wb_cloudy);
-      case 'akşam':
+      case 'evening':
         return (Colors.indigo, Icons.nightlight_round);
       default:
         return (Colors.grey, Icons.access_time);

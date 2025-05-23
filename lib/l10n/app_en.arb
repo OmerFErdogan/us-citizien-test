@@ -108,12 +108,12 @@
   "@answered": {
     "description": "Label for answered questions count"
   },
-  "successRate": "Success Rate",
-  "@successRate": {
+  "successRateLabel": "Success Rate",
+  "@successRateLabel": {
     "description": "Label for success rate percentage"
   },
-  "startQuiz": "Start Quiz",
-  "@startQuiz": {
+  "startQuizButton": "Start Quiz",
+  "@startQuizButton": {
     "description": "Button text to start a quiz"
   },
   "quizDescription": "Test your knowledge with a 10-question quiz",
@@ -152,16 +152,16 @@
   "@startLearning": {
     "description": "Button text to start learning"
   },
-  "question": "Question",
-  "@question": {
+  "questionLabel": "Question",
+  "@questionLabel": {
     "description": "Label for question"
   },
-  "correct": "Correct",
-  "@correct": {
+  "correctLabel": "Correct",
+  "@correctLabel": {
     "description": "Label for correct answer"
   },
-  "incorrect": "Incorrect",
-  "@incorrect": {
+  "incorrectLabel": "Incorrect",
+  "@incorrectLabel": {
     "description": "Label for incorrect answer"
   },
   "next": "Next",
@@ -172,8 +172,8 @@
   "@finish": {
     "description": "Button text to finish quiz"
   },
-  "quizResults": "Quiz Results",
-  "@quizResults": {
+  "quizResultsTitle": "Quiz Results",
+  "@quizResultsTitle": {
     "description": "Title for quiz results screen"
   },
   "yourScore": "Your Score",
@@ -254,8 +254,8 @@
   "@resetProgress": {
     "description": "Label for reset progress menu item"
   },
-  "attention": "Attention",
-  "@attention": {
+  "attentionTitle": "Attention",
+  "@attentionTitle": {
     "description": "Title for warning dialog"
   },
   "resetProgressWarning": "This will reset all your progress. All your answers and statistics will be deleted. This action cannot be undone. Are you sure you want to continue?",
@@ -358,9 +358,21 @@
   "@timeDescription": {
     "description": "Description of time limit"
   },
+  "attentionCard": "Attention",
+  "@attentionCard": {
+    "description": "Title for attention info card"
+  },
   "attention": "Attention",
   "@attention": {
-    "description": "Title for attention info card"
+    "description": "Title for attention section"
+  },
+  "startTestSimulation": "Start Test Simulation",
+  "@startTestSimulation": {
+    "description": "Title for test simulation card"
+  },
+  "testDescription": "This simulation will ask you 10 random civics questions, similar to the real USCIS citizenship exam. You'll need to answer at least 6 correctly to pass.",
+  "@testDescription": {
+    "description": "Description of the test simulation"
   },
   "realExamNote": "In the real exam, you need to answer questions verbally, and the USCIS officer can stop the exam at any time.",
   "@realExamNote": {
@@ -378,8 +390,8 @@
   "@errorLoadingQuestions": {
     "description": "Error message when questions fail to load"
   },
-  "error": "Error: {message}",
-  "@error": {
+  "errorMessage": "Error: {message}",
+  "@errorMessage": {
     "description": "Generic error message with details",
     "placeholders": {
       "message": {
@@ -392,8 +404,8 @@
   "@usExam": {
     "description": "Title for US citizenship exam screen"
   },
-  "question": "Question {current}/{total}",
-  "@question": {
+  "questionProgress": "Question {current}/{total}",
+  "@questionProgress": {
     "description": "Question progress indicator",
     "placeholders": {
       "current": {
@@ -434,8 +446,8 @@
   "@examResults": {
     "description": "Title for exam results screen"
   },
-  "quizResults": "Quiz Results",
-  "@quizResults": {
+  "quizResultsHeader": "Quiz Results",
+  "@quizResultsHeader": {
     "description": "Title for quiz results screen"
   },
   "examCompleted": "Exam Completed!",
@@ -506,8 +518,8 @@
   "@greatAchievement": {
     "description": "Text for achievement badge"
   },
-  "category": "Category: {name}",
-  "@category": {
+  "categoryName": "Category: {name}",
+  "@categoryName": {
     "description": "Text showing question category",
     "placeholders": {
       "name": {
@@ -576,12 +588,12 @@
   "@openFlashcards": {
     "description": "Button text to open flashcards"
   },
-  "generalProgress": "General Progress",
-  "@generalProgress": {
+  "generalProgressTitle": "General Progress",
+  "@generalProgressTitle": {
     "description": "Title for general progress section"
   },
-  "completed": "Completed: {count} / {total} questions",
-  "@completed": {
+  "completedQuestions": "Completed: {count} / {total} questions",
+  "@completedQuestions": {
     "description": "Text showing completed questions count",
     "placeholders": {
       "count": {
@@ -738,8 +750,8 @@
     "description": "Text for refresh data button"
   },
 
-  "successRate": "Success Rate: {rate}%",
-  "@successRate": {
+  "successRatePercent": "Success Rate: {rate}%",
+  "@successRatePercent": {
     "description": "Text showing success rate with percentage",
     "placeholders": {
       "rate": {
@@ -803,6 +815,25 @@
     }
   },
 
+  "completedWithPercent": "Completed: {count} / {total} ({rate}%)",
+  "@completedWithPercent": {
+    "description": "Text showing completed count, total, and percentage",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      },
+      "rate": {
+        "type": "String",
+        "example": "50.0"
+      }
+    }
+  },
+
   "accuracyRate": "Accuracy Rate",
   "@accuracyRate": {
     "description": "Title for accuracy rate card"
@@ -843,13 +874,13 @@
     "description": "Label for answered questions count"
   },
 
-  "correctLabel": "Correct",
-  "@correctLabel": {
+  "correctLabelStat": "Correct",
+  "@correctLabelStat": {
     "description": "Label for correct answers count"
   },
 
-  "incorrectLabel": "Incorrect",
-  "@incorrectLabel": {
+  "incorrectLabelStat": "Incorrect",
+  "@incorrectLabelStat": {
     "description": "Label for incorrect answers count"
   },
 
@@ -1046,5 +1077,1228 @@
   "determineNumberOfQuestionsDaily": "Determine the number of questions you want to solve daily:",
   "@determineNumberOfQuestionsDaily": {
     "description": "Instruction for setting daily goal"
+  },
+  
+  "flashcardStats": "Flashcard Stats",
+  "@flashcardStats": {
+    "description": "Title for flashcard statistics section"
+  },
+
+  "selectYourAnswer": "Select Your Answer",
+  "@selectYourAnswer": {
+    "description": "Text prompting user to select an answer"
+  },
+
+  "examTips": "Exam Tips",
+  "@examTips": {
+    "description": "Title for exam tips section"
+  },
+
+  "answerClearly": "Answer clearly and confidently",
+  "@answerClearly": {
+    "description": "Tip to answer clearly during exam"
+  },
+
+  "speakConfidently": "Speak loudly and clearly",
+  "@speakConfidently": {
+    "description": "Tip to speak confidently during exam"
+  },
+
+  "takeYourTime": "Take your time to think before answering",
+  "@takeYourTime": {
+    "description": "Tip to take time before answering"
+  },
+  
+  "dayLoading": "Loading day...",
+  "@dayLoading": {
+    "description": "Text shown when loading a camp day"
+  },
+  
+  "dayTitle": "Day {number}: {title}",
+  "@dayTitle": {
+    "description": "Title for a camp day",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      },
+      "title": {
+        "type": "String",
+        "example": "American History Basics"
+      }
+    }
+  },
+  
+  "home": "Home",
+  "@home": {
+    "description": "Label for home tab in bottom navigation"
+  },
+  
+  "study": "Study",
+  "@study": {
+    "description": "Label for study tab in bottom navigation"
+  },
+  
+  "progress": "Progress",
+  "@progress": {
+    "description": "Label for progress tab in bottom navigation"
+  },
+  
+  "errorDayNotFound": "Day not found",
+  "@errorDayNotFound": {
+    "description": "Error message when a day is not found"
+  },
+  
+  "errorDayLoading": "Day loading failed: ",
+  "@errorDayLoading": {
+    "description": "Error message prefix when day loading fails"
+  },
+  
+  "dayLocked": "This day is still locked",
+  "@dayLocked": {
+    "description": "Text shown when a day is locked"
+  },
+  
+  "unlockInstruction": "Complete the previous day to unlock this one",
+  "@unlockInstruction": {
+    "description": "Instruction to unlock a locked day"
+  },
+  
+  "returnToPreviousDay": "Return to Previous Day",
+  "@returnToPreviousDay": {
+    "description": "Button text to return to the previous day"
+  },
+  
+  "difficultyLabel": "Difficulty: ",
+  "@difficultyLabel": {
+    "description": "Label for difficulty level"
+  },
+  
+  "targetLabel": "Target",
+  "@targetLabel": {
+    "description": "Label for target score"
+  },
+  
+  "dailyProgress": "Daily Progress",
+  "@dailyProgress": {
+    "description": "Title for daily progress section"
+  },
+  
+  "correctLabelShort": "Correct",
+  "@correctLabelShort": {
+    "description": "Short label for correct answers count"
+  },
+  
+  "targetValueLabel": "Target",
+  "@targetValueLabel": {
+    "description": "Label for target value"
+  },
+  
+  "successLabel": "Success",
+  "@successLabel": {
+    "description": "Label for success rate"
+  },
+  
+  "progressLabel": "Progress",
+  "@progressLabel": {
+    "description": "Label for progress status"
+  },
+  
+  "zeroPercent": "0%",
+  "@zeroPercent": {
+    "description": "Text for zero percent"
+  },
+  
+  "fullPercent": "100%",
+  "@fullPercent": {
+    "description": "Text for one hundred percent"
+  },
+  
+  "dailyActivities": "Daily Activities",
+  "@dailyActivities": {
+    "description": "Title for daily activities section"
+  },
+  
+  "solveAllQuestions": "Solve All Questions",
+  "@solveAllQuestions": {
+    "description": "Button text to solve all questions"
+  },
+  
+  "openStudyMaterial": "Open Study Material",
+  "@openStudyMaterial": {
+    "description": "Button text to open study material"
+  },
+  
+  "completeDayForTesting": "Complete Day for Testing",
+  "@completeDayForTesting": {
+    "description": "Button text for testing to complete day"
+  },
+  
+  "dayCompletedSuccess": "You've successfully completed this day!",
+  "@dayCompletedSuccess": {
+    "description": "Message shown when day is completed successfully"
+  },
+  
+  "alreadyCompletedDay": "You have already completed this day. You can still practice.",
+  "@alreadyCompletedDay": {
+    "description": "Message shown when trying to complete an already completed day"
+  },
+  
+  "activityCompletedSuccess": " completed successfully!",
+  "@activityCompletedSuccess": {
+    "description": "Message suffix shown when an activity is completed successfully"
+  },
+  
+  "allActivitiesCompleted": "All Activities Completed!",
+  "@allActivitiesCompleted": {
+    "description": "Title for dialog when all activities are completed"
+  },
+  
+  "allActivitiesCompletedMessage": "Congratulations! You've completed all activities for this day. Would you like to complete the day and unlock the next day?",
+  "@allActivitiesCompletedMessage": {
+    "description": "Message shown when all activities are completed"
+  },
+  
+  "later": "Later",
+  "@later": {
+    "description": "Button text to delay an action"
+  },
+  
+  "completeDay": "Complete Day",
+  "@completeDay": {
+    "description": "Button text to complete a day"
+  },
+  
+  "dailyTest": "Daily Test",
+  "@dailyTest": {
+    "description": "Title for daily test"
+  },
+  
+  "dailyTestDescription": " comprehensive test",
+  "@dailyTestDescription": {
+    "description": "Description suffix for daily test"
+  },
+  
+  "targetNotReached": "You scored below the target (",
+  "@targetNotReached": {
+    "description": "Message prefix when target score is not reached"
+  },
+  
+  "targetNotReachedEnd": "). You can try again.",
+  "@targetNotReachedEnd": {
+    "description": "Message suffix when target score is not reached"
+  },
+  
+  "dayCompletedSuccessfully": "Day completed successfully!",
+  "@dayCompletedSuccessfully": {
+    "description": "Message shown when a day is completed successfully"
+  },
+  
+  "dayCompletedBelowTarget": "Day completed, but below target score.",
+  "@dayCompletedBelowTarget": {
+    "description": "Message shown when a day is completed below target"
+  },
+  
+  "goToNextDay": "Go to Day ",
+  "@goToNextDay": {
+    "description": "Button text prefix to go to next day"
+  },
+  
+  "error": "Error: ",
+  "@error": {
+    "description": "Generic error message prefix"
+  },
+  
+  "newBadgeEarned": "New Badge Earned!",
+  "@newBadgeEarned": {
+    "description": "Title for new badge earned dialog"
+  },
+  
+  "great": "Great!",
+  "@great": {
+    "description": "Button text expressing enthusiasm"
+  },
+  
+  "openingStudyMaterial": "Opening study material: ",
+  "@openingStudyMaterial": {
+    "description": "Message shown when opening study material"
+  },
+  
+  "simulationMode": "Simulation Mode",
+  "@simulationMode": {
+    "description": "Title for simulation mode dialog"
+  },
+  
+  "simulationDescription": "This will simulate completing the day successfully for testing purposes.",
+  "@simulationDescription": {
+    "description": "Description for simulation mode"
+  },
+  
+  "selectSuccessLevel": "Select success level:",
+  "@selectSuccessLevel": {
+    "description": "Prompt to select success level for simulation"
+  },
+  
+  "minimumSuccess": "Minimum",
+  "@minimumSuccess": {
+    "description": "Option for minimum success level"
+  },
+  
+  "mediumSuccess": "Medium",
+  "@mediumSuccess": {
+    "description": "Option for medium success level"
+  },
+  
+  "highSuccess": "High",
+  "@highSuccess": {
+    "description": "Option for high success level"
+  },
+  
+  "simulationSuccessMessage": "Day simulated with ",
+  "@simulationSuccessMessage": {
+    "description": "Message prefix for successful simulation"
+  },
+  
+  "simulationSuccessEnd": " correct answers",
+  "@simulationSuccessEnd": {
+    "description": "Message suffix for successful simulation"
+  },
+  
+  "simulationError": "Error during simulation: ",
+  "@simulationError": {
+    "description": "Error message shown during simulation"
+  },
+  "totalQuestionsLabel": "Total Questions",
+  "@totalQuestionsLabel": {
+    "description": "Label for total questions count in stats"
+  },
+  "percentPrefix": "%",
+  "@percentPrefix": {
+    "description": "Prefix for percentage values"
+  },
+  
+  "errorLoadingCamp": "Failed to load camp data: ",
+  "@errorLoadingCamp": {
+    "description": "Error message when camp data fails to load"
+  },
+  "continueToDay": "Day ",
+  "@continueToDay": {
+    "description": "Prefix for continue to day button"
+  },
+  "continueText": " Continue",
+  "@continueText": {
+    "description": "Suffix for continue to day button"
+  },
+  
+  "aboutProgram": "About the Program",
+  "@aboutProgram": {
+    "description": "Title for about program section"
+  },
+  "campDescriptionP1": "The 10-Day Citizenship program is an intensive study camp that helps you prepare for the US citizenship exam quickly and effectively. By working on a different topic each day, you cover all areas of the exam with a systematic approach.",
+  "@campDescriptionP1": {
+    "description": "First paragraph of camp description"
+  },
+  "campDescriptionP2": "The program offers a daily goal-based approach that requires successful completion of at least 8 days. Each day consists of morning, afternoon, and evening sessions.",
+  "@campDescriptionP2": {
+    "description": "Second paragraph of camp description"
+  },
+  
+  "tenDayPlan": "10-Day Plan",
+  "@tenDayPlan": {
+    "description": "Title for 10-day plan section"
+  },
+  "americanHistoryBasics": "American History Basics",
+  "@americanHistoryBasics": {
+    "description": "Title for day 1 content"
+  },
+  "americanGovConstitution": "American Government and Constitution",
+  "@americanGovConstitution": {
+    "description": "Title for day 2 content"
+  },
+  "rightsResponsibilities": "Rights and Responsibilities",
+  "@rightsResponsibilities": {
+    "description": "Title for day 3 content"
+  },
+  "politicalSystemParties": "Political System and Parties",
+  "@politicalSystemParties": {
+    "description": "Title for day 4 content"
+  },
+  "reviewInterim": "Review and Interim Assessment",
+  "@reviewInterim": {
+    "description": "Title for day 5 content"
+  },
+  "showAllPlan": "View Full Plan",
+  "@showAllPlan": {
+    "description": "Button text to show full plan"
+  },
+  
+  "benefits": "Benefits",
+  "@benefits": {
+    "description": "Title for benefits section"
+  },
+  "fastProgress": "Fast Progress",
+  "@fastProgress": {
+    "description": "Title for fast progress benefit"
+  },
+  "fastProgressDesc": "Systematic learning in just 10 days",
+  "@fastProgressDesc": {
+    "description": "Description for fast progress benefit"
+  },
+  "comprehensiveContent": "Comprehensive Content",
+  "@comprehensiveContent": {
+    "description": "Title for comprehensive content benefit"
+  },
+  "comprehensiveContentDesc": "Covers all subject areas of the citizenship exam",
+  "@comprehensiveContentDesc": {
+    "description": "Description for comprehensive content benefit"
+  },
+  "badgesCertificates": "Badges and Certificates",
+  "@badgesCertificates": {
+    "description": "Title for badges and certificates benefit"
+  },
+  "badgesCertificatesDesc": "Tangible ways to showcase your progress",
+  "@badgesCertificatesDesc": {
+    "description": "Description for badges and certificates benefit"
+  },
+  "progressTracking": "Progress Tracking",
+  "@progressTracking": {
+    "description": "Title for progress tracking benefit"
+  },
+  "progressTrackingDesc": "See your development daily",
+  "@progressTrackingDesc": {
+    "description": "Description for progress tracking benefit"
+  },
+  
+  "continueCamp": "Continue Camp",
+  "@continueCamp": {
+    "description": "Button text to continue camp"
+  },
+  "startCamp": "Start Camp",
+  "@startCamp": {
+    "description": "Button text to start camp"
+  },
+  "viewProgress": "View Progress",
+  "@viewProgress": {
+    "description": "Button text to view progress"
+  },
+  "resetCamp": "Reset Camp",
+  "@resetCamp": {
+    "description": "Button text to reset camp"
+  },
+  
+  "tenDayCampPlan": "10-Day Camp Plan",
+  "@tenDayCampPlan": {
+    "description": "Title for 10-day camp plan details"
+  },
+  "dailyFocusDesc": "Focus on a different topic each day to systematically learn all information needed for the citizenship exam.",
+  "@dailyFocusDesc": {
+    "description": "Description for daily focus approach"
+  },
+  "questionsTargetDifficulty": " questions | Target: ",
+  "@questionsTargetDifficulty": {
+    "description": "Format for displaying questions, target, and difficulty"
+  },
+  "correctAnswerText": " correct | ",
+  "@correctAnswerText": {
+    "description": "Text format for correct answers"
+  },
+  
+  "startNewCampTitle": "Start New Camp",
+  "@startNewCampTitle": {
+    "description": "Title for start new camp dialog"
+  },
+  "startNewCampContent": "You are about to begin the 10-day citizenship camp. Daily regular study is recommended. Do you want to start?",
+  "@startNewCampContent": {
+    "description": "Content for start new camp dialog"
+  },
+  "cancelButtonText": "Cancel",
+  "@cancelButtonText": {
+    "description": "Text for cancel button"
+  },
+  "startButtonText": "Start",
+  "@startButtonText": {
+    "description": "Text for start button"
+  },
+  "errorText": "Error: ",
+  "@errorText": {
+    "description": "Prefix for error messages"
+  },
+  
+  "resetCampTitle": "Reset Camp",
+  "@resetCampTitle": {
+    "description": "Title for reset camp dialog"
+  },
+  "resetCampWarning": "Warning! This action will completely erase your current camp progress and you will need to start from the beginning. This action cannot be undone. Do you want to continue?",
+  "@resetCampWarning": {
+    "description": "Warning message for reset camp dialog"
+  },
+  "resetButtonText": "Reset",
+  "@resetButtonText": {
+    "description": "Text for reset button"
+  },
+  "campResetConfirmation": "Camp has been reset",
+  "@campResetConfirmation": {
+    "description": "Confirmation message when camp is reset"
+  },
+  
+  "campStartError": "Camp start error: ",
+  "@campStartError": {
+    "description": "Prefix for camp start error message"
+  },
+
+  "campProgressTitle": "Camp Progress",
+  "@campProgressTitle": {
+    "description": "Title for camp progress screen"
+  },
+  
+  "refreshTooltip": "Refresh progress data",
+  "@refreshTooltip": {
+    "description": "Tooltip for refresh progress button"
+  },
+  
+  "refreshingMessage": "Refreshing data...",
+  "@refreshingMessage": {
+    "description": "Message shown when data is being refreshed"
+  },
+  
+  "overviewTabTitle": "Overview",
+  "@overviewTabTitle": {
+    "description": "Title for overview tab"
+  },
+  
+  "daysTabTitle": "Days",
+  "@daysTabTitle": {
+    "description": "Title for days tab"
+  },
+  
+  "badgesTabTitle": "Badges",
+  "@badgesTabTitle": {
+    "description": "Title for badges tab"
+  },
+  
+  "errorNoActiveProgress": "No active camp found",
+  "@errorNoActiveProgress": {
+    "description": "Error message when no active camp is found"
+  },
+  
+  "errorLoadingData": "Failed to load data: ",
+  "@errorLoadingData": {
+    "description": "Error message when data loading fails"
+  },
+  
+  "performanceByDay": "Performance by Day",
+  "@performanceByDay": {
+    "description": "Title for performance by day section"
+  },
+  
+  "strengthsWeaknesses": "Strengths and Weaknesses",
+  "@strengthsWeaknesses": {
+    "description": "Title for strengths and weaknesses section"
+  },
+  
+  "campProgress": "Camp Progress",
+  "@campProgress": {
+    "description": "Label for camp progress"
+  },
+  
+  "startDate": "Start Date",
+  "@startDate": {
+    "description": "Label for camp start date"
+  },
+  
+  "completedDay": "Completed Day",
+  "@completedDay": {
+    "description": "Label for completed day count"
+  },
+  
+  "totalSuccess": "Total Success",
+  "@totalSuccess": {
+    "description": "Label for total success rate"
+  },
+  
+  "dayZero": "0 days",
+  "@dayZero": {
+    "description": "Text for zero days"
+  },
+  
+  "day": " day",
+  "@day": {
+    "description": "Text for day unit"
+  },
+  
+  "congratsComplete": "Congratulations! You've completed the camp.",
+  "@congratsComplete": {
+    "description": "Congratulation message for completing the camp"
+  },
+  
+  "minCompletionDaysText": "You need to successfully complete at least ",
+  "@minCompletionDaysText": {
+    "description": "First part of minimum completion days message"
+  },
+  
+  "minCompletionDaysText2": " days to complete the camp.",
+  "@minCompletionDaysText2": {
+    "description": "Second part of minimum completion days message"
+  },
+  
+  "strengthsWeaknessesTitle": "Strengths and Weaknesses",
+  "@strengthsWeaknessesTitle": {
+    "description": "Title for strengths and weaknesses section"
+  },
+  
+  "notEnoughData": "Not enough data yet. Complete more days to see detailed analysis.",
+  "@notEnoughData": {
+    "description": "Message when not enough data is available for analysis"
+  },
+  
+  "extraStudySuggestions": "Extra Study Suggestions",
+  "@extraStudySuggestions": {
+    "description": "Title for extra study suggestions section"
+  },
+  
+  "studySuggestionsMessage": "Study suggestions will be shown here",
+  "@studySuggestionsMessage": {
+    "description": "Placeholder message for study suggestions"
+  },
+  
+  "struggleRateText": "% struggle rate",
+  "@struggleRateText": {
+    "description": "Text for struggle rate percentage"
+  },
+  
+  "congratsTitle": "Congratulations!",
+  "@congratsTitle": {
+    "description": "Title for congratulations message"
+  },
+  
+  "campCompletionText": "You have successfully completed the citizenship camp program.",
+  "@campCompletionText": {
+    "description": "Text for camp completion message"
+  },
+  
+  "downloadCertificate": "Download Your Certificate",
+  "@downloadCertificate": {
+    "description": "Button text to download certificate"
+  },
+  
+  "downloadingCertificateMessage": "Downloading certificate",
+  "@downloadingCertificateMessage": {
+    "description": "Message shown when certificate is being downloaded"
+  },
+  
+  "tenDayCampCalendar": "10-Day Camp Calendar",
+  "@tenDayCampCalendar": {
+    "description": "Title for 10-day camp calendar"
+  },
+  
+  "dailySummary": "Daily Summary",
+  "@dailySummary": {
+    "description": "Title for daily summary section"
+  },
+  
+  "badgeGallery": "Badge Gallery",
+  "@badgeGallery": {
+    "description": "Title for badge gallery"
+  },
+  
+  "earnedBadges": "Earned",
+  "@earnedBadges": {
+    "description": "Label for earned badges"
+  },
+  
+  "remainingBadges": "Remaining",
+  "@remainingBadges": {
+    "description": "Label for remaining badges"
+  },
+  
+  "completionRate": "Completion",
+  "@completionRate": {
+    "description": "Label for completion rate"
+  },
+  
+  "specialBadges": "Special Badges",
+  "@specialBadges": {
+    "description": "Title for special badges section"
+  },
+  
+  "dayCompletionBadges": "Day Completion Badges",
+  "@dayCompletionBadges": {
+    "description": "Title for day completion badges section"
+  },
+  
+  "perfectDayBadges": "Perfect Day Badges",
+  "@perfectDayBadges": {
+    "description": "Title for perfect day badges section"
+  },
+  
+  "dayBadgeTemplate": "Day {number} Badge",
+  "@dayBadgeTemplate": {
+    "description": "Template for day badge title",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  
+  "badgeNotEarned": "Not earned yet",
+  "@badgeNotEarned": {
+    "description": "Text shown when badge is not earned"
+  },
+  
+  "dayTextPrefix": "Day ",
+  "@dayTextPrefix": {
+    "description": "Prefix for day text"
+  },
+  
+  "noCampStarted": "No camp started yet",
+  "@noCampStarted": {
+    "description": "Message when no camp has been started"
+  },
+  
+  "trackProgressText": "Start the 10-day camp to track your progress",
+  "@trackProgressText": {
+    "description": "Text prompting user to start camp"
+  },
+  
+  "errorInitialization": "An error occurred during preparation: ",
+  "@errorInitialization": {
+    "description": "Error message shown during initialization"
+  },
+  
+  "noQuestionsFound": "Not enough questions found. Please try again later.",
+  "@noQuestionsFound": {
+    "description": "Message shown when not enough questions are available"
+  },
+  
+  "questionsCount": "This activity contains ",
+  "@questionsCount": {
+    "description": "Prefix for displaying question count"
+  },
+  
+  "questionsSuffix": " questions.",
+  "@questionsSuffix": {
+    "description": "Suffix for displaying question count"
+  },
+  
+  "prototypeNote": "Note: This feature is currently in prototype stage. Two options are provided:",
+  "@prototypeNote": {
+    "description": "Note about prototype feature status"
+  },
+  
+  "option1": "1. Click 'Start Quiz' to see the actual questions.",
+  "@option1": {
+    "description": "First option description"
+  },
+  
+  "option2": "2. Click 'Simulate' to simulate without seeing questions.",
+  "@option2": {
+    "description": "Second option description"
+  },
+  
+  "startQuiz": "Start Quiz",
+  "@startQuiz": {
+    "description": "Button text to start a quiz"
+  },
+  
+  "simulate": "Simulate",
+  "@simulate": {
+    "description": "Button text to simulate activity"
+  },
+  
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Button text to cancel action"
+  },
+  
+  "campQuestionsError": "Could not retrieve camp questions: ",
+  "@campQuestionsError": {
+    "description": "Error message when camp questions cannot be retrieved"
+  },
+  
+  "randomQuestionsError": "Could not retrieve random questions: ",
+  "@randomQuestionsError": {
+    "description": "Error message when random questions cannot be retrieved"
+  },
+  
+  "activityCompleted": "Activity completed: Day=",
+  "@activityCompleted": {
+    "description": "Message prefix for completed activity"
+  },
+  
+  "activityCompletedTitle": ", Title=",
+  "@activityCompletedTitle": {
+    "description": "Message component for activity title"
+  },
+  
+  "activityCompletedCorrect": ", Correct=",
+  "@activityCompletedCorrect": {
+    "description": "Message component for correct answers"
+  },
+  
+  "progressUpdateError": "Progress update error: ",
+  "@progressUpdateError": {
+    "description": "Error message for progress update failure"
+  },
+  
+  "simulatedActivityCompleted": "Simulated activity completed: Day=",
+  "@simulatedActivityCompleted": {
+    "description": "Message for simulated activity completion"
+  },
+  
+  "activityCompletionError": "Activity completion error: ",
+  "@activityCompletionError": {
+    "description": "Error message for activity completion failure"
+  },
+  
+  "simulationCompletionError": "Simulation completion error: ",
+  "@simulationCompletionError": {
+    "description": "Error message for simulation completion failure"
+  },
+  
+  "quizCompleted": "Quiz Completed",
+  "@quizCompleted": {
+    "description": "Title for quiz completion dialog"
+  },
+  
+  "congratulations": "Congratulations! ",
+  "@congratulations": {
+    "description": "Congratulatory message prefix"
+  },
+  
+  "correctQuestions": " questions correct.",
+  "@correctQuestions": {
+    "description": "Text showing number of correct questions"
+  },
+  
+  "successRate": "Success rate: %",
+  "@successRate": {
+    "description": "Label for success rate percentage"
+  },
+  
+  "ok": "OK",
+  "@ok": {
+    "description": "Button text for acknowledgment"
+  },
+  
+  "goBack": "Go Back",
+  "@goBack": {
+    "description": "Button text to return to previous screen"
+  },
+  
+  "tryAgain": "Try Again",
+  "@tryAgain": {
+    "description": "Button text to retry an action"
+  },
+  
+  "savingProgress": "Saving progress...",
+  "@savingProgress": {
+    "description": "Message shown when progress is being saved"
+  },
+  
+  "kServiceNotInitialized": "Camp service not initialized. Call the initialize() method first.",
+  "@kServiceNotInitialized": {
+    "description": "Error message when camp service is not initialized"
+  },
+  "kServiceInitError": "Error while initializing camp service:",
+  "@kServiceInitError": {
+    "description": "Error message prefix when initializing camp service"
+  },
+  "kCampNotStarted": "Camp not started or service not initialized.",
+  "@kCampNotStarted": {
+    "description": "Error message when camp is not started"
+  },
+  "kHalfwayTitle": "Halfway There",
+  "@kHalfwayTitle": {
+    "description": "Title for halfway completion badge"
+  },
+  "kHalfwayDesc": "You have successfully completed half of the camp!",
+  "@kHalfwayDesc": {
+    "description": "Description for halfway completion badge"
+  },
+  "kCampCompletedTitle": "Camp Completed",
+  "@kCampCompletedTitle": {
+    "description": "Title for camp completion badge"
+  },
+  "kCampCompletedDesc": "Congratulations! You have successfully completed the 10-Day Citizenship Camp.",
+  "@kCampCompletedDesc": {
+    "description": "Description for camp completion badge"
+  },
+  "kPerfectCampTitle": "Perfect Camp",
+  "@kPerfectCampTitle": {
+    "description": "Title for perfect camp badge"
+  },
+  "kPerfectCampDesc": "Amazing! You have successfully completed all 10 days of the camp.",
+  "@kPerfectCampDesc": {
+    "description": "Description for perfect camp badge"
+  },
+  "kSyncProgressError": "Error synchronizing progress and activity status:",
+  "@kSyncProgressError": {
+    "description": "Error message when synchronizing progress fails"
+  },
+  "kUpdateActivityError": "Error updating activity completion status:",
+  "@kUpdateActivityError": {
+    "description": "Error message when updating activity status fails"
+  },
+  "kDayUnlocked": "Day {number} unlocked",
+  "@kDayUnlocked": {
+    "description": "Message when a day is unlocked",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "kDayCompletedTitle": "Day {number} Completed",
+  "@kDayCompletedTitle": {
+    "description": "Title for day completion badge",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "kDayCompletedDesc": "You have successfully completed the study for day {number}!",
+  "@kDayCompletedDesc": {
+    "description": "Description for day completion badge",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "kPerfectDayTitle": "Perfect Day {number}",
+  "@kPerfectDayTitle": {
+    "description": "Title for perfect day badge",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "4"
+      }
+    }
+  },
+  "kPerfectDayDesc": "You answered all questions correctly for day {number}!",
+  "@kPerfectDayDesc": {
+    "description": "Description for perfect day badge",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "4"
+      }
+    }
+  },
+  "kDayNotFound": "Day {number} not found",
+  "@kDayNotFound": {
+    "description": "Error message when day is not found",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "kActivityNotFound": "Activity with title \"{title}\" not found.",
+  "@kActivityNotFound": {
+    "description": "Error message when activity is not found",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Morning Quiz"
+      }
+    }
+  },
+  "kAllActivitiesCompleted": "All activities for Day {number} completed!",
+  "@kAllActivitiesCompleted": {
+    "description": "Message when all activities for a day are completed",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "6"
+      }
+    }
+  },
+  "kCompletingDayFromActivities": "All activities completed, starting day completion: Day={number}, Calculated Score={score}",
+  "@kCompletingDayFromActivities": {
+    "description": "Debug message when completing day from activities",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "7"
+      },
+      "score": {
+        "type": "int",
+        "example": "85"
+      }
+    }
+  },
+  
+  "campTitle": "10-Day Citizenship",
+  "campDescription": "Intensive study program to prepare for the US citizenship exam in 10 days",
+  
+  "badgeDayComplete": "Day completed",
+  "badgePerfectDay": "Perfect day: 100% success",
+  "badgeHalfway": "Halfway completed",
+  "badgeCampComplete": "Camp completed", 
+  "badgePerfectCamp": "Perfect camp: 10/10 days",
+  
+  "difficultyBeginner": "Beginner",
+  "difficultyIntermediate": "Intermediate",
+  "difficultyAdvanced": "Advanced",
+  "difficultyBeginnerIntermediate": "Beginner-Intermediate",
+  "difficultyIntermediateAdvanced": "Intermediate-Advanced",
+  
+  "periodMorning": "Morning",
+  "periodNoon": "Noon",
+  "periodEvening": "Evening",
+  
+  "day1Title": "American History Basics",
+  "day1Description": "From colonies to independence, Civil War and key historical events",
+  "day1Activity1Title": "History Foundations",
+  "day1Activity1Description": "America's founding and early years",
+  "day1Activity2Title": "Multiple Choice Practice",
+  "day1Activity2Description": "American Revolution and Constitutional development",
+  "day1Activity3Title": "Comprehensive Review",
+  "day1Activity3Description": "Summary of key historical events",
+  
+  "day2Title": "American Government and Constitution",
+  "day2Description": "Constitution, amendments, federal system structure",
+  "day2Activity1Title": "Constitution Articles",
+  "day2Activity1Description": "Basic articles and structure of the Constitution",
+  "day2Activity2Title": "Government Branches",
+  "day2Activity2Description": "Legislative, executive, and judicial",
+  "day2Activity3Title": "Checks and Balances",
+  "day2Activity3Description": "Control system between government branches",
+  
+  "day3Title": "Rights and Responsibilities",
+  "day3Description": "Citizenship rights, responsibilities, and duties",
+  "day3Activity1Title": "Basic Rights",
+  "day3Activity1Description": "Constitutional rights and protections",
+  "day3Activity2Title": "Citizenship Responsibilities",
+  "day3Activity2Description": "Duties of American citizens",
+  "day3Activity3Title": "Scenario Applications",
+  "day3Activity3Description": "Rights and responsibilities in real-life situations",
+  
+  "day4Title": "Political System and Parties",
+  "day4Description": "Political parties, election system, political participation",
+  "day4Activity1Title": "Political System",
+  "day4Activity1Description": "Basics of the American political system",
+  "day4Activity2Title": "Election Process",
+  "day4Activity2Description": "Elections and voting in America",
+  "day4Activity3Title": "Current Political Structure",
+  "day4Activity3Description": "Current political parties and leaders",
+  
+  "day5Title": "Review and Interim Assessment",
+  "day5Description": "Comprehensive review and assessment of the first 4 days",
+  "day5Activity1Title": "History and Constitution Review",
+  "day5Activity1Description": "Review and application of days 1-2 topics",
+  "day5Activity2Title": "Rights and Political System Review",
+  "day5Activity2Description": "Review and application of days 3-4 topics",
+  "day5Activity3Title": "Weak Areas Review",
+  "day5Activity3Description": "Identification and study of areas needing improvement",
+  
+  "day6Title": "State and Local Governments",
+  "day6Description": "State governments, local administration structure, state-federal relations",
+  "day6Activity1Title": "State Governments",
+  "day6Activity1Description": "State structure and roles in the federal system",
+  "day6Activity2Title": "Local Governments",
+  "day6Activity2Description": "Local government levels and functions",
+  "day6Activity3Title": "Integrated Application",
+  "day6Activity3Description": "Relations and roles between levels of government",
+  
+  "day7Title": "American Symbols and Holidays",
+  "day7Description": "National symbols, holidays, important monuments",
+  "day7Activity1Title": "National Symbols",
+  "day7Activity1Description": "American flag, national anthem, and other symbols",
+  "day7Activity2Title": "Official Holidays",
+  "day7Activity2Description": "Federal holidays and their meanings",
+  "day7Activity3Title": "Important Monuments",
+  "day7Activity3Description": "Historical monuments and national significance",
+  
+  "day8Title": "Current American Leaders",
+  "day8Description": "Current president, cabinet, Congress leaders, Supreme Court",
+  "day8Activity1Title": "Executive Branch",
+  "day8Activity1Description": "President, Vice President, and Cabinet",
+  "day8Activity2Title": "Legislative Branch",
+  "day8Activity2Description": "Congress structure and important positions",
+  "day8Activity3Title": "Judicial Branch",
+  "day8Activity3Description": "Supreme Court and federal judicial system",
+  
+  "day9Title": "Geography and States",
+  "day9Description": "American geography, states, capitals, regions",
+  "day9Activity1Title": "Geographic Regions",
+  "day9Activity1Description": "Geographic regions of the US and their characteristics",
+  "day9Activity2Title": "States and Capitals",
+  "day9Activity2Description": "States, capitals, and basic characteristics",
+  "day9Activity3Title": "Important Geographic Features",
+  "day9Activity3Description": "Major rivers, lakes, mountains, and other features",
+  
+  "day10Title": "Final Practice Exam",
+  "day10Description": "Comprehensive application of all topics and simulated exam",
+  "day10Activity1Title": "Simulated Exam 1",
+  "day10Activity1Description": "First attempt in real exam format",
+  "day10Activity2Title": "Evaluation and Review",
+  "day10Activity2Description": "Identification and study of weak areas",
+  "day10Activity3Title": "Simulated Exam 2",
+  "day10Activity3Description": "Second attempt in real exam format"
+,
+
+  "onboardingTitle1": "Welcome to US Citizenship Test",
+  "@onboardingTitle1": {
+    "description": "Title for first onboarding screen"
+  },
+  "onboardingDesc1": "Prepare for your US citizenship test with comprehensive study materials and practice tests.",
+  "@onboardingDesc1": {
+    "description": "Description for first onboarding screen"
+  },
+  
+  "onboardingTitle2": "10-Day Camp Mode",
+  "@onboardingTitle2": {
+    "description": "Title for second onboarding screen"
+  },
+  "onboardingDesc2": "Follow our structured 10-day camp program designed to maximize your learning in a short time.",
+  "@onboardingDesc2": {
+    "description": "Description for second onboarding screen"
+  },
+  
+  "onboardingTitle3": "Practice Tests & Simulations",
+  "@onboardingTitle3": {
+    "description": "Title for third onboarding screen"
+  },
+  "onboardingDesc3": "Test your knowledge with real exam simulations and track your progress as you learn.",
+  "@onboardingDesc3": {
+    "description": "Description for third onboarding screen"
+  },
+  
+  "onboardingTitle4": "Multi-Language Support",
+  "@onboardingTitle4": {
+    "description": "Title for fourth onboarding screen"
+  },
+  "onboardingDesc4": "Study in English, Spanish, or Turkish - choose the language that helps you learn best.",
+  "@onboardingDesc4": {
+    "description": "Description for fourth onboarding screen"
+  },
+  
+  "skip": "Skip",
+  "@skip": {
+    "description": "Text for skip button in onboarding"
+  },
+  "next": "Next",
+  "@next": {
+    "description": "Text for next button in onboarding"
+  },
+  "getStarted": "Get Started",
+  "@getStarted": {
+    "description": "Text for get started button in onboarding"
+  },
+
+  "changeLanguage": "Change Language",
+  "@changeLanguage": {
+    "description": "Text for language selection button"
+  },
+  
+  "languageNote": "You can change the language anytime from the app settings",
+  "@languageNote": {
+    "description": "Note displayed on language selection page"
+  },
+
+  "languageSelectionTitle": "Choose Your Language",
+  "@languageSelectionTitle": {
+    "description": "Title for language selection page"
+  },
+  
+  "languageSelectionSubtitle": "Select your preferred language to continue",
+  "@languageSelectionSubtitle": {
+    "description": "Subtitle for language selection page"
+  },
+
+  "continueButton": "Continue",
+  "@continueButton": {
+    "description": "Text for continue button in language selection"
+  },
+  
+  "currentLanguage": "Current Language",
+  "@currentLanguage": {
+    "description": "Text indicating the currently selected language"
+  },
+
+  "unlockCampMode": "Unlock Camp Mode",
+  "@unlockCampMode": {
+    "description": "Title for unlocking camp mode"
+  },
+  "masterCitizenshipTest": "Master the US Citizenship Test in 10 Days",
+  "@masterCitizenshipTest": {
+    "description": "Subtitle for camp mode unlock"
+  },
+  "tenDayStructuredPlan": "10-Day Structured Plan",
+  "@tenDayStructuredPlan": {
+    "description": "Feature title for structured plan"
+  },
+  "scientificallyDesigned": "Scientifically designed study schedule",
+  "@scientificallyDesigned": {
+    "description": "Feature description for structured plan"
+  },
+  "unlimitedPractice": "Unlimited Practice",
+  "@unlimitedPractice": {
+    "description": "Feature title for unlimited practice"
+  },
+  "accessAllQuestions": "Access to all questions and categories",
+  "@accessAllQuestions": {
+    "description": "Feature description for unlimited practice"
+  },
+  "progressTracking": "Progress Tracking",
+  "@progressTracking": {
+    "description": "Feature title for progress tracking"
+  },
+  "detailedAnalytics": "Detailed analytics and performance insights",
+  "@detailedAnalytics": {
+    "description": "Feature description for progress tracking"
+  },
+  "adFreeExperience": "Ad-Free Experience",
+  "@adFreeExperience": {
+    "description": "Feature title for ad-free experience"
+  },
+  "studyWithoutInterruptions": "Study without interruptions",
+  "@studyWithoutInterruptions": {
+    "description": "Feature description for ad-free experience"
+  },
+  "limitedTimeOffer": "Limited Time Offer!",
+  "@limitedTimeOffer": {
+    "description": "Text for limited time offer"
+  },
+  "unlockCampModePrice": "Unlock Camp Mode - $1.99",
+  "@unlockCampModePrice": {
+    "description": "Button text with price for unlocking camp mode"
+  },
+  "restorePurchases": "Restore Purchases",
+  "@restorePurchases": {
+    "description": "Button text for restoring purchases"
+  },
+  "welcomeToCampMode": "🎉 Welcome to Camp Mode!",
+  "@welcomeToCampMode": {
+    "description": "Success message when camp mode is unlocked"
+  },
+  "purchaseFailed": "Purchase failed",
+  "@purchaseFailed": {
+    "description": "Error message when purchase fails"
+  },
+  "somethingWentWrong": "Something went wrong",
+  "@somethingWentWrong": {
+    "description": "Generic error message"
+  },
+  "purchasesRestored": "✅ Purchases restored!",
+  "@purchasesRestored": {
+    "description": "Success message when purchases are restored"
+  },
+  "noPreviousPurchases": "No previous purchases found",
+  "@noPreviousPurchases": {
+    "description": "Message when no previous purchases are found"
+  },
+  "restoreFailed": "Restore failed",
+  "@restoreFailed": {
+    "description": "Error message when restore fails"
   }
 }

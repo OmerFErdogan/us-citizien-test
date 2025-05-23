@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:us_civics_test_app/features/camp_mode/services/camp_service.dart';
-import 'package:us_civics_test_app/models/question.dart';
-import 'package:us_civics_test_app/screens/quiz_screen.dart';
-import 'package:us_civics_test_app/services/question_service.dart';
+import 'package:us_citizenship_test/features/camp_mode/services/camp_service.dart';
+import 'package:us_citizenship_test/models/question.dart';
+import 'package:us_citizenship_test/screens/quiz_screen.dart';
+import 'package:us_citizenship_test/services/question_service.dart';
+import 'package:us_citizenship_test/utils/extensions.dart';
+
 
 class QuizSelectionLauncher extends StatefulWidget {
   final String title;
@@ -63,7 +65,7 @@ class _QuizSelectionLauncherState extends State<QuizSelectionLauncher> {
       if (mounted) {
         setState(() {
           _isLoading = false;
-          _errorMessage = 'Hazırlık sırasında bir hata oluştu: $e';
+          _errorMessage = context.l10n.errorInitialization + e.toString();
         });
       }
     }
@@ -82,17 +84,15 @@ class _QuizSelectionLauncherState extends State<QuizSelectionLauncher> {
             Text(widget.description),
             const SizedBox(height: 16),
             Text(
-              'Bu aktivite, ${widget.questionCount} soru içermektedir.',
+              context.l10n.questionsCount + widget.questionCount.toString() + context.l10n.questionsSuffix,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            const Text(
-              'Not: Bu özellik şu anda prototip aşamasındadır. İki seçenek sunulmaktadır:',
-            ),
+            Text(context.l10n.prototypeNote),
             const SizedBox(height: 16),
-            const Text('1. Gerçek soruları görmek için "Quiz Başlat" butonuna tıklayın.'),
+            Text(context.l10n.option1),
             const SizedBox(height: 8),
-            const Text('2. Soru görmeden simülasyon için "Simüle Et" butonuna tıklayın.'),
+            Text(context.l10n.option2),
           ],
         ),
         actions: [
@@ -101,7 +101,7 @@ class _QuizSelectionLauncherState extends State<QuizSelectionLauncher> {
               Navigator.pop(context);
               _startRealQuiz();
             },
-            child: const Text('Quiz Başlat'),
+            child: Text(context.l10n.startQuiz),
           ),
           TextButton(
             onPressed: () {
@@ -111,7 +111,7 @@ class _QuizSelectionLauncherState extends State<QuizSelectionLauncher> {
             style: TextButton.styleFrom(
               foregroundColor: Colors.green,
             ),
-            child: const Text('Simüle Et'),
+            child: Text(context.l10n.simulate),
           ),
           TextButton(
             onPressed: () {
@@ -121,7 +121,7 @@ class _QuizSelectionLauncherState extends State<QuizSelectionLauncher> {
             style: TextButton.styleFrom(
               foregroundColor: Colors.red,
             ),
-            child: const Text('İptal'),
+            child: Text(context.l10n.cancel),
           ),
         ],
       ),
@@ -170,7 +170,7 @@ class _QuizSelectionLauncherState extends State<QuizSelectionLauncher> {
         }
       }
     } catch (e) {
-      print('Kamp soruları alınamadı: $e');
+      print(context.l10n.campQuestionsError + e.toString());
       // Hata alırsa, normal sorularla devam et
     }
     
@@ -179,7 +179,7 @@ class _QuizSelectionLauncherState extends State<QuizSelectionLauncher> {
       try {
         quizQuestions = _questionService.getRandomQuestions(widget.questionCount);
       } catch (e) {
-        print('Rastgele sorular alınamadı: $e');
+        print(context.l10n.randomQuestionsError + e.toString());
       }
     }
     
@@ -191,8 +191,8 @@ class _QuizSelectionLauncherState extends State<QuizSelectionLauncher> {
     // Quiz başlat
     if (quizQuestions.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Yeterli soru bulunamadı. Lütfen daha sonra tekrar deneyin.'),
+        SnackBar(
+          content: Text(context.l10n.noQuestionsFound),
           backgroundColor: Colors.red,
         ),
       );
@@ -243,10 +243,15 @@ class _QuizSelectionLauncherState extends State<QuizSelectionLauncher> {
                   await _campService.syncProgressWithActivities();
                   
                   // İlave log - debug için
-                  print('Aktivite tamamlandı: Gün=${widget.dayNumber}, Başlık=$activityTitle, Doğru=$correctCount');
+                  print(context.l10n.activityCompleted + 
+                        widget.dayNumber.toString() + 
+                        context.l10n.activityCompletedTitle + 
+                        activityTitle + 
+                        context.l10n.activityCompletedCorrect + 
+                        correctCount.toString());
                 }
               } catch (e) {
-                print('İlerleme güncelleme hatası: $e');
+                print(context.l10n.progressUpdateError + e.toString());
               } finally {
                 // İşlem tamamlandı
                 if (mounted) {
@@ -290,7 +295,7 @@ class _QuizSelectionLauncherState extends State<QuizSelectionLauncher> {
       // Puanlama dialog'ını göster
       _showCompletionDialog(simulatedScore);
     }).catchError((e) {
-      print('Simülasyon tamamlama hatası: $e');
+      print(context.l10n.simulationCompletionError + e.toString());
       setState(() {
         _isCompleting = false;
       });
@@ -321,10 +326,15 @@ class _QuizSelectionLauncherState extends State<QuizSelectionLauncher> {
         await _campService.syncProgressWithActivities();
         
         // İlave log - debug için
-        print('Simüle aktivite tamamlandı: Gün=${widget.dayNumber}, Başlık=$activityTitle, Doğru=$score');
+        print(context.l10n.simulatedActivityCompleted + 
+              widget.dayNumber.toString() + 
+              context.l10n.activityCompletedTitle + 
+              activityTitle + 
+              context.l10n.activityCompletedCorrect + 
+              score.toString());
       }
     } catch (e) {
-      print('Aktivite tamamlama hatası: $e');
+      print(context.l10n.activityCompletionError + e.toString());
       rethrow; // Hatayı yukarı ilet
     }
   }
@@ -335,7 +345,7 @@ class _QuizSelectionLauncherState extends State<QuizSelectionLauncher> {
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        title: const Text('Quiz Tamamlandı'),
+        title: Text(context.l10n.quizCompleted),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -346,12 +356,12 @@ class _QuizSelectionLauncherState extends State<QuizSelectionLauncher> {
             ),
             const SizedBox(height: 16),
             Text(
-              'Tebrikler! $score/${widget.questionCount} soru doğru.',
+              context.l10n.congratulations + score.toString() + '/' + widget.questionCount.toString() + context.l10n.correctQuestions,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             Text(
-              'Başarı oranı: %${(score / widget.questionCount * 100).round()}',
+              context.l10n.successRate + (score / widget.questionCount * 100).round().toString(),
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -367,7 +377,7 @@ class _QuizSelectionLauncherState extends State<QuizSelectionLauncher> {
               // Ana ekrana dön
               Navigator.pop(context);
             },
-            child: const Text('Tamam'),
+            child: Text(context.l10n.ok),
           ),
         ],
       ),
@@ -406,12 +416,12 @@ class _QuizSelectionLauncherState extends State<QuizSelectionLauncher> {
                             const SizedBox(height: 16),
                             ElevatedButton(
                               onPressed: () => Navigator.pop(context),
-                              child: const Text('Geri Dön'),
+                              child: Text(context.l10n.goBack),
                             ),
                             const SizedBox(height: 8),
                             TextButton(
                               onPressed: () => _initServices(),
-                              child: const Text('Tekrar Dene'),
+                              child: Text(context.l10n.tryAgain),
                             ),
                           ],
                         ),
@@ -423,15 +433,15 @@ class _QuizSelectionLauncherState extends State<QuizSelectionLauncher> {
           if (_isCompleting)
             Container(
               color: Colors.black.withOpacity(0.3),
-              child: const Center(
+              child: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    CircularProgressIndicator(),
-                    SizedBox(height: 16),
+                    const CircularProgressIndicator(),
+                    const SizedBox(height: 16),
                     Text(
-                      'İlerleme kaydediliyor...',
-                      style: TextStyle(
+                      context.l10n.savingProgress,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),

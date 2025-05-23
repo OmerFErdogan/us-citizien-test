@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:us_civics_test_app/screens/answer_option.dart';
+import 'package:us_citizenship_test/screens/answer_option.dart';
 import '../models/question.dart';
 import '../services/question_service.dart';
 import '../utils/extensions.dart';
@@ -274,11 +274,11 @@ class _QuizScreenState extends State<QuizScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  context.l10n.question((_currentQuestionIndex + 1), _questions.length),
+                  context.l10n.questionProgress((_currentQuestionIndex + 1), _questions.length),
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  context.l10n.category(currentQuestion.category),
+                  context.l10n.categoryName(currentQuestion.category),
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.grey[700],
@@ -363,11 +363,11 @@ class _QuizScreenState extends State<QuizScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  context.l10n.question((_currentQuestionIndex + 1), _questions.length),
+                  context.l10n.questionProgress((_currentQuestionIndex + 1), _questions.length),
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  context.l10n.category(currentQuestion.category),
+                  context.l10n.categoryName(currentQuestion.category),
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.grey[700],
@@ -469,7 +469,7 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
               const SizedBox(width: 8),
               Text(
-                isCorrect ? context.l10n.correct : context.l10n.incorrect,
+                isCorrect ? context.l10n.correctLabel : context.l10n.incorrectLabel,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: isCorrect ? Colors.green : Colors.red,

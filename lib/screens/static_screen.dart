@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:us_civics_test_app/utils/extensions.dart';
-import 'package:us_civics_test_app/widgets/weekly_goal_chart.dart';
+import 'package:us_citizenship_test/utils/extensions.dart';
+import 'package:us_citizenship_test/widgets/weekly_goal_chart.dart';
 import '../models/question.dart';
 import '../services/question_service.dart';
 import '../widgets/category_progress_chart.dart';

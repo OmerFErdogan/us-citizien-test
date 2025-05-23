@@ -48,7 +48,7 @@ class ResultScreen extends StatelessWidget {
     
     return Scaffold(
       appBar: AppBar(
-        title: Text(isTestMode ? context.l10n.examResults : context.l10n.quizResults),
+        title: Text(isTestMode ? context.l10n.examResults : context.l10n.quizResultsHeader),
         automaticallyImplyLeading: false,
       ),
       body: LayoutBuilder(
@@ -545,7 +545,7 @@ class ResultScreen extends StatelessWidget {
                 ),
               ),
               subtitle: Text(
-                parentContext.l10n.category(question.category),
+                parentContext.l10n.categoryName(question.category),
                 style: TextStyle(
                   color: isCorrect ? Colors.green[600] : Colors.red[600],
                   fontSize: subtitleFontSize,

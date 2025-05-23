@@ -126,7 +126,7 @@ class BadgeWidget extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'Kazanıldı: ${_getFormattedDate()}',
+              'WIN: ${_getFormattedDate()}',
               style: TextStyle(
                 color: Colors.grey[600],
                 fontSize: 14,
@@ -137,7 +137,7 @@ class BadgeWidget extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Tamam'),
+            child: const Text('OKEY'),
           ),
         ],
       ),

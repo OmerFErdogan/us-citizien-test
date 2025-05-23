@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 
 /// Uscis Memuru temsili
 class UscisOfficer {

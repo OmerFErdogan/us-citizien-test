@@ -1,6 +1,6 @@
-# us_civics_test_app
+# US Citizenship Test
 
-A new Flutter project.
+Prepare for your US naturalization exam with official civics test questions. This Flutter app helps you study all 100 official questions with multiple practice modes.
 
 ## Getting Started
 

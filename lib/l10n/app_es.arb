@@ -4,6 +4,22 @@
   "@appTitle": {
     "description": "The title of the application"
   },
+  "activeStatus": "Activo",
+  "@activeStatus": {
+    "description": "Status text for active items"
+  },
+  "lockedStatus": "Bloqueado",
+  "@lockedStatus": {
+    "description": "Status text for locked items"
+  },
+  "waitingStatus": "Esperando",
+  "@waitingStatus": {
+    "description": "Status text for waiting items"
+  },
+  "studyAgain": "Estudiar de Nuevo",
+  "@studyAgain": {
+    "description": "Button text to study again"
+  },
   "americanDream": "SUEÑO AMERICANO",
   "@americanDream": {
     "description": "Title for American Dream banner"
@@ -88,12 +104,12 @@
   "@answered": {
     "description": "Label for answered questions count"
   },
-  "successRate": "Tasa de Éxito",
-  "@successRate": {
+  "successRateLabel": "Tasa de Éxito",
+  "@successRateLabel": {
     "description": "Label for success rate percentage"
   },
-  "startQuiz": "Iniciar Cuestionario",
-  "@startQuiz": {
+  "startQuizButton": "Iniciar Cuestionario",
+  "@startQuizButton": {
     "description": "Button text to start a quiz"
   },
   "quizDescription": "Pon a prueba tus conocimientos con un cuestionario de 10 preguntas",
@@ -132,16 +148,16 @@
   "@startLearning": {
     "description": "Button text to start learning"
   },
-  "question": "Pregunta",
-  "@question": {
+  "questionLabel": "Pregunta",
+  "@questionLabel": {
     "description": "Label for question"
   },
-  "correct": "Correcto",
-  "@correct": {
+  "correctLabel": "Correcto",
+  "@correctLabel": {
     "description": "Label for correct answer"
   },
-  "incorrect": "Incorrecto",
-  "@incorrect": {
+  "incorrectLabel": "Incorrecto",
+  "@incorrectLabel": {
     "description": "Label for incorrect answer"
   },
   "next": "Siguiente",
@@ -152,8 +168,8 @@
   "@finish": {
     "description": "Button text to finish quiz"
   },
-  "quizResults": "Resultados del Cuestionario",
-  "@quizResults": {
+  "quizResultsTitle": "Resultados del Cuestionario",
+  "@quizResultsTitle": {
     "description": "Title for quiz results screen"
   },
   "yourScore": "Tu Puntuación",
@@ -234,8 +250,8 @@
   "@resetProgress": {
     "description": "Label for reset progress menu item"
   },
-  "attention": "Atención",
-  "@attention": {
+  "attentionTitle": "Atención",
+  "@attentionTitle": {
     "description": "Title for warning dialog"
   },
   "resetProgressWarning": "Esto reiniciará todo tu progreso. Todas tus respuestas y estadísticas serán eliminadas. Esta acción no se puede deshacer. ¿Estás seguro de que quieres continuar?",
@@ -338,6 +354,22 @@
   "@timeDescription": {
     "description": "Description of time limit"
   },
+  "attentionCard": "Atención",
+  "@attentionCard": {
+    "description": "Title for attention info card"
+  },
+  "attention": "Atención",
+  "@attention": {
+    "description": "Title for attention section"
+  },
+  "startTestSimulation": "Iniciar Simulación de Examen",
+  "@startTestSimulation": {
+    "description": "Title for test simulation card"
+  },
+  "testDescription": "Esta simulación te hará 10 preguntas aleatorias sobre educación cívica, similar al examen real de ciudadanía de USCIS. Necesitarás contestar correctamente al menos 6 para aprobar.",
+  "@testDescription": {
+    "description": "Description of the test simulation"
+  },
   "realExamNote": "En el examen real, debe responder las preguntas verbalmente, y el oficial de USCIS puede detener el examen en cualquier momento.",
   "@realExamNote": {
     "description": "Note about the real exam procedure"
@@ -354,8 +386,8 @@
   "@errorLoadingQuestions": {
     "description": "Error message when questions fail to load"
   },
-  "error": "Error: {message}",
-  "@error": {
+  "errorMessage": "Error: {message}",
+  "@errorMessage": {
     "description": "Generic error message with details",
     "placeholders": {
       "message": {
@@ -368,8 +400,8 @@
   "@usExam": {
     "description": "Title for US citizenship exam screen"
   },
-  "question": "Pregunta {current}/{total}",
-  "@question": {
+  "questionProgress": "Pregunta {current}/{total}",
+  "@questionProgress": {
     "description": "Question progress indicator",
     "placeholders": {
       "current": {
@@ -410,8 +442,8 @@
   "@examResults": {
     "description": "Title for exam results screen"
   },
-  "quizResults": "Resultados del Cuestionario",
-  "@quizResults": {
+  "quizResultsHeader": "Resultados del Cuestionario",
+  "@quizResultsHeader": {
     "description": "Title for quiz results screen"
   },
   "examCompleted": "¡Examen Completado!",
@@ -482,8 +514,8 @@
   "@greatAchievement": {
     "description": "Text for achievement badge"
   },
-  "category": "Categoría: {name}",
-  "@category": {
+  "categoryName": "Categoría: {name}",
+  "@categoryName": {
     "description": "Text showing question category",
     "placeholders": {
       "name": {
@@ -552,12 +584,12 @@
   "@openFlashcards": {
     "description": "Button text to open flashcards"
   },
-  "generalProgress": "Progreso General",
-  "@generalProgress": {
+  "generalProgressTitle": "Progreso General",
+  "@generalProgressTitle": {
     "description": "Title for general progress section"
   },
-  "completed": "Completado: {count} / {total} preguntas",
-  "@completed": {
+  "completedQuestions": "Completado: {count} / {total} preguntas",
+  "@completedQuestions": {
     "description": "Text showing completed questions count",
     "placeholders": {
       "count": {
@@ -678,44 +710,36 @@
   "@newFeature": {
     "description": "Label for new features"
   },
-
   "campIntroTitle": "Campamento de Ciudadanía de 10 Días",
   "@campIntroTitle": {
     "description": "Title for camp intro screen"
   },
-
   "completedStatus": "Completado",
   "@completedStatus": {
     "description": "Text shown when something is completed"
   },
-
   "start": "Iniciar",
   "@start": {
     "description": "Button text to start"
   },
-
   "principlesOfDemocracy": "Principios de la Democracia Americana",
   "@principlesOfDemocracy": {
     "description": "Category name for principles of American democracy"  
   },
-
   "card": "Tarjeta",
   "@card": {
     "description": "Text for card label"
   },
-
   "answer": "RESPUESTA",
   "@answer": {
     "description": "Text for answer label"
   },
-
   "refreshData": "Actualizar",
   "@refreshData": {
     "description": "Text for refresh data button"
   },
-
-  "successRate": "Tasa de Éxito: {rate}%",
-  "@successRate": {
+  "successRatePercent": "Tasa de Éxito: {rate}%",
+  "@successRatePercent": {
     "description": "Text showing success rate with percentage",
     "placeholders": {
       "rate": {
@@ -724,42 +748,34 @@
       }
     }
   },
-
   "shuffle": "Mezclar",
   "@shuffle": {
     "description": "Text for shuffle button"
   },
-
   "statistics": "Estadísticas",
   "@statistics": {
     "description": "Title for statistics screen"
   },
-
   "generalTab": "General",
   "@generalTab": {
     "description": "Tab title for general statistics"
   },
-
   "categoriesTab": "Categorías",
   "@categoriesTab": {
     "description": "Tab title for categories statistics"
   },
-
   "difficultiesTab": "Dificultades",
   "@difficultiesTab": {
     "description": "Tab title for difficulties statistics"
   },
-
   "progressTab": "Progreso",
   "@progressTab": {
     "description": "Tab title for progress statistics"
   },
-
   "generalProgress": "Progreso General",
   "@generalProgress": {
     "description": "Title for general progress card"
   },
-
   "completed": "Completado: {count} / {total} ({rate}%)",
   "@completed": {
     "description": "Text showing completed count, total, and percentage",
@@ -778,67 +794,72 @@
       }
     }
   },
-
+  "completedWithPercent": "Completado: {count} / {total} ({rate}%)",
+  "@completedWithPercent": {
+    "description": "Text showing completed count, total, and percentage",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      },
+      "rate": {
+        "type": "String",
+        "example": "50.0"
+      }
+    }
+  },
   "accuracyRate": "Tasa de Precisión",
   "@accuracyRate": {
     "description": "Title for accuracy rate card"
   },
-
   "excellentPerformance": "¡Excelente! Parece que has dominado los temas.",
   "@excellentPerformance": {
     "description": "Comment for excellent score (90%+)"
   },
-
   "veryGoodPerformance": "¡Muy bien! Podrías trabajar en algunos temas más.",
   "@veryGoodPerformance": {
     "description": "Comment for very good score (80-89%)"
   },
-
   "goodPerformance": "¡Bien! Deberías practicar un poco más.",
   "@goodPerformance": {
     "description": "Comment for good score (70-79%)"
   },
-
   "averagePerformance": "No está mal. Necesitas estudiar más.",
   "@averagePerformance": {
     "description": "Comment for average score (60-69%)"
   },
-
   "improvablePerformance": "Se puede mejorar. Practica más.",
   "@improvablePerformance": {
     "description": "Comment for below average score (40-59%)"
   },
-
   "needsWorkPerformance": "Necesita más trabajo. Las tarjetas de memoria pueden ayudar.",
   "@needsWorkPerformance": {
     "description": "Comment for poor score (below 40%)"
   },
-
   "answeredLabel": "Respondidas",
   "@answeredLabel": {
     "description": "Label for answered questions count"
   },
-
-  "correctLabel": "Correctas",
-  "@correctLabel": {
+  "correctLabelStat": "Correctas",
+  "@correctLabelStat": {
     "description": "Label for correct answers count"
   },
-
-  "incorrectLabel": "Incorrectas",
-  "@incorrectLabel": {
+  "incorrectLabelStat": "Incorrectas",
+  "@incorrectLabelStat": {
     "description": "Label for incorrect answers count"
   },
-
   "categorySuccessRate": "Éxito por Categoría",
   "@categorySuccessRate": {
     "description": "Title for category success rate card"
   },
-
   "categoryDetails": "Detalles de Categoría",
   "@categoryDetails": {
     "description": "Title for category details section"
   },
-
   "completedCount": "Completado: {attempted} / {total}",
   "@completedCount": {
     "description": "Text showing completed count out of total",
@@ -853,7 +874,6 @@
       }
     }
   },
-
   "accuracyCount": "Precisión: {correct} / {attempted}",
   "@accuracyCount": {
     "description": "Text showing correct count out of attempted",
@@ -868,47 +888,38 @@
       }
     }
   },
-
   "noWrongAnsweredQuestions": "Aún no hay preguntas respondidas incorrectamente.",
   "@noWrongAnsweredQuestions": {
     "description": "Message shown when there are no difficult questions"
   },
-
   "studySuggestions": "Sugerencias de Estudio",
   "@studySuggestions": {
     "description": "Title for study suggestions section"
   },
-
   "studyRegularly": "Estudia Regularmente",
   "@studyRegularly": {
     "description": "Title for regular study tip"
   },
-
   "studyRegularlyDesc": "Estudiar durante 10-15 minutos todos los días es más efectivo que estudiar durante mucho tiempo en un solo día.",
   "@studyRegularlyDesc": {
     "description": "Description for regular study tip"
   },
-
   "focusDifficulties": "Concéntrate en los Temas Difíciles",
   "@focusDifficulties": {
     "description": "Title for focusing on difficulties tip"
   },
-
   "focusDifficultiesDesc": "Revisa regularmente las preguntas que has respondido incorrectamente.",
   "@focusDifficultiesDesc": {
     "description": "Description for focusing on difficulties tip"
   },
-
   "repetitionImportant": "La Repetición es Importante",
   "@repetitionImportant": {
     "description": "Title for repetition tip"
   },
-
   "repetitionImportantDesc": "Resuelve las mismas preguntas en diferentes días. Mejora tu memoria.",
   "@repetitionImportantDesc": {
     "description": "Description for repetition tip"
   },
-
   "loadingStatisticsError": "Error al cargar las estadísticas: {error}",
   "@loadingStatisticsError": {
     "description": "Error message when loading statistics fails",
@@ -918,5 +929,1338 @@
         "example": "Network error"
       }
     }
+  },
+  "weeklyProgress": "Progreso Semanal",
+  "@weeklyProgress": {
+    "description": "Title for weekly progress chart"
+  },
+  "refresh": "Actualizar",
+  "@refresh": {
+    "description": "Text for refresh button"
+  },
+  "questions": "preguntas",
+  "@questions": {
+    "description": "Text for questions label"
+  },
+  "weeklyDataLoadingError": "Error al cargar los datos semanales: {error}",
+  "@weeklyDataLoadingError": {
+    "description": "Error message when loading weekly data fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "thisWeekSolvedQuestions": "Esta semana resolviste {count} preguntas",
+  "@thisWeekSolvedQuestions": {
+    "description": "Text showing number of questions solved this week",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "25"
+      }
+    }
+  },
+  "weeklyGoalCompleted": "¡Felicitaciones! Has completado tu meta semanal.",
+  "@weeklyGoalCompleted": {
+    "description": "Message shown when weekly goal is completed"
+  },
+  "weeklyGoalTarget": "Tu meta semanal: {count} preguntas",
+  "@weeklyGoalTarget": {
+    "description": "Text showing weekly goal target",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "70"
+      }
+    }
+  },
+  "dailyGoal": "Meta Diaria",
+  "@dailyGoal": {
+    "description": "Title for daily goal chart"
+  },
+  "editDailyGoal": "Editar meta diaria",
+  "@editDailyGoal": {
+    "description": "Tooltip for edit daily goal button"
+  },
+  "dailyGoalProgress": "{current} / {total} preguntas",
+  "@dailyGoalProgress": {
+    "description": "Text showing daily goal progress",
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "example": "5"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "dailyGoalCompleted": "¡Felicidades! Has completado tu meta diaria.",
+  "@dailyGoalCompleted": {
+    "description": "Message shown when daily goal is completed"
+  },
+  "dailyGoalRemaining": "Te quedan {count} preguntas para completar tu meta diaria.",
+  "@dailyGoalRemaining": {
+    "description": "Text showing remaining questions for daily goal",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "setDailyGoal": "Establecer Meta Diaria",
+  "@setDailyGoal": {
+    "description": "Title for daily goal dialog"
+  },
+  "determineNumberOfQuestionsDaily": "Determina el número de preguntas que quieres resolver diariamente:",
+  "@determineNumberOfQuestionsDaily": {
+    "description": "Instruction for setting daily goal"
+  },
+  "flashcardStats": "Estadísticas de Tarjetas",
+  "@flashcardStats": {
+    "description": "Title for flashcard statistics section"
+  },
+  "selectYourAnswer": "Selecciona Tu Respuesta",
+  "@selectYourAnswer": {
+    "description": "Text prompting user to select an answer"
+  },
+  "examTips": "Consejos para el Examen",
+  "@examTips": {
+    "description": "Title for exam tips section"
+  },
+  "answerClearly": "Responde clara y con confianza",
+  "@answerClearly": {
+    "description": "Tip to answer clearly during exam"
+  },
+  "speakConfidently": "Habla alto y claro",
+  "@speakConfidently": {
+    "description": "Tip to speak confidently during exam"
+  },
+  "takeYourTime": "Tómate tu tiempo para pensar antes de responder",
+  "@takeYourTime": {
+    "description": "Tip to take time before answering"
+  },
+  "dayLoading": "Cargando día...",
+  "@dayLoading": {
+    "description": "Text shown when loading a camp day"
+  },
+  "dayTitle": "Día {number}: {title}",
+  "@dayTitle": {
+    "description": "Title for a camp day",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      },
+      "title": {
+        "type": "String",
+        "example": "American History Basics"
+      }
+    }
+  },
+  "home": "Inicio",
+  "@home": {
+    "description": "Label for home tab in bottom navigation"
+  },
+  "study": "Estudiar",
+  "@study": {
+    "description": "Label for study tab in bottom navigation"
+  },
+  "progress": "Progreso",
+  "@progress": {
+    "description": "Label for progress tab in bottom navigation"
+  },
+  "errorDayNotFound": "Día no encontrado",
+  "@errorDayNotFound": {
+    "description": "Error message when a day is not found"
+  },
+  "errorDayLoading": "Error al cargar el día: ",
+  "@errorDayLoading": {
+    "description": "Error message prefix when day loading fails"
+  },
+  "dayLocked": "Este día aún está bloqueado",
+  "@dayLocked": {
+    "description": "Text shown when a day is locked"
+  },
+  "unlockInstruction": "Completa el día anterior para desbloquear este",
+  "@unlockInstruction": {
+    "description": "Instruction to unlock a locked day"
+  },
+  "returnToPreviousDay": "Volver al Día Anterior",
+  "@returnToPreviousDay": {
+    "description": "Button text to return to the previous day"
+  },
+  "difficultyLabel": "Dificultad: ",
+  "@difficultyLabel": {
+    "description": "Label for difficulty level"
+  },
+  "targetLabel": "Objetivo",
+  "@targetLabel": {
+    "description": "Label for target score"
+  },
+  "dailyProgress": "Progreso Diario",
+  "@dailyProgress": {
+    "description": "Title for daily progress section"
+  },
+  "correctLabelShort": "Correctas",
+  "@correctLabelShort": {
+    "description": "Short label for correct answers count"
+  },
+  "targetValueLabel": "Objetivo",
+  "@targetValueLabel": {
+    "description": "Label for target value"
+  },
+  "successLabel": "Éxito",
+  "@successLabel": {
+    "description": "Label for success rate"
+  },
+  "progressLabel": "Progreso",
+  "@progressLabel": {
+    "description": "Label for progress status"
+  },
+  "zeroPercent": "0%",
+  "@zeroPercent": {
+    "description": "Text for zero percent"
+  },
+  "fullPercent": "100%",
+  "@fullPercent": {
+    "description": "Text for one hundred percent"
+  },
+  "dailyActivities": "Actividades Diarias",
+  "@dailyActivities": {
+    "description": "Title for daily activities section"
+  },
+  "solveAllQuestions": "Resolver Todas las Preguntas",
+  "@solveAllQuestions": {
+    "description": "Button text to solve all questions"
+  },
+  "openStudyMaterial": "Abrir Material de Estudio",
+  "@openStudyMaterial": {
+    "description": "Button text to open study material"
+  },
+  "completeDayForTesting": "Completar Día para Pruebas",
+  "@completeDayForTesting": {
+    "description": "Button text for testing to complete day"
+  },
+  "dayCompletedSuccess": "¡Has completado este día con éxito!",
+  "@dayCompletedSuccess": {
+    "description": "Message shown when day is completed successfully"
+  },
+  "alreadyCompletedDay": "Ya has completado este día. Aún puedes practicar.",
+  "@alreadyCompletedDay": {
+    "description": "Message shown when trying to complete an already completed day"
+  },
+  "activityCompletedSuccess": " completado con éxito!",
+  "@activityCompletedSuccess": {
+    "description": "Message suffix shown when an activity is completed successfully"
+  },
+  "allActivitiesCompleted": "¡Todas las Actividades Completadas!",
+  "@allActivitiesCompleted": {
+    "description": "Title for dialog when all activities are completed"
+  },
+  "allActivitiesCompletedMessage": "¡Felicidades! Has completado todas las actividades para este día. ¿Quieres completar el día y desbloquear el siguiente?",
+  "@allActivitiesCompletedMessage": {
+    "description": "Message shown when all activities are completed"
+  },
+  "later": "Más Tarde",
+  "@later": {
+    "description": "Button text to delay an action"
+  },
+  "completeDay": "Completar Día",
+  "@completeDay": {
+    "description": "Button text to complete a day"
+  },
+  "dailyTest": "Prueba Diaria",
+  "@dailyTest": {
+    "description": "Title for daily test"
+  },
+  "dailyTestDescription": " prueba completa",
+  "@dailyTestDescription": {
+    "description": "Description suffix for daily test"
+  },
+  "targetNotReached": "Obtuviste una puntuación por debajo del objetivo (",
+  "@targetNotReached": {
+    "description": "Message prefix when target score is not reached"
+  },
+  "targetNotReachedEnd": "). Puedes intentarlo de nuevo.",
+  "@targetNotReachedEnd": {
+    "description": "Message suffix when target score is not reached"
+  },
+  "dayCompletedSuccessfully": "¡Día completado con éxito!",
+  "@dayCompletedSuccessfully": {
+    "description": "Message shown when a day is completed successfully"
+  },
+  "dayCompletedBelowTarget": "Día completado, pero por debajo del objetivo.",
+  "@dayCompletedBelowTarget": {
+    "description": "Message shown when a day is completed below target"
+  },
+  "goToNextDay": "Ir al Día ",
+  "@goToNextDay": {
+    "description": "Button text prefix to go to next day"
+  },
+  "error": "Error: ",
+  "@error": {
+    "description": "Generic error message prefix"
+  },
+  "newBadgeEarned": "¡Nueva Insignia Obtenida!",
+  "@newBadgeEarned": {
+    "description": "Title for new badge earned dialog"
+  },
+  "great": "¡Genial!",
+  "@great": {
+    "description": "Button text expressing enthusiasm"
+  },
+  "openingStudyMaterial": "Abriendo material de estudio: ",
+  "@openingStudyMaterial": {
+    "description": "Message shown when opening study material"
+  },
+  "simulationMode": "Modo de Simulación",
+  "@simulationMode": {
+    "description": "Title for simulation mode dialog"
+  },
+  "simulationDescription": "Esto simulará completar el día con éxito para fines de prueba.",
+  "@simulationDescription": {
+    "description": "Description for simulation mode"
+  },
+  "selectSuccessLevel": "Selecciona el nivel de éxito:",
+  "@selectSuccessLevel": {
+    "description": "Prompt to select success level for simulation"
+  },
+  "minimumSuccess": "Mínimo",
+  "@minimumSuccess": {
+    "description": "Option for minimum success level"
+  },
+  "mediumSuccess": "Medio",
+  "@mediumSuccess": {
+    "description": "Option for medium success level"
+  },
+  "highSuccess": "Alto",
+  "@highSuccess": {
+    "description": "Option for high success level"
+  },
+  "simulationSuccessMessage": "Día simulado con ",
+  "@simulationSuccessMessage": {
+    "description": "Message prefix for successful simulation"
+  },
+  "simulationSuccessEnd": " respuestas correctas",
+  "@simulationSuccessEnd": {
+    "description": "Message suffix for successful simulation"
+  },
+  "simulationError": "Error durante la simulación: ",
+  "@simulationError": {
+    "description": "Error message shown during simulation"
+  },
+  "totalQuestionsLabel": "Preguntas Totales",
+  "@totalQuestionsLabel": {
+    "description": "Label for total questions count in stats"
+  },
+  "percentPrefix": "%",
+  "@percentPrefix": {
+    "description": "Prefix for percentage values"
+  },
+  
+  "errorLoadingCamp": "Error al cargar los datos del campamento: ",
+  "@errorLoadingCamp": {
+    "description": "Error message when camp data fails to load"
+  },
+  "continueToDay": "Día ",
+  "@continueToDay": {
+    "description": "Prefix for continue to day button"
+  },
+  "continueText": " Continuar",
+  "@continueText": {
+    "description": "Suffix for continue to day button"
+  },
+  
+  "aboutProgram": "Acerca del Programa",
+  "@aboutProgram": {
+    "description": "Title for about program section"
+  },
+  "campDescriptionP1": "El programa de Ciudadanía en 10 Días es un campamento intensivo de estudio que te ayuda a prepararte para el examen de ciudadanía de EE. UU. de manera rápida y efectiva. Al trabajar en un tema diferente cada día, cubres todas las áreas del examen con un enfoque sistemático.",
+  "@campDescriptionP1": {
+    "description": "First paragraph of camp description"
+  },
+  "campDescriptionP2": "El programa ofrece un enfoque basado en metas diarias que requiere completar con éxito al menos 8 días. Cada día consta de sesiones de mañana, tarde y noche.",
+  "@campDescriptionP2": {
+    "description": "Second paragraph of camp description"
+  },
+  
+  "tenDayPlan": "Plan de 10 Días",
+  "@tenDayPlan": {
+    "description": "Title for 10-day plan section"
+  },
+  "americanHistoryBasics": "Fundamentos de Historia Americana",
+  "@americanHistoryBasics": {
+    "description": "Title for day 1 content"
+  },
+  "americanGovConstitution": "Gobierno Americano y Constitución",
+  "@americanGovConstitution": {
+    "description": "Title for day 2 content"
+  },
+  "rightsResponsibilities": "Derechos y Responsabilidades",
+  "@rightsResponsibilities": {
+    "description": "Title for day 3 content"
+  },
+  "politicalSystemParties": "Sistema Político y Partidos",
+  "@politicalSystemParties": {
+    "description": "Title for day 4 content"
+  },
+  "reviewInterim": "Repaso y Evaluación Intermedia",
+  "@reviewInterim": {
+    "description": "Title for day 5 content"
+  },
+  "showAllPlan": "Ver Plan Completo",
+  "@showAllPlan": {
+    "description": "Button text to show full plan"
+  },
+  
+  "benefits": "Beneficios",
+  "@benefits": {
+    "description": "Title for benefits section"
+  },
+  "fastProgress": "Progreso Rápido",
+  "@fastProgress": {
+    "description": "Title for fast progress benefit"
+  },
+  "fastProgressDesc": "Aprendizaje sistemático en solo 10 días",
+  "@fastProgressDesc": {
+    "description": "Description for fast progress benefit"
+  },
+  "comprehensiveContent": "Contenido Integral",
+  "@comprehensiveContent": {
+    "description": "Title for comprehensive content benefit"
+  },
+  "comprehensiveContentDesc": "Cubre todas las áreas temáticas del examen de ciudadanía",
+  "@comprehensiveContentDesc": {
+    "description": "Description for comprehensive content benefit"
+  },
+  "badgesCertificates": "Insignias y Certificados",
+  "@badgesCertificates": {
+    "description": "Title for badges and certificates benefit"
+  },
+  "badgesCertificatesDesc": "Formas tangibles de mostrar tu progreso",
+  "@badgesCertificatesDesc": {
+    "description": "Description for badges and certificates benefit"
+  },
+  "progressTracking": "Seguimiento del Progreso",
+  "@progressTracking": {
+    "description": "Title for progress tracking benefit"
+  },
+  "progressTrackingDesc": "Ve tu desarrollo diariamente",
+  "@progressTrackingDesc": {
+    "description": "Description for progress tracking benefit"
+  },
+  
+  "continueCamp": "Continuar Campamento",
+  "@continueCamp": {
+    "description": "Button text to continue camp"
+  },
+  "startCamp": "Iniciar Campamento",
+  "@startCamp": {
+    "description": "Button text to start camp"
+  },
+  "viewProgress": "Ver Progreso",
+  "@viewProgress": {
+    "description": "Button text to view progress"
+  },
+  "resetCamp": "Reiniciar Campamento",
+  "@resetCamp": {
+    "description": "Button text to reset camp"
+  },
+  
+  "tenDayCampPlan": "Plan de Campamento de 10 Días",
+  "@tenDayCampPlan": {
+    "description": "Title for 10-day camp plan details"
+  },
+  "dailyFocusDesc": "Concéntrate en un tema diferente cada día para aprender sistemáticamente toda la información necesaria para el examen de ciudadanía.",
+  "@dailyFocusDesc": {
+    "description": "Description for daily focus approach"
+  },
+  "questionsTargetDifficulty": " preguntas | Objetivo: ",
+  "@questionsTargetDifficulty": {
+    "description": "Format for displaying questions, target, and difficulty"
+  },
+  "correctAnswerText": " correctas | ",
+  "@correctAnswerText": {
+    "description": "Text format for correct answers"
+  },
+  
+  "startNewCampTitle": "Iniciar Nuevo Campamento",
+  "@startNewCampTitle": {
+    "description": "Title for start new camp dialog"
+  },
+  "startNewCampContent": "Estás a punto de comenzar el campamento de ciudadanía de 10 días. Se recomienda estudio regular diario. ¿Quieres comenzar?",
+  "@startNewCampContent": {
+    "description": "Content for start new camp dialog"
+  },
+  "cancelButtonText": "Cancelar",
+  "@cancelButtonText": {
+    "description": "Text for cancel button"
+  },
+  "startButtonText": "Iniciar",
+  "@startButtonText": {
+    "description": "Text for start button"
+  },
+  "errorText": "Error: ",
+  "@errorText": {
+    "description": "Prefix for error messages"
+  },
+  
+  "resetCampTitle": "Reiniciar Campamento",
+  "@resetCampTitle": {
+    "description": "Title for reset camp dialog"
+  },
+  "resetCampWarning": "¡Advertencia! Esta acción borrará completamente tu progreso actual del campamento y tendrás que comenzar desde el principio. Esta acción no se puede deshacer. ¿Quieres continuar?",
+  "@resetCampWarning": {
+    "description": "Warning message for reset camp dialog"
+  },
+  "resetButtonText": "Reiniciar",
+  "@resetButtonText": {
+    "description": "Text for reset button"
+  },
+  "campResetConfirmation": "El campamento ha sido reiniciado",
+  "@campResetConfirmation": {
+    "description": "Confirmation message when camp is reset"
+  },
+  
+  "campStartError": "Error al iniciar el campamento: ",
+  "@campStartError": {
+    "description": "Prefix for camp start error message"
+  },
+  
+  "campProgressTitle": "Progreso del Campamento",
+  "@campProgressTitle": {
+    "description": "Título para la pantalla de progreso del campamento"
+  },
+  
+  "refreshTooltip": "Actualizar datos de progreso",
+  "@refreshTooltip": {
+    "description": "Información sobre herramientas para el botón de actualizar progreso"
+  },
+  
+  "refreshingMessage": "Actualizando datos...",
+  "@refreshingMessage": {
+    "description": "Mensaje mostrado cuando se están actualizando los datos"
+  },
+  
+  "overviewTabTitle": "Resumen",
+  "@overviewTabTitle": {
+    "description": "Título para la pestaña de resumen"
+  },
+  
+  "daysTabTitle": "Días",
+  "@daysTabTitle": {
+    "description": "Título para la pestaña de días"
+  },
+  
+  "badgesTabTitle": "Insignias",
+  "@badgesTabTitle": {
+    "description": "Título para la pestaña de insignias"
+  },
+  
+  "errorNoActiveProgress": "No se encontró ningún campamento activo",
+  "@errorNoActiveProgress": {
+    "description": "Mensaje de error cuando no se encuentra ningún campamento activo"
+  },
+  
+  "errorLoadingData": "Error al cargar datos: ",
+  "@errorLoadingData": {
+    "description": "Mensaje de error cuando falla la carga de datos"
+  },
+  
+  "performanceByDay": "Rendimiento por Día",
+  "@performanceByDay": {
+    "description": "Título para la sección de rendimiento por día"
+  },
+  
+  "strengthsWeaknesses": "Fortalezas y Debilidades",
+  "@strengthsWeaknesses": {
+    "description": "Título para la sección de fortalezas y debilidades"
+  },
+  
+  "campProgress": "Progreso del Campamento",
+  "@campProgress": {
+    "description": "Etiqueta para el progreso del campamento"
+  },
+  
+  "startDate": "Fecha de Inicio",
+  "@startDate": {
+    "description": "Etiqueta para la fecha de inicio del campamento"
+  },
+  
+  "completedDay": "Días Completados",
+  "@completedDay": {
+    "description": "Etiqueta para el recuento de días completados"
+  },
+  
+  "totalSuccess": "Éxito Total",
+  "@totalSuccess": {
+    "description": "Etiqueta para la tasa de éxito total"
+  },
+  
+  "generalProgress": "Progreso General",
+  "@generalProgress": {
+    "description": "Título para la sección de progreso general"
+  },
+  
+  "dayZero": "0 días",
+  "@dayZero": {
+    "description": "Texto para cero días"
+  },
+  
+  "day": " día",
+  "@day": {
+    "description": "Texto para la unidad de día"
+  },
+  
+  "congratsComplete": "¡Felicidades! Has completado el campamento.",
+  "@congratsComplete": {
+    "description": "Mensaje de felicitación por completar el campamento"
+  },
+  
+  "minCompletionDaysText": "Necesitas completar con éxito al menos ",
+  "@minCompletionDaysText": {
+    "description": "Primera parte del mensaje de días mínimos de finalización"
+  },
+  
+  "minCompletionDaysText2": " días para completar el campamento.",
+  "@minCompletionDaysText2": {
+    "description": "Segunda parte del mensaje de días mínimos de finalización"
+  },
+  
+  "strengthsWeaknessesTitle": "Fortalezas y Debilidades",
+  "@strengthsWeaknessesTitle": {
+    "description": "Título para la sección de fortalezas y debilidades"
+  },
+  
+  "notEnoughData": "Aún no hay suficientes datos. Completa más días para ver un análisis detallado.",
+  "@notEnoughData": {
+    "description": "Mensaje cuando no hay suficientes datos disponibles para el análisis"
+  },
+  
+  "extraStudySuggestions": "Sugerencias de Estudio Adicional",
+  "@extraStudySuggestions": {
+    "description": "Título para la sección de sugerencias de estudio adicional"
+  },
+  
+  "studySuggestionsMessage": "Las sugerencias de estudio se mostrarán aquí",
+  "@studySuggestionsMessage": {
+    "description": "Mensaje de marcador de posición para sugerencias de estudio"
+  },
+  
+  "struggleRateText": "% tasa de dificultad",
+  "@struggleRateText": {
+    "description": "Texto para el porcentaje de la tasa de dificultad"
+  },
+  
+  "congratsTitle": "¡Felicidades!",
+  "@congratsTitle": {
+    "description": "Título para el mensaje de felicitación"
+  },
+  
+  "campCompletionText": "Has completado con éxito el programa del campamento de ciudadanía.",
+  "@campCompletionText": {
+    "description": "Texto para el mensaje de finalización del campamento"
+  },
+  
+  "downloadCertificate": "Descarga Tu Certificado",
+  "@downloadCertificate": {
+    "description": "Texto del botón para descargar certificado"
+  },
+  
+  "downloadingCertificateMessage": "Descargando certificado",
+  "@downloadingCertificateMessage": {
+    "description": "Mensaje mostrado cuando se está descargando el certificado"
+  },
+  
+  "tenDayCampCalendar": "Calendario del Campamento de 10 Días",
+  "@tenDayCampCalendar": {
+    "description": "Título para el calendario del campamento de 10 días"
+  },
+  
+  "dailySummary": "Resumen Diario",
+  "@dailySummary": {
+    "description": "Título para la sección de resumen diario"
+  },
+  
+  "correctAnswers": "Correctas: ",
+  "@correctAnswers": {
+    "description": "Etiqueta para el recuento de respuestas correctas"
+  },
+  
+  "successRate": "% de éxito",
+  "@successRate": {
+    "description": "Texto para el porcentaje de tasa de éxito"
+  },
+  
+  "badgeGallery": "Galería de Insignias",
+  "@badgeGallery": {
+    "description": "Título para la galería de insignias"
+  },
+  
+  "earnedBadges": "Ganadas",
+  "@earnedBadges": {
+    "description": "Etiqueta para insignias ganadas"
+  },
+  
+  "remainingBadges": "Restantes",
+  "@remainingBadges": {
+    "description": "Etiqueta para insignias restantes"
+  },
+  
+  "completionRate": "Finalización",
+  "@completionRate": {
+    "description": "Etiqueta para la tasa de finalización"
+  },
+  
+  "specialBadges": "Insignias Especiales",
+  "@specialBadges": {
+    "description": "Título para la sección de insignias especiales"
+  },
+  
+  "dayCompletionBadges": "Insignias por Día Completado",
+  "@dayCompletionBadges": {
+    "description": "Título para la sección de insignias por día completado"
+  },
+  
+  "perfectDayBadges": "Insignias por Día Perfecto",
+  "@perfectDayBadges": {
+    "description": "Título para la sección de insignias por día perfecto"
+  },
+  
+  "dayBadgeTemplate": "Insignia del Día {number}",
+  "@dayBadgeTemplate": {
+    "description": "Plantilla para el título de la insignia del día",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  
+  "badgeNotEarned": "Aún no ganada",
+  "@badgeNotEarned": {
+    "description": "Texto mostrado cuando la insignia no se ha ganado"
+  },
+  
+  "dayTextPrefix": "Día ",
+  "@dayTextPrefix": {
+    "description": "Prefijo para el texto del día"
+  },
+  
+  "noCampStarted": "Ningún campamento iniciado aún",
+  "@noCampStarted": {
+    "description": "Mensaje cuando ningún campamento ha sido iniciado"
+  },
+  
+  "trackProgressText": "Inicia el campamento de 10 días para seguir tu progreso",
+  "@trackProgressText": {
+    "description": "Texto que incita al usuario a iniciar el campamento"
+  },
+  
+  "startCamp": "Iniciar Campamento",
+  "@startCamp": {
+    "description": "Texto del botón para iniciar campamento"
+  },
+  
+  "errorInitialization": "Se produjo un error durante la preparación: ",
+  "@errorInitialization": {
+    "description": "Error message shown during initialization"
+  },
+  
+  "noQuestionsFound": "No se encontraron suficientes preguntas. Por favor, inténtalo más tarde.",
+  "@noQuestionsFound": {
+    "description": "Message shown when not enough questions are available"
+  },
+  
+  "questionsCount": "Esta actividad contiene ",
+  "@questionsCount": {
+    "description": "Prefix for displaying question count"
+  },
+  
+  "questionsSuffix": " preguntas.",
+  "@questionsSuffix": {
+    "description": "Suffix for displaying question count"
+  },
+  
+  "prototypeNote": "Nota: Esta función está actualmente en fase de prototipo. Se proporcionan dos opciones:",
+  "@prototypeNote": {
+    "description": "Note about prototype feature status"
+  },
+  
+  "option1": "1. Haz clic en 'Iniciar Cuestionario' para ver las preguntas reales.",
+  "@option1": {
+    "description": "First option description"
+  },
+  
+  "option2": "2. Haz clic en 'Simular' para simular sin ver las preguntas.",
+  "@option2": {
+    "description": "Second option description"
+  },
+  
+  "startQuiz": "Iniciar Cuestionario",
+  "@startQuiz": {
+    "description": "Button text to start a quiz"
+  },
+  
+  "simulate": "Simular",
+  "@simulate": {
+    "description": "Button text to simulate activity"
+  },
+  
+  "cancel": "Cancelar",
+  "@cancel": {
+    "description": "Button text to cancel action"
+  },
+  
+  "campQuestionsError": "No se pudieron recuperar las preguntas del campamento: ",
+  "@campQuestionsError": {
+    "description": "Error message when camp questions cannot be retrieved"
+  },
+  
+  "randomQuestionsError": "No se pudieron recuperar preguntas aleatorias: ",
+  "@randomQuestionsError": {
+    "description": "Error message when random questions cannot be retrieved"
+  },
+  
+  "activityCompleted": "Actividad completada: Día=",
+  "@activityCompleted": {
+    "description": "Message prefix for completed activity"
+  },
+  
+  "activityCompletedTitle": ", Título=",
+  "@activityCompletedTitle": {
+    "description": "Message component for activity title"
+  },
+  
+  "activityCompletedCorrect": ", Correctas=",
+  "@activityCompletedCorrect": {
+    "description": "Message component for correct answers"
+  },
+  
+  "progressUpdateError": "Error al actualizar el progreso: ",
+  "@progressUpdateError": {
+    "description": "Error message for progress update failure"
+  },
+  
+  "simulatedActivityCompleted": "Actividad simulada completada: Día=",
+  "@simulatedActivityCompleted": {
+    "description": "Message for simulated activity completion"
+  },
+  
+  "activityCompletionError": "Error al completar la actividad: ",
+  "@activityCompletionError": {
+    "description": "Error message for activity completion failure"
+  },
+  
+  "simulationCompletionError": "Error al completar la simulación: ",
+  "@simulationCompletionError": {
+    "description": "Error message for simulation completion failure"
+  },
+  
+  "quizCompleted": "Cuestionario Completado",
+  "@quizCompleted": {
+    "description": "Title for quiz completion dialog"
+  },
+  
+  "congratulations": "¡Felicitaciones! ",
+  "@congratulations": {
+    "description": "Congratulatory message prefix"
+  },
+  
+  "correctQuestions": " preguntas correctas.",
+  "@correctQuestions": {
+    "description": "Text showing number of correct questions"
+  },
+  
+  "successRate": "Tasa de éxito: %",
+  "@successRate": {
+    "description": "Label for success rate percentage"
+  },
+  
+  "ok": "Aceptar",
+  "@ok": {
+    "description": "Button text for acknowledgment"
+  },
+  
+  "goBack": "Volver",
+  "@goBack": {
+    "description": "Button text to return to previous screen"
+  },
+  
+  "tryAgain": "Intentar de Nuevo",
+  "@tryAgain": {
+    "description": "Button text to retry an action"
+  },
+  
+  "savingProgress": "Guardando progreso...",
+  "@savingProgress": {
+    "description": "Message shown when progress is being saved"
+  },
+  
+  "kServiceNotInitialized": "Servicio de campamento no inicializado. Llame primero al método initialize().",
+  "@kServiceNotInitialized": {
+    "description": "Error message when camp service is not initialized"
+  },
+  "kServiceInitError": "Error al inicializar el servicio de campamento:",
+  "@kServiceInitError": {
+    "description": "Error message prefix when initializing camp service"
+  },
+  "kCampNotStarted": "Campamento no iniciado o servicio no inicializado.",
+  "@kCampNotStarted": {
+    "description": "Error message when camp is not started"
+  },
+  "kHalfwayTitle": "A Mitad de Camino",
+  "@kHalfwayTitle": {
+    "description": "Title for halfway completion badge"
+  },
+  "kHalfwayDesc": "¡Has completado con éxito la mitad del campamento!",
+  "@kHalfwayDesc": {
+    "description": "Description for halfway completion badge"
+  },
+  "kCampCompletedTitle": "Campamento Completado",
+  "@kCampCompletedTitle": {
+    "description": "Title for camp completion badge"
+  },
+  "kCampCompletedDesc": "¡Felicitaciones! Has completado con éxito el Campamento de Ciudadanía de 10 días.",
+  "@kCampCompletedDesc": {
+    "description": "Description for camp completion badge"
+  },
+  "kPerfectCampTitle": "Campamento Perfecto",
+  "@kPerfectCampTitle": {
+    "description": "Title for perfect camp badge"
+  },
+  "kPerfectCampDesc": "¡Increíble! Has completado con éxito los 10 días del campamento.",
+  "@kPerfectCampDesc": {
+    "description": "Description for perfect camp badge"
+  },
+  "kSyncProgressError": "Error al sincronizar el progreso y el estado de las actividades:",
+  "@kSyncProgressError": {
+    "description": "Error message when synchronizing progress fails"
+  },
+  "kUpdateActivityError": "Error al actualizar el estado de finalización de la actividad:",
+  "@kUpdateActivityError": {
+    "description": "Error message when updating activity status fails"
+  },
+  "kDayUnlocked": "Día {number} desbloqueado",
+  "@kDayUnlocked": {
+    "description": "Message when a day is unlocked",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "kDayCompletedTitle": "Día {number} Completado",
+  "@kDayCompletedTitle": {
+    "description": "Title for day completion badge",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "kDayCompletedDesc": "¡Has completado con éxito el estudio del día {number}!",
+  "@kDayCompletedDesc": {
+    "description": "Description for day completion badge",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "kPerfectDayTitle": "Día {number} Perfecto",
+  "@kPerfectDayTitle": {
+    "description": "Title for perfect day badge",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "4"
+      }
+    }
+  },
+  "kPerfectDayDesc": "¡Respondiste correctamente todas las preguntas del día {number}!",
+  "@kPerfectDayDesc": {
+    "description": "Description for perfect day badge",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "4"
+      }
+    }
+  },
+  "kDayNotFound": "Día {number} no encontrado",
+  "@kDayNotFound": {
+    "description": "Error message when day is not found",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "kActivityNotFound": "Actividad con título \"{title}\" no encontrada.",
+  "@kActivityNotFound": {
+    "description": "Error message when activity is not found",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Morning Quiz"
+      }
+    }
+  },
+  "kAllActivitiesCompleted": "¡Todas las actividades para el Día {number} completadas!",
+  "@kAllActivitiesCompleted": {
+    "description": "Message when all activities for a day are completed",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "6"
+      }
+    }
+  },
+  "kCompletingDayFromActivities": "Todas las actividades completadas, iniciando la finalización del día: Día={number}, Puntuación Calculada={score}",
+  "@kCompletingDayFromActivities": {
+    "description": "Debug message when completing day from activities",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "7"
+      },
+      "score": {
+        "type": "int",
+        "example": "85"
+      }
+    }
+  },
+
+  "onboardingTitle1": "Bienvenido al Examen de Ciudadanía de EE. UU.",
+  "@onboardingTitle1": {
+    "description": "Title for first onboarding screen"
+  },
+  "onboardingDesc1": "Prepárate para tu examen de ciudadanía estadounidense con materiales de estudio completos y exámenes de práctica.",
+  "@onboardingDesc1": {
+    "description": "Description for first onboarding screen"
+  },
+  
+  "onboardingTitle2": "Modo Campamento de 10 Días",
+  "@onboardingTitle2": {
+    "description": "Title for second onboarding screen"
+  },
+  "onboardingDesc2": "Sigue nuestro programa estructurado de campamento de 10 días diseñado para maximizar tu aprendizaje en poco tiempo.",
+  "@onboardingDesc2": {
+    "description": "Description for second onboarding screen"
+  },
+  
+  "onboardingTitle3": "Pruebas y Simulaciones",
+  "@onboardingTitle3": {
+    "description": "Title for third onboarding screen"
+  },
+  "onboardingDesc3": "Pon a prueba tus conocimientos con simulaciones de exámenes reales y haz un seguimiento de tu progreso mientras aprendes.",
+  "@onboardingDesc3": {
+    "description": "Description for third onboarding screen"
+  },
+  
+  "onboardingTitle4": "Soporte Multilingüe",
+  "@onboardingTitle4": {
+    "description": "Title for fourth onboarding screen"
+  },
+  "onboardingDesc4": "Estudia en inglés, español o turco - elige el idioma que te ayude a aprender mejor.",
+  "@onboardingDesc4": {
+    "description": "Description for fourth onboarding screen"
+  },
+  
+  "skip": "Omitir",
+  "@skip": {
+    "description": "Text for skip button in onboarding"
+  },
+  "next": "Siguiente",
+  "@next": {
+    "description": "Text for next button in onboarding"
+  },
+  "getStarted": "Comenzar",
+  "@getStarted": {
+    "description": "Text for get started button in onboarding"
+  },
+  
+  "campTitle": "Ciudadanía en 10 Días",
+  "campDescription": "Programa intensivo de estudio para prepararse para el examen de ciudadanía de EE. UU. en 10 días",
+  
+  "badgeDayComplete": "Día completado",
+  "badgePerfectDay": "Día perfecto: éxito del 100%",
+  "badgeHalfway": "Has completado la mitad del camino",
+  "badgeCampComplete": "Campamento completado",
+  "badgePerfectCamp": "Campamento perfecto: 10/10 días",
+  
+  "difficultyBeginner": "Principiante",
+  "difficultyIntermediate": "Intermedio",
+  "difficultyAdvanced": "Avanzado",
+  "difficultyBeginnerIntermediate": "Principiante-Intermedio",
+  "difficultyIntermediateAdvanced": "Intermedio-Avanzado",
+  
+  "periodMorning": "Mañana",
+  "periodNoon": "Mediodía",
+  "periodEvening": "Tarde",
+  
+  "day1Title": "Fundamentos de la Historia Americana",
+  "day1Description": "De colonias a independencia, Guerra Civil y eventos históricos clave",
+  "day1Activity1Title": "Fundamentos de Historia",
+  "day1Activity1Description": "Fundación de América y primeros años",
+  "day1Activity2Title": "Práctica de Opción Múltiple",
+  "day1Activity2Description": "Revolución Americana y desarrollo Constitucional",
+  "day1Activity3Title": "Repaso Comprensivo",
+  "day1Activity3Description": "Resumen de eventos históricos clave",
+  
+  "day2Title": "Gobierno Americano y Constitución",
+  "day2Description": "Constitución, enmiendas, estructura del sistema federal",
+  "day2Activity1Title": "Artículos de la Constitución",
+  "day2Activity1Description": "Artículos básicos y estructura de la Constitución",
+  "day2Activity2Title": "Ramas del Gobierno",
+  "day2Activity2Description": "Legislativo, ejecutivo y judicial",
+  "day2Activity3Title": "Controles y Equilibrios",
+  "day2Activity3Description": "Sistema de control entre ramas del gobierno",
+  
+  "day3Title": "Derechos y Responsabilidades",
+  "day3Description": "Derechos de ciudadanía, responsabilidades y deberes",
+  "day3Activity1Title": "Derechos Básicos",
+  "day3Activity1Description": "Derechos constitucionales y protecciones",
+  "day3Activity2Title": "Responsabilidades de Ciudadanía",
+  "day3Activity2Description": "Deberes de los ciudadanos americanos",
+  "day3Activity3Title": "Aplicaciones de Escenarios",
+  "day3Activity3Description": "Derechos y responsabilidades en situaciones de la vida real",
+  
+  "day4Title": "Sistema Político y Partidos",
+  "day4Description": "Partidos políticos, sistema electoral, participación política",
+  "day4Activity1Title": "Sistema Político",
+  "day4Activity1Description": "Fundamentos del sistema político americano",
+  "day4Activity2Title": "Proceso Electoral",
+  "day4Activity2Description": "Elecciones y votación en América",
+  "day4Activity3Title": "Estructura Política Actual",
+  "day4Activity3Description": "Partidos políticos actuales y líderes",
+  
+  "day5Title": "Repaso y Evaluación Intermedia",
+  "day5Description": "Repaso completo y evaluación de los primeros 4 días",
+  "day5Activity1Title": "Repaso de Historia y Constitución",
+  "day5Activity1Description": "Repaso y aplicación de temas de los días 1-2",
+  "day5Activity2Title": "Repaso de Derechos y Sistema Político",
+  "day5Activity2Description": "Repaso y aplicación de temas de los días 3-4",
+  "day5Activity3Title": "Repaso de Áreas Débiles",
+  "day5Activity3Description": "Identificación y estudio de áreas que necesitan mejora",
+  
+  "day6Title": "Gobiernos Estatales y Locales",
+  "day6Description": "Gobiernos estatales, estructura administrativa local, relaciones estado-federal",
+  "day6Activity1Title": "Gobiernos Estatales",
+  "day6Activity1Description": "Estructura estatal y roles en el sistema federal",
+  "day6Activity2Title": "Gobiernos Locales",
+  "day6Activity2Description": "Niveles de gobierno local y funciones",
+  "day6Activity3Title": "Aplicación Integrada",
+  "day6Activity3Description": "Relaciones y roles entre niveles de gobierno",
+  
+  "day7Title": "Símbolos y Días Festivos Americanos",
+  "day7Description": "Símbolos nacionales, días festivos, monumentos importantes",
+  "day7Activity1Title": "Símbolos Nacionales",
+  "day7Activity1Description": "Bandera americana, himno nacional y otros símbolos",
+  "day7Activity2Title": "Días Festivos Oficiales",
+  "day7Activity2Description": "Días festivos federales y sus significados",
+  "day7Activity3Title": "Monumentos Importantes",
+  "day7Activity3Description": "Monumentos históricos y significado nacional",
+  
+  "day8Title": "Líderes Americanos Actuales",
+  "day8Description": "Presidente actual, gabinete, líderes del Congreso, Corte Suprema",
+  "day8Activity1Title": "Poder Ejecutivo",
+  "day8Activity1Description": "Presidente, Vicepresidente y Gabinete",
+  "day8Activity2Title": "Poder Legislativo",
+  "day8Activity2Description": "Estructura del Congreso y posiciones importantes",
+  "day8Activity3Title": "Poder Judicial",
+  "day8Activity3Description": "Corte Suprema y sistema judicial federal",
+  
+  "day9Title": "Geografía y Estados",
+  "day9Description": "Geografía americana, estados, capitales, regiones",
+  "day9Activity1Title": "Regiones Geográficas",
+  "day9Activity1Description": "Regiones geográficas de EE. UU. y sus características",
+  "day9Activity2Title": "Estados y Capitales",
+  "day9Activity2Description": "Estados, capitales y características básicas",
+  "day9Activity3Title": "Características Geográficas Importantes",
+  "day9Activity3Description": "Grandes ríos, lagos, montañas y otras características",
+  
+  "day10Title": "Examen Práctico Final",
+  "day10Description": "Aplicación completa de todos los temas y examen simulado",
+  "day10Activity1Title": "Examen Simulado 1",
+  "day10Activity1Description": "Primer intento en formato de examen real",
+  "day10Activity2Title": "Evaluación y Repaso",
+  "day10Activity2Description": "Identificación y estudio de áreas débiles",
+  "day10Activity3Title": "Examen Simulado 2",
+  "day10Activity3Description": "Segundo intento en formato de examen real",
+
+  "campTitle": "Ciudadanía en 10 Días",
+  "campDescription": "Programa intensivo de 10 días para prepararse para el Examen de Ciudadanía Estadounidense",
+
+  "badgeDayComplete": "Día completado",
+  "badgePerfectDay": "Día perfecto: 100% de éxito",
+  "badgeHalfway": "Has completado la mitad del camino",
+  "badgeCampComplete": "Campamento completado",
+  "badgePerfectCamp": "Campamento perfecto: 10/10 días",
+
+  "difficultyBeginner": "Principiante",
+  "difficultyIntermediate": "Intermedio",
+  "difficultyAdvanced": "Avanzado",
+  "difficultyBeginnerIntermediate": "Principiante-Intermedio",
+  "difficultyIntermediateAdvanced": "Intermedio-Avanzado",
+
+  "periodMorning": "Mañana",
+  "periodNoon": "Mediodía",
+  "periodEvening": "Tarde",
+
+  "day1Title": "Fundamentos de la Historia Americana",
+  "day1Description": "Desde las colonias hasta la independencia, la Guerra Civil y eventos históricos importantes",
+  "day1Activity1Title": "Fundamentos de Historia",
+  "day1Activity1Description": "La fundación de América y sus primeros años",
+  "day1Activity2Title": "Práctica de Opción Múltiple",
+  "day1Activity2Description": "La Revolución Americana y el desarrollo constitucional",
+  "day1Activity3Title": "Repaso Completo",
+  "day1Activity3Description": "Resumen de eventos históricos importantes",
+
+  "day2Title": "Gobierno y Constitución de EE.UU.",
+  "day2Description": "Constitución, enmiendas, estructura del sistema federal",
+  "day2Activity1Title": "Artículos de la Constitución",
+  "day2Activity1Description": "Artículos y estructura básica de la Constitución",
+  "day2Activity2Title": "Ramas del Gobierno",
+  "day2Activity2Description": "Legislativo, ejecutivo y judicial",
+  "day2Activity3Title": "Controles y Equilibrios",
+  "day2Activity3Description": "Sistema de control entre las ramas del gobierno",
+
+  "day3Title": "Derechos y Responsabilidades",
+  "day3Description": "Derechos ciudadanos, responsabilidades y deberes",
+  "day3Activity1Title": "Derechos Básicos",
+  "day3Activity1Description": "Derechos constitucionales y sus protecciones",
+  "day3Activity2Title": "Responsabilidades Ciudadanas",
+  "day3Activity2Description": "Deberes de los ciudadanos estadounidenses",
+  "day3Activity3Title": "Aplicaciones con Escenarios",
+  "day3Activity3Description": "Derechos y responsabilidades en situaciones de la vida real",
+
+  "day4Title": "Sistema Político y Partidos",
+  "day4Description": "Partidos políticos, sistema electoral, participación política",
+  "day4Activity1Title": "Sistema Político",
+  "day4Activity1Description": "Fundamentos del sistema político estadounidense",
+  "day4Activity2Title": "Proceso Electoral",
+  "day4Activity2Description": "Elecciones y votación en Estados Unidos",
+  "day4Activity3Title": "Estructura Política Actual",
+  "day4Activity3Description": "Partidos políticos y líderes actuales",
+
+  "day5Title": "Repaso y Evaluación Intermedia",
+  "day5Description": "Repaso y evaluación integral de los primeros 4 días",
+  "day5Activity1Title": "Repaso de Historia y Constitución",
+  "day5Activity1Description": "Repaso y práctica de los temas de los días 1-2",
+  "day5Activity2Title": "Repaso de Derechos y Sistema Político",
+  "day5Activity2Description": "Repaso y práctica de los temas de los días 3-4",
+  "day5Activity3Title": "Repaso de Áreas Débiles",
+  "day5Activity3Description": "Identificación y estudio de áreas débiles",
+
+  "day6Title": "Gobiernos Estatales y Locales",
+  "day6Description": "Gobiernos estatales, estructura de administración local, relaciones estado-federal",
+  "day6Activity1Title": "Gobiernos Estatales",
+  "day6Activity1Description": "Estructura estatal y sus roles en el sistema federal",
+  "day6Activity2Title": "Gobiernos Locales",
+  "day6Activity2Description": "Niveles de gobierno local y sus funciones",
+  "day6Activity3Title": "Aplicación Integrada",
+  "day6Activity3Description": "Relaciones y roles entre niveles de gobierno",
+
+  "day7Title": "Símbolos y Festividades Americanas",
+  "day7Description": "Símbolos nacionales, días festivos, monumentos importantes",
+  "day7Activity1Title": "Símbolos Nacionales",
+  "day7Activity1Description": "Bandera estadounidense, himno nacional y otros símbolos",
+  "day7Activity2Title": "Días Festivos Oficiales",
+  "day7Activity2Description": "Festividades federales y sus significados",
+  "day7Activity3Title": "Monumentos Importantes",
+  "day7Activity3Description": "Monumentos históricos y su importancia nacional",
+
+  "day8Title": "Líderes Americanos Actuales",
+  "day8Description": "Presidente actual, gabinete, líderes del Congreso, Tribunal Supremo",
+  "day8Activity1Title": "Poder Ejecutivo",
+  "day8Activity1Description": "Presidente, Vicepresidente y Gabinete",
+  "day8Activity2Title": "Poder Legislativo",
+  "day8Activity2Description": "Estructura del Congreso y posiciones importantes",
+  "day8Activity3Title": "Poder Judicial",
+  "day8Activity3Description": "Tribunal Supremo y sistema judicial federal",
+
+  "day9Title": "Geografía y Estados",
+  "day9Description": "Geografía de Estados Unidos, estados, capitales, regiones",
+  "day9Activity1Title": "Regiones Geográficas",
+  "day9Activity1Description": "Regiones geográficas de EE.UU. y sus características",
+  "day9Activity2Title": "Estados y Capitales",
+  "day9Activity2Description": "Estados, capitales y sus características básicas",
+  "day9Activity3Title": "Formaciones Geográficas Importantes",
+  "day9Activity3Description": "Grandes ríos, lagos, montañas y otras formaciones",
+
+  "day10Title": "Examen de Práctica Final",
+  "day10Description": "Aplicación integral de todos los temas y examen simulado",
+  "day10Activity1Title": "Examen Simulado 1",
+  "day10Activity1Description": "Primer intento en formato de examen real",
+  "day10Activity2Title": "Evaluación y Repaso",
+  "day10Activity2Description": "Identificación y estudio de áreas débiles",
+  "day10Activity3Title": "Examen Simulado 2",
+  "day10Activity3Description": "Segundo intento en formato de examen real",
+
+  "onboardingTitle1": "Bienvenido al Test de Educación Cívica de EE.UU.",
+  "@onboardingTitle1": {
+    "description": "Title for first onboarding screen"
+  },
+  "onboardingDesc1": "Prepárese para su examen de ciudadanía estadounidense con materiales de estudio completos y exámenes de práctica.",
+  "@onboardingDesc1": {
+    "description": "Description for first onboarding screen"
+  },
+  
+  "onboardingTitle2": "Modo Campamento de 10 Días",
+  "@onboardingTitle2": {
+    "description": "Title for second onboarding screen"
+  },
+  "onboardingDesc2": "Siga nuestro programa estructurado de campamento de 10 días diseñado para maximizar su aprendizaje en poco tiempo.",
+  "@onboardingDesc2": {
+    "description": "Description for second onboarding screen"
+  },
+  
+  "onboardingTitle3": "Pruebas de Práctica y Simulaciones",
+  "@onboardingTitle3": {
+    "description": "Title for third onboarding screen"
+  },
+  "onboardingDesc3": "Ponga a prueba sus conocimientos con simulaciones de exámenes reales y realice un seguimiento de su progreso mientras aprende.",
+  "@onboardingDesc3": {
+    "description": "Description for third onboarding screen"
+  },
+  
+  "onboardingTitle4": "Soporte Multilingüe",
+  "@onboardingTitle4": {
+    "description": "Title for fourth onboarding screen"
+  },
+  "onboardingDesc4": "Estudie en inglés, español o turco - elija el idioma que mejor le ayude a aprender.",
+  "@onboardingDesc4": {
+    "description": "Description for fourth onboarding screen"
+  },
+  
+  "skip": "Omitir",
+  "@skip": {
+    "description": "Text for skip button in onboarding"
+  },
+  "next": "Siguiente",
+  "@next": {
+    "description": "Text for next button in onboarding"
+  },
+  "getStarted": "Comenzar",
+  "@getStarted": {
+    "description": "Text for get started button in onboarding"
+  },
+
+  "changeLanguage": "Cambiar idioma",
+  "@changeLanguage": {
+    "description": "Text for language selection button"
   }
 }
+

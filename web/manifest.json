@@ -1,11 +1,11 @@
 {
-    "name": "us_civics_test_app",
-    "short_name": "us_civics_test_app",
+    "name": "US Citizenship Test",
+    "short_name": "US Citizenship",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "US Citizenship Test - Prepare for your naturalization exam with official questions",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

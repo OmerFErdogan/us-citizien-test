@@ -1,10 +1,14 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:us_civics_test_app/features/camp_mode/models/camp_progress.dart';
+import 'package:us_citizenship_test/features/camp_mode/models/camp_progress.dart';
+import 'package:us_citizenship_test/utils/extensions.dart';
 import '../models/camp_day.dart';
 import '../services/camp_service.dart';
 import '../widgets/daily_task_card.dart';
 import 'quiz_selection_launcher.dart';
+import '../../../widgets/camp_paywall.dart';
+
+// Stringler arb dosyalarında tanımlıdır
 
 class CampDayScreen extends StatefulWidget {
   final int dayNumber;
@@ -35,7 +39,7 @@ class _CampDayScreenState extends State<CampDayScreen> {
   }
 
   Future<void> _loadDayData() async {
-    print('_loadDayData çağrıldı - verileri yeniden yüklüyor');
+    print('_loadDayData called - reloading data');
     setState(() {
       _isLoading = true;
       _errorMessage = '';
@@ -44,14 +48,26 @@ class _CampDayScreenState extends State<CampDayScreen> {
     try {
       await _campService.initialize();
       
-      // İlerleme ve aktivite durumlarını senkronize et (eklendi)
+      // Premium durumunu kontrol et
+      final canAccess = await _campService.canAccessDay(widget.dayNumber);
+      
+      if (!canAccess && widget.dayNumber > 2) {
+        // Premium olmayan ve 3. günden sonraki günler için locked screen göster
+        setState(() {
+          _isLoading = false;
+          _isLocked = true;
+        });
+        return;
+      }
+      
+      // İlerleme ve aktivite durumlarını senkronize et
       await _campService.syncProgressWithActivities();
       
       // Günü yükle
       final day = _campService.getDayByNumber(widget.dayNumber);
       
       if (day == null) {
-        throw Exception('Gün bulunamadı');
+        throw Exception(context.l10n.errorDayNotFound);
       }
       
       // Kullanıcı ilerlemesi
@@ -79,9 +95,9 @@ class _CampDayScreenState extends State<CampDayScreen> {
         _successRate = dayProgress?.successRate ?? 0.0;
       });
     } catch (e) {
-      print('Hata: $e'); // Hata log'u
+      print(context.l10n.error + e.toString()); // Hata log'u
       setState(() {
-        _errorMessage = 'Gün yüklenemedi: $e';
+        _errorMessage = context.l10n.errorDayLoading + e.toString();
       });
     } finally {
       setState(() {
@@ -95,8 +111,8 @@ class _CampDayScreenState extends State<CampDayScreen> {
     return Scaffold(
       appBar: AppBar(
         title: _isLoading
-            ? const Text('Gün Yükleniyor...')
-            : Text('Gün ${widget.dayNumber}: ${_errorMessage.isEmpty ? _day.title : ""}'),
+            ? Text(context.l10n.dayLoading)
+            : Text(context.l10n.dayTitle(widget.dayNumber, (_errorMessage.isEmpty ? _day.title : ""))),
         elevation: 0,
       ),
       body: _isLoading
@@ -105,6 +121,20 @@ class _CampDayScreenState extends State<CampDayScreen> {
               ? Center(child: Text(_errorMessage, style: TextStyle(color: Colors.red)))
               : _buildBody(),
     );
+  }
+
+  void _showPaywall() async {
+    final purchased = await showModalBottomSheet<bool>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => const CampPaywall(),
+    );
+    
+    if (purchased == true) {
+      // Premium satın alındıktan sonra gün verilerini yeniden yükle
+      await _loadDayData();
+    }
   }
 
   Widget _buildBody() {
@@ -151,7 +181,7 @@ class _CampDayScreenState extends State<CampDayScreen> {
           ),
           const SizedBox(height: 16),
           Text(
-            'Bu gün henüz kilitli',
+            'Day ${widget.dayNumber} is Locked',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -160,7 +190,9 @@ class _CampDayScreenState extends State<CampDayScreen> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Önceki günü tamamlayarak kilidini açabilirsiniz',
+            widget.dayNumber > 2
+                ? 'Unlock all 10 days with premium features'
+                : context.l10n.unlockInstruction,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,
@@ -168,14 +200,25 @@ class _CampDayScreenState extends State<CampDayScreen> {
             ),
           ),
           const SizedBox(height: 24),
-          ElevatedButton.icon(
-            icon: const Icon(Icons.arrow_back),
-            label: const Text('Önceki Güne Dön'),
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          if (widget.dayNumber > 2)
+            ElevatedButton.icon(
+              icon: const Icon(Icons.star),
+              label: const Text('Unlock for \$1.99'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              ),
+              onPressed: _showPaywall,
+            )
+          else
+            ElevatedButton.icon(
+              icon: const Icon(Icons.arrow_back),
+              label: Text(context.l10n.returnToPreviousDay),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              ),
+              onPressed: () => Navigator.pop(context),
             ),
-            onPressed: () => Navigator.pop(context),
-          ),
         ],
       ),
     );
@@ -207,7 +250,7 @@ class _CampDayScreenState extends State<CampDayScreen> {
                 Container(
                   width: 48,
                   height: 48,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
                   ),
@@ -237,7 +280,7 @@ class _CampDayScreenState extends State<CampDayScreen> {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Zorluk: ${_day.difficulty}',
+                        context.l10n.difficultyLabel + _day.difficulty,
                         style: TextStyle(
                           color: Colors.white.withOpacity(0.9),
                           fontSize: 14,
@@ -261,18 +304,18 @@ class _CampDayScreenState extends State<CampDayScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildHeaderStat(
-                  'Toplam Soru',
+                  context.l10n.totalQuestionsLabel,
                   '${_day.totalQuestions}',
                   Icons.help_outline,
                 ),
                 _buildHeaderStat(
-                  'Hedef',
+                  context.l10n.targetLabel,
                   '${_day.targetCorrect}',
                   Icons.check_circle_outline,
                 ),
                 _buildHeaderStat(
-                  'Başarı Oranı',
-                  '%${(_day.targetSuccessRate * 100).toStringAsFixed(0)}',
+                  context.l10n.successRateLabel,
+                  context.l10n.percentPrefix + '${(_day.targetSuccessRate * 100).toStringAsFixed(0)}',
                   Icons.trending_up,
                 ),
               ],
@@ -323,7 +366,7 @@ class _CampDayScreenState extends State<CampDayScreen> {
                 Icon(Icons.insert_chart, color: Colors.blue.shade700),
                 const SizedBox(width: 8),
                 Text(
-                  'Günlük İlerleme',
+                  context.l10n.dailyProgress,
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -344,7 +387,7 @@ class _CampDayScreenState extends State<CampDayScreen> {
                         Icon(Icons.check_circle, color: Colors.green.shade700, size: 16),
                         const SizedBox(width: 4),
                         Text(
-                          'Tamamlandı',
+                          context.l10n.completedStatus,
                           style: TextStyle(
                             color: Colors.green.shade700,
                             fontWeight: FontWeight.bold,
@@ -361,20 +404,20 @@ class _CampDayScreenState extends State<CampDayScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildProgressStat(
-                  'Doğru',
+                  context.l10n.correctLabelShort,
                   '$_correctAnswers/${_day.totalQuestions}',
                   Icons.check_circle,
                   Colors.green,
                 ),
                 _buildProgressStat(
-                  'Hedef',
+                  context.l10n.targetValueLabel,
                   '${_day.targetCorrect}/${_day.totalQuestions}',
                   Icons.flag,
                   Colors.orange,
                 ),
                 _buildProgressStat(
-                  'Başarı',
-                  '%${(_successRate * 100).toStringAsFixed(0)}',
+                  context.l10n.successLabel,
+                  context.l10n.percentPrefix + '${(_successRate * 100).toStringAsFixed(0)}',
                   Icons.trending_up,
                   _successRate >= _day.targetSuccessRate 
                       ? Colors.green 
@@ -383,9 +426,9 @@ class _CampDayScreenState extends State<CampDayScreen> {
               ],
             ),
             const SizedBox(height: 16),
-            const Text(
-              'İlerleme',
-              style: TextStyle(
+            Text(
+              context.l10n.progressLabel,
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
@@ -403,7 +446,7 @@ class _CampDayScreenState extends State<CampDayScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '0%',
+                  context.l10n.zeroPercent,
                   style: TextStyle(color: Colors.grey[600], fontSize: 12),
                 ),
                 Container(
@@ -419,15 +462,15 @@ class _CampDayScreenState extends State<CampDayScreen> {
                       Positioned(
                         bottom: 0,
                         child: Text(
-                          '%${(_day.targetSuccessRate * 100).toStringAsFixed(0)}',
-                          style: TextStyle(color: Colors.orange, fontSize: 10),
+                          context.l10n.percentPrefix + '${(_day.targetSuccessRate * 100).toStringAsFixed(0)}',
+                          style: const TextStyle(color: Colors.orange, fontSize: 10),
                         ),
                       ),
                     ],
                   ),
                 ),
                 Text(
-                  '100%',
+                  context.l10n.fullPercent,
                   style: TextStyle(color: Colors.grey[600], fontSize: 12),
                 ),
               ],
@@ -469,7 +512,7 @@ class _CampDayScreenState extends State<CampDayScreen> {
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Text(
-            'Günlük Aktiviteler',
+            context.l10n.dailyActivities,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -499,9 +542,9 @@ class _CampDayScreenState extends State<CampDayScreen> {
       children: [
         ElevatedButton.icon(
           icon: const Icon(Icons.view_list),
-          label: const Text(
-            'Tüm Soruları Çöz',
-            style: TextStyle(fontSize: 16),
+          label: Text(
+            context.l10n.solveAllQuestions,
+            style: const TextStyle(fontSize: 16),
           ),
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 16),
@@ -512,9 +555,9 @@ class _CampDayScreenState extends State<CampDayScreen> {
         const SizedBox(height: 16),
         OutlinedButton.icon(
           icon: const Icon(Icons.menu_book),
-          label: const Text(
-            'Çalışma Materyalini Aç',
-            style: TextStyle(fontSize: 16),
+          label: Text(
+            context.l10n.openStudyMaterial,
+            style: const TextStyle(fontSize: 16),
           ),
           style: OutlinedButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 16),
@@ -527,9 +570,9 @@ class _CampDayScreenState extends State<CampDayScreen> {
             padding: const EdgeInsets.only(top: 16.0),
             child: OutlinedButton.icon(
               icon: const Icon(Icons.science, color: Colors.purple),
-              label: const Text(
-                'Günü Test Amaçlı Tamamla',
-                style: TextStyle(color: Colors.purple),
+              label: Text(
+                context.l10n.completeDayForTesting,
+                style: const TextStyle(color: Colors.purple),
               ),
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: Colors.purple),
@@ -548,8 +591,8 @@ class _CampDayScreenState extends State<CampDayScreen> {
                   Icon(Icons.check_circle, color: Colors.green, size: 20),
                   const SizedBox(width: 8),
                   Text(
-                    'Bu günü başarıyla tamamladınız!',
-                    style: TextStyle(
+                    context.l10n.dayCompletedSuccess,
+                    style: const TextStyle(
                       color: Colors.green,
                       fontWeight: FontWeight.bold,
                     ),
@@ -599,8 +642,8 @@ class _CampDayScreenState extends State<CampDayScreen> {
   void _startActivity(CampActivity activity) {
     if (_isCompleted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Bu günü zaten tamamladınız. Yine de pratik yapabilirsiniz.'),
+        SnackBar(
+          content: Text(context.l10n.alreadyCompletedDay),
         ),
       );
     }
@@ -632,7 +675,7 @@ class _CampDayScreenState extends State<CampDayScreen> {
               // Aktivitenin tamamlandığını ve başarı durumunu bildir
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('${activity.title} başarıyla tamamlandı!'),
+                  content: Text(activity.title + context.l10n.activityCompletedSuccess),
                   backgroundColor: Colors.green,
                 ),
               );
@@ -665,18 +708,16 @@ class _CampDayScreenState extends State<CampDayScreen> {
       builder: (context) => AlertDialog(
         title: Row(
           children: [
-            Icon(Icons.check_circle, color: Colors.green),
-            SizedBox(width: 8),
-            Text('Tüm Aktiviteler Tamamlandı!'),
+            const Icon(Icons.check_circle, color: Colors.green),
+            const SizedBox(width: 8),
+            Text(context.l10n.allActivitiesCompleted),
           ],
         ),
-        content: Text(
-          'Tebrikler! Bu günün tüm aktivitelerini tamamladınız. Günü tamamlamak ve bir sonraki günün kilidini açmak ister misiniz?'
-        ),
+        content: Text(context.l10n.allActivitiesCompletedMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Daha Sonra'),
+            child: Text(context.l10n.later),
           ),
           ElevatedButton(
             onPressed: () {
@@ -709,7 +750,7 @@ class _CampDayScreenState extends State<CampDayScreen> {
                 _completeDayWithScore(finalScore);
               }
             },
-            child: Text('Günü Tamamla'),
+            child: Text(context.l10n.completeDay),
           ),
         ],
       ),
@@ -721,8 +762,9 @@ class _CampDayScreenState extends State<CampDayScreen> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => QuizSelectionLauncher(
-          title: 'Günlük Test', 
-          description: 'Gün ${_day.dayNumber}: ${_day.title} için kapsamlı test',
+          title: context.l10n.dailyTest, 
+          description: context.l10n.dayTitle(_day.dayNumber, _day.title) + 
+                      context.l10n.dailyTestDescription,
           questionCount: _day.totalQuestions,
           onComplete: (score) async {
             // Quiz tamamlandığında geri dön ve başarı durumunu işle
@@ -733,9 +775,11 @@ class _CampDayScreenState extends State<CampDayScreen> {
               // Hedefi tutturamadıysa bildiri göster
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('Hedef skorun altında kaldınız (${score}/${_day.targetCorrect}). Tekrar deneyebilirsiniz.'),
+                  content: Text(context.l10n.targetNotReached + 
+                               score.toString() + '/' + _day.targetCorrect.toString() + 
+                               context.l10n.targetNotReachedEnd),
                   backgroundColor: Colors.orange,
-                  duration: Duration(seconds: 4),
+                  duration: const Duration(seconds: 4),
                 ),
               );
               
@@ -757,7 +801,8 @@ class _CampDayScreenState extends State<CampDayScreen> {
       
       // Başarı oranını hesapla
       final correctCount = score;
-      print('Gün ${widget.dayNumber} tamamlanıyor, doğru sayısı: $correctCount');
+      print('Day ' + widget.dayNumber.toString() + 
+            ' completing, correct count: ' + correctCount.toString());
       
       // Zorlanılan konuları belirle (kategorilere göre)
       // Gerçek uygulamada burada quiz sonucu verilerinden kategorilere göre analiz yapılır
@@ -776,7 +821,8 @@ class _CampDayScreenState extends State<CampDayScreen> {
         strugglingTopics.toSet().toList(), // Tekrar edenleri filtrele
       );
       
-      print('Gün ${widget.dayNumber} tamamlandı, başarı: $success');
+      print('Day ' + widget.dayNumber.toString() + 
+            ' completed, success: ' + success.toString());
       
       // Günün durumunu yeniden yükle
       await _loadDayData();
@@ -790,11 +836,11 @@ class _CampDayScreenState extends State<CampDayScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(success 
-              ? 'Gün başarıyla tamamlandı!' 
-              : 'Gün tamamlandı, ancak hedefin altında kaldınız.'),
+              ? context.l10n.dayCompletedSuccessfully 
+              : context.l10n.dayCompletedBelowTarget),
           backgroundColor: success ? Colors.green : Colors.orange,
           action: isNextDayUnlocked ? SnackBarAction(
-            label: '$nextDayNumber. Güne Git',
+            label: context.l10n.goToNextDay + nextDayNumber.toString(),
             onPressed: () {
               // Bir sonraki güne git
               Navigator.pushReplacement(
@@ -828,9 +874,9 @@ class _CampDayScreenState extends State<CampDayScreen> {
         }
       }
     } catch (e) {
-      print('Hata: $e');
+      print(context.l10n.error + e.toString());
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Hata: $e')),
+        SnackBar(content: Text(context.l10n.error + e.toString())),
       );
     } finally {
       setState(() {
@@ -845,9 +891,9 @@ class _CampDayScreenState extends State<CampDayScreen> {
       builder: (context) => AlertDialog(
         title: Row(
           children: [
-            Icon(Icons.emoji_events, color: Colors.amber),
-            SizedBox(width: 8),
-            Text('Yeni Rozet Kazandınız!'),
+            const Icon(Icons.emoji_events, color: Colors.amber),
+            const SizedBox(width: 8),
+            Text(context.l10n.newBadgeEarned),
           ],
         ),
         content: Container(
@@ -858,7 +904,7 @@ class _CampDayScreenState extends State<CampDayScreen> {
             itemBuilder: (context, index) {
               final badge = badges[index];
               return ListTile(
-                leading: Icon(Icons.check_circle, color: Colors.green),
+                leading: const Icon(Icons.check_circle, color: Colors.green),
                 title: Text(badge.title),
                 subtitle: Text(badge.description),
               );
@@ -868,7 +914,7 @@ class _CampDayScreenState extends State<CampDayScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Harika!'),
+            child: Text(context.l10n.great),
           ),
         ],
       ),
@@ -879,7 +925,7 @@ class _CampDayScreenState extends State<CampDayScreen> {
     // Gerçek uygulamada, çalışma materyalini açma işlemi
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Çalışma materyali açılıyor: ${_day.materialUrl}'),
+        content: Text(context.l10n.openingStudyMaterial + _day.materialUrl),
       ),
     );
   }
@@ -893,19 +939,19 @@ class _CampDayScreenState extends State<CampDayScreen> {
       builder: (context) => AlertDialog(
         title: Row(
           children: [
-            Icon(Icons.science, color: Colors.purple),
-            SizedBox(width: 8),
-            Text('Simülasyon Modu'),
+            const Icon(Icons.science, color: Colors.purple),
+            const SizedBox(width: 8),
+            Text(context.l10n.simulationMode),
           ],
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Bu işlem, test amaçlı olarak günü simüle edecek ve başarı ile tamamlayacaktır.'),
-            SizedBox(height: 16),
-            Text('Başarı seviyesini seçin:'),
-            SizedBox(height: 8),
+            Text(context.l10n.simulationDescription),
+            const SizedBox(height: 16),
+            Text(context.l10n.selectSuccessLevel),
+            const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -916,7 +962,7 @@ class _CampDayScreenState extends State<CampDayScreen> {
                     _runSimulation(_day.targetCorrect);
                   },
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
-                  child: Text('Minimum'),
+                  child: Text(context.l10n.minimumSuccess),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -925,7 +971,7 @@ class _CampDayScreenState extends State<CampDayScreen> {
                     _runSimulation(_day.targetCorrect + 1 + Random().nextInt(2));
                   },
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                  child: Text('Orta'),
+                  child: Text(context.l10n.mediumSuccess),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -934,7 +980,7 @@ class _CampDayScreenState extends State<CampDayScreen> {
                     _runSimulation(_day.totalQuestions);
                   },
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                  child: Text('Yüksek'),
+                  child: Text(context.l10n.highSuccess),
                 ),
               ],
             ),
@@ -943,7 +989,7 @@ class _CampDayScreenState extends State<CampDayScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('İptal'),
+            child: Text(context.l10n.cancel),
           ),
         ],
       ),
@@ -972,16 +1018,20 @@ class _CampDayScreenState extends State<CampDayScreen> {
       
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Gün $simulatedScore doğru cevapla simüle edildi'),
+          content: Text(context.l10n.simulationSuccessMessage + 
+                      simulatedScore.toString() + 
+                      context.l10n.simulationSuccessEnd),
           backgroundColor: Colors.blue,
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
         ),
       );
     } catch (e) {
-      print('Simülasyon hatası: $e');
+      print('Simulation error: ' + e.toString());
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Simülasyon sırasında bir hata oluştu: ${e.toString().substring(0, min(50, e.toString().length))}...'),
+          content: Text(context.l10n.simulationError + 
+                      e.toString().substring(0, min(50, e.toString().length)) + 
+                      '...'),
           backgroundColor: Colors.red,
         ),
       );

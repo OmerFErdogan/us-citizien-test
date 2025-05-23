@@ -5,6 +5,7 @@ import '../services/camp_service.dart';
 import '../widgets/camp_calendar_widget.dart';
 import '../widgets/camp_progress_chart.dart';
 import '../widgets/badge_widget.dart';
+import '../../../utils/extensions.dart'; // Extensions eklendi (context.l10n için)
 
 class CampProgressScreen extends StatefulWidget {
   const CampProgressScreen({
@@ -53,12 +54,12 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
       _progress = _campService.getUserProgress();
       
       if (_progress == null) {
-        _errorMessage = 'Aktif kamp bulunamadı';
+        _errorMessage = context.l10n.errorNoActiveProgress;
       }
     } catch (e) {
       print('Hata: $e'); // Hata log'u
       setState(() {
-        _errorMessage = 'Veriler yüklenemedi: $e';
+        _errorMessage = context.l10n.errorLoadingData + e.toString();
       });
     } finally {
       setState(() {
@@ -71,16 +72,16 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kamp İlerlemesi'),
+        title: Text(context.l10n.campProgressTitle),
         elevation: 0,
         actions: [
           // Yenileme butonu ekle
           IconButton(
             icon: const Icon(Icons.refresh),
-            tooltip: 'İlerleme verilerini yenile',
+            tooltip: context.l10n.refreshTooltip,
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Veriler yenileniyor...')),
+                SnackBar(content: Text(context.l10n.refreshingMessage)),
               );
               _loadProgressData();
             },
@@ -88,10 +89,10 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
         ],
         bottom: TabBar(
           controller: _tabController,
-          tabs: const [
-            Tab(icon: Icon(Icons.bar_chart), text: 'Genel Bakış'),
-            Tab(icon: Icon(Icons.calendar_today), text: 'Günler'),
-            Tab(icon: Icon(Icons.emoji_events), text: 'Rozetler'),
+          tabs: [
+            Tab(icon: const Icon(Icons.bar_chart), text: context.l10n.overviewTabTitle),
+            Tab(icon: const Icon(Icons.calendar_today), text: context.l10n.daysTabTitle),
+            Tab(icon: const Icon(Icons.emoji_events), text: context.l10n.badgesTabTitle),
           ],
         ),
       ),
@@ -127,7 +128,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
           _buildOverviewCard(),
           const SizedBox(height: 24),
           Text(
-            'Günlere Göre Performans',
+            context.l10n.performanceByDay,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -141,7 +142,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
           ),
           const SizedBox(height: 24),
           Text(
-            'Güçlü ve Zayıf Alanlar',
+            context.l10n.strengthsWeaknesses,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -175,7 +176,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Kamp İlerlemesi',
+              context.l10n.campProgress,
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -187,26 +188,26 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildStatColumn(
-                  'Başlama',
+                  context.l10n.startDate,
                   _progress!.startDate.toString().substring(0, 10),
                   Icons.calendar_today,
                 ),
                 _buildStatColumn(
-                  'Tamamlanan Gün',
-                  '$completedDays / $totalDays',
+                  context.l10n.completedDay,
+                  completedDays.toString() + ' / ' + totalDays.toString(),
                   Icons.check_circle,
                 ),
                 _buildStatColumn(
-                  'Toplam Başarı',
-                  '%${(_progress!.overallSuccessRate * 100).toStringAsFixed(0)}',
+                  context.l10n.totalSuccess,
+                  context.l10n.percentPrefix + (_progress!.overallSuccessRate * 100).toStringAsFixed(0),
                   Icons.trending_up,
                 ),
               ],
             ),
             const SizedBox(height: 24),
             Text(
-              'Genel İlerleme',
-              style: TextStyle(
+              context.l10n.generalProgress,
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
@@ -224,7 +225,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '0 gün',
+                  context.l10n.dayZero,
                   style: TextStyle(color: Colors.grey[600], fontSize: 12),
                 ),
                 Container(
@@ -240,16 +241,16 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
                       Positioned(
                         bottom: 0,
                         child: Text(
-                          '${_campPlan.minCompletionDays} gün',
-                          style: TextStyle(color: Colors.orange, fontSize: 10),
+                          _campPlan.minCompletionDays.toString() + context.l10n.day,
+                          style: const TextStyle(color: Colors.orange, fontSize: 10),
                         ),
                       ),
                     ],
                   ),
                 ),
                 Text(
-                  '$totalDays gün',
-                  style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                totalDays.toString() + context.l10n.day,
+                style: TextStyle(color: Colors.grey[600], fontSize: 12),
                 ),
               ],
             ),
@@ -265,8 +266,8 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
                 Expanded(
                   child: Text(
                     _progress!.isCampCompleted
-                        ? 'Tebrikler! Kampı tamamladınız.'
-                        : 'Kampı tamamlamak için en az ${_campPlan.minCompletionDays} günü başarıyla bitirmelisiniz.',
+                        ? context.l10n.congratsComplete
+                        : context.l10n.minCompletionDaysText + _campPlan.minCompletionDays.toString() + context.l10n.minCompletionDaysText2,
                     style: TextStyle(
                       color: _progress!.isCampCompleted ? Colors.green : Colors.blue,
                       fontWeight: FontWeight.bold,
@@ -330,7 +331,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Güçlü ve Zayıf Yönler',
+              context.l10n.strengthsWeaknessesTitle,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -343,7 +344,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    'Henüz yeterli veri yok. Daha fazla gün tamamlayarak detaylı analizleri görebilirsiniz.',
+                    context.l10n.notEnoughData,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.grey[600],
@@ -367,10 +368,10 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
                 padding: const EdgeInsets.only(top: 16.0),
                 child: OutlinedButton.icon(
                   icon: const Icon(Icons.lightbulb),
-                  label: const Text('Ekstra Çalışma Önerileri'),
+                  label: Text(context.l10n.extraStudySuggestions),
                   onPressed: () {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Çalışma önerileri gösterilecek')),
+                      SnackBar(content: Text(context.l10n.studySuggestionsMessage)),
                     );
                   },
                 ),
@@ -389,7 +390,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
         children: [
           Text(
             topic,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
@@ -404,7 +405,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
           ),
           const SizedBox(height: 2),
           Text(
-            '${(ratio * 100).toStringAsFixed(0)}% zorlanma oranı',
+            (ratio * 100).toStringAsFixed(0) + context.l10n.struggleRateText,
             style: TextStyle(
               fontSize: 12,
               color: Colors.grey[600],
@@ -439,9 +440,9 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
           children: [
             const Icon(Icons.workspace_premium, color: Colors.yellow, size: 48),
             const SizedBox(height: 16),
-            const Text(
-              'Tebrikler!',
-              style: TextStyle(
+            Text(
+              context.l10n.congratsTitle,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -449,7 +450,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
             ),
             const SizedBox(height: 8),
             Text(
-              'Vatandaşlık kamp programını başarıyla tamamladınız.',
+              context.l10n.campCompletionText,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white.withOpacity(0.9),
@@ -460,9 +461,9 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
             if (_progress!.isCertificateEarned)
               OutlinedButton.icon(
                 icon: const Icon(Icons.download, color: Colors.white),
-                label: const Text(
-                  'Sertifikanı İndir',
-                  style: TextStyle(color: Colors.white),
+                label: Text(
+                  context.l10n.downloadCertificate,
+                  style: const TextStyle(color: Colors.white),
                 ),
                 style: OutlinedButton.styleFrom(
                   side: const BorderSide(color: Colors.white, width: 2),
@@ -472,7 +473,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
                 ),
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Sertifika indiriliyor')),
+                    SnackBar(content: Text(context.l10n.downloadingCertificateMessage)),
                   );
                 },
               ),
@@ -493,7 +494,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '10 Günlük Kamp Takvimi',
+            context.l10n.tenDayCampCalendar,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -515,7 +516,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
           ),
           const SizedBox(height: 24),
           Text(
-            'Günlük Özet',
+            context.l10n.dailySummary,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -593,12 +594,12 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
             ),
             subtitle: dayProgress != null
                 ? Text(
-                    'Doğru: ${dayProgress.correctAnswers}/${day.totalQuestions} | '
-                    '%${(dayProgress.successRate * 100).toStringAsFixed(0)} başarı',
-                    style: TextStyle(
-                      color: day.isLocked ? Colors.grey : Colors.grey.shade700,
-                    ),
-                  )
+                dayProgress.correctAnswers.toString() + '/' + day.totalQuestions.toString() + ' | ' +
+                context.l10n.successLabel,
+                style: TextStyle(
+                color: day.isLocked ? Colors.grey : Colors.grey.shade700,
+                ),
+                )
                 : Text(
                     day.difficulty,
                     style: TextStyle(
@@ -655,7 +656,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
               child: Column(
                 children: [
                   Text(
-                    'Rozet Galerisi',
+                    context.l10n.badgeGallery,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -667,18 +668,18 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       _buildProgressInfoBox(
-                        'Kazanılan',
-                        '${earnedBadges.length}',
-                        Colors.green,
+                      context.l10n.earnedBadges,
+                      earnedBadges.length.toString(),
+                      Colors.green,
                       ),
                       _buildProgressInfoBox(
-                        'Kalan',
-                        '${totalPossibleBadges - earnedBadges.length}',
+                        context.l10n.remainingBadges,
+                        (totalPossibleBadges - earnedBadges.length).toString(),
                         Colors.orange,
                       ),
                       _buildProgressInfoBox(
-                        'Tamamlama',
-                        '%${(earnedBadges.length / totalPossibleBadges * 100).toStringAsFixed(0)}',
+                        context.l10n.completionRate,
+                        context.l10n.percentPrefix + (earnedBadges.length / totalPossibleBadges * 100).toStringAsFixed(0),
                         Colors.blue,
                       ),
                     ],
@@ -691,7 +692,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
           
           if (specialBadges.isNotEmpty) ...[
             Text(
-              'Özel Rozetler',
+              context.l10n.specialBadges,
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -710,7 +711,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
           ],
           
           Text(
-            'Gün Tamamlama Rozetleri',
+            context.l10n.dayCompletionBadges,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -730,8 +731,8 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
                   (b) => b.id == badgeId,
                   orElse: () => CampBadge(
                     id: 'locked_$dayNumber',
-                    title: '$dayNumber. Gün Rozeti',
-                    description: 'Henüz kazanılmadı',
+                    title: context.l10n.dayBadgeTemplate(dayNumber),
+                    description: context.l10n.badgeNotEarned,
                     iconPath: 'assets/badges/locked.png',
                     earnedDate: DateTime.now(),
                   ),
@@ -770,7 +771,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Gün $dayNumber',
+                        context.l10n.dayTextPrefix + dayNumber.toString(),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 12,
@@ -788,7 +789,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
           
           if (perfectDayBadges.isNotEmpty) ...[
             Text(
-              'Mükemmel Gün Rozetleri',
+              context.l10n.perfectDayBadges,
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -851,7 +852,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
           ),
           const SizedBox(height: 16),
           Text(
-            'Henüz kamp başlatılmadı',
+            context.l10n.noCampStarted,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -860,7 +861,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
           ),
           const SizedBox(height: 8),
           Text(
-            '10 günlük kampı başlatarak ilerlemenizi takip edebilirsiniz',
+            context.l10n.trackProgressText,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,
@@ -870,7 +871,7 @@ class _CampProgressScreenState extends State<CampProgressScreen> with SingleTick
           const SizedBox(height: 24),
           ElevatedButton.icon(
             icon: const Icon(Icons.play_arrow),
-            label: const Text('Kampa Başla'),
+            label: Text(context.l10n.startCamp),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             ),
